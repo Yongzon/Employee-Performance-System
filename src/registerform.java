@@ -41,8 +41,6 @@ public class registerform extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Signpane = new javax.swing.JPanel();
         btnloginpanel1 = new javax.swing.JPanel();
@@ -62,21 +60,14 @@ public class registerform extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         f_name = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        role = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Best-Task-Management-Software-Platforms.png"))); // NOI18N
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 380, 420));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 600));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 204));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -135,20 +126,20 @@ public class registerform extends javax.swing.JFrame {
         });
         Signpane.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 80, 20));
 
-        jPanel3.add(Signpane, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 500, 180, 40));
+        jPanel3.add(Signpane, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, 180, 40));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Password");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 100, 30));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel4.setText("Email");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 100, 30));
+        jLabel4.setText("Type");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 40, 30));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Sign Up");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 120, 40));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 120, 40));
 
         username.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -168,7 +159,7 @@ public class registerform extends javax.swing.JFrame {
                 passwordActionPerformed(evt);
             }
         });
-        jPanel3.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 250, 40));
+        jPanel3.add(password, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 250, 40));
 
         l_name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         l_name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -178,7 +169,7 @@ public class registerform extends javax.swing.JFrame {
                 l_nameActionPerformed(evt);
             }
         });
-        jPanel3.add(l_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 250, 40));
+        jPanel3.add(l_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 250, 40));
 
         email.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -188,11 +179,11 @@ public class registerform extends javax.swing.JFrame {
                 emailActionPerformed(evt);
             }
         });
-        jPanel3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 250, 40));
+        jPanel3.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 250, 40));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Last Name");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 100, 30));
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 100, 30));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Username");
@@ -207,16 +198,16 @@ public class registerform extends javax.swing.JFrame {
                 lbl_loginMouseClicked(evt);
             }
         });
-        jPanel3.add(lbl_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 550, 220, 30));
+        jPanel3.add(lbl_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 530, 220, 30));
 
         c_password.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         c_password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         c_password.setBorder(null);
-        jPanel3.add(c_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 440, 250, 40));
+        jPanel3.add(c_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 250, 40));
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText("Confirm Password");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, 120, 30));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 120, 30));
 
         f_name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         f_name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -226,13 +217,20 @@ public class registerform extends javax.swing.JFrame {
                 f_nameActionPerformed(evt);
             }
         });
-        jPanel3.add(f_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 250, 40));
+        jPanel3.add(f_name, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 250, 40));
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Fist Name");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 100, 30));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 30));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 0, 330, 600));
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel11.setText("Email");
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 100, 30));
+
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
+        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 250, 40));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 600));
 
         pack();
         setLocationRelativeTo(null);
@@ -278,15 +276,19 @@ public class registerform extends javax.swing.JFrame {
       String firstname = f_name.getText();
       String lastname = l_name.getText();
       String email1 = email.getText();
+       String selectedRole = role.getSelectedItem().toString();
       String username1 = username.getText();
       String password1 = new String(password.getPassword());
       String cpassword = new String(c_password.getPassword());
       
-      if (firstname.isEmpty() || lastname.isEmpty() || email1.isEmpty() || username1.isEmpty() || password1.isEmpty() || cpassword.isEmpty()){
+      if (firstname.isEmpty() || lastname.isEmpty() || email1.isEmpty() || username1.isEmpty() || password1.isEmpty() || cpassword.isEmpty() || selectedRole.isEmpty()){
           JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
       }else if(password1.length() < 8){
           JOptionPane.showMessageDialog(this, "Password must be atleast 8 characters!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else{
+      }else if(){
+          
+      }
+      else{
            JOptionPane.showMessageDialog(this, "Sign up Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
       }
       
@@ -375,20 +377,20 @@ public class registerform extends javax.swing.JFrame {
     private javax.swing.JTextField email;
     private javax.swing.JTextField f_name;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField l_name;
     private javax.swing.JLabel lbl_login;
     private javax.swing.JLabel lblsignup;
     private javax.swing.JPasswordField password;
+    private javax.swing.JComboBox<String> role;
     private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

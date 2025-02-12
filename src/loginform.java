@@ -2,6 +2,7 @@
 import Admin.admin_dashboard;
 import config.dbConnector;
 import java.awt.Color;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -67,11 +68,11 @@ public class loginform extends javax.swing.JFrame {
         lblsignup = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         user = new javax.swing.JTextField();
         pass = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        role = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
 
@@ -130,7 +131,7 @@ public class loginform extends javax.swing.JFrame {
         });
         btnloginpanel.add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 60, 20));
 
-        jPanel3.add(btnloginpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 200, 40));
+        jPanel3.add(btnloginpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 40));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Username");
@@ -145,25 +146,17 @@ public class loginform extends javax.swing.JFrame {
                 lblsignupMouseClicked(evt);
             }
         });
-        jPanel3.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 250, 30));
+        jPanel3.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 250, 30));
 
-        jLabel8.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Task Monitoring System");
+        jLabel8.setText("Employee Performance System");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 290, 40));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Good to see you again!");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 250, 30));
-
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 160, 20, 40));
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lock.png"))); // NOI18N
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 20, 40));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 250, 30));
 
         user.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -181,8 +174,15 @@ public class loginform extends javax.swing.JFrame {
         jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 250, 40));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel6.setText("Password");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 30));
+        jLabel6.setText("Login as");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 60, 30));
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel7.setText("Password");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 30));
+
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
+        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 120, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 320, 450));
 
@@ -222,10 +222,17 @@ public class loginform extends javax.swing.JFrame {
     private void btnloginpanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginpanelMouseClicked
         String username = user.getText();
         String password = new String(pass.getPassword());
+        String selectedRole = role.getSelectedItem().toString();
 
         if (username.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if (loginAcc(user.getText(), pass.getText())){
+            return;
+        }
+        
+        dbConnector db = new dbConnector(); // Create an instance of dbconnector
+        Connection con = db.getConnection(); // Get connection
+        
+        if (loginAcc(user.getText(), pass.getText())){
             JOptionPane.showMessageDialog(this, "Login Successfull!", "Success", JOptionPane.INFORMATION_MESSAGE);
              admin_dashboard adb = new admin_dashboard();
             adb.setVisible(true);
@@ -301,7 +308,6 @@ public class loginform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -312,6 +318,7 @@ public class loginform extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel lblsignup;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JComboBox<String> role;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }
