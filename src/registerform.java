@@ -273,7 +273,7 @@ public class registerform extends javax.swing.JFrame {
     }//GEN-LAST:event_btnloginpanel1MouseExited
 
     private void SignpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignpaneMouseClicked
-      String firstname = f_name.getText();
+      String firstname = f_name.getText(); 
       String lastname = l_name.getText();
       String email1 = email.getText();
        String selectedRole = role.getSelectedItem().toString();
