@@ -1,4 +1,5 @@
 
+import config.dbConnector;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -143,7 +144,6 @@ public class registerform extends javax.swing.JFrame {
 
         username.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         username.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        username.setBorder(null);
         username.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 usernameActionPerformed(evt);
@@ -153,7 +153,6 @@ public class registerform extends javax.swing.JFrame {
 
         password.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        password.setBorder(null);
         password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordActionPerformed(evt);
@@ -163,7 +162,6 @@ public class registerform extends javax.swing.JFrame {
 
         l_name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         l_name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        l_name.setBorder(null);
         l_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 l_nameActionPerformed(evt);
@@ -173,7 +171,6 @@ public class registerform extends javax.swing.JFrame {
 
         email.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         email.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        email.setBorder(null);
         email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailActionPerformed(evt);
@@ -202,7 +199,6 @@ public class registerform extends javax.swing.JFrame {
 
         c_password.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         c_password.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        c_password.setBorder(null);
         jPanel3.add(c_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 250, 40));
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -211,7 +207,6 @@ public class registerform extends javax.swing.JFrame {
 
         f_name.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         f_name.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        f_name.setBorder(null);
         f_name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 f_nameActionPerformed(evt);
@@ -227,7 +222,7 @@ public class registerform extends javax.swing.JFrame {
         jLabel11.setText("Email");
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 100, 30));
 
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Admin", "Employee" }));
         jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 250, 40));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 600));
@@ -273,29 +268,40 @@ public class registerform extends javax.swing.JFrame {
     }//GEN-LAST:event_btnloginpanel1MouseExited
 
     private void SignpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignpaneMouseClicked
-      String firstname = f_name.getText(); 
+      String firstname = f_name.getText();
       String lastname = l_name.getText();
       String email1 = email.getText();
-       String selectedRole = role.getSelectedItem().toString();
       String username1 = username.getText();
       String password1 = new String(password.getPassword());
       String cpassword = new String(c_password.getPassword());
+      String selectedRole = role.getSelectedItem().toString();
+      dbConnector db = new dbConnector();
       
-      if (firstname.isEmpty() || lastname.isEmpty() || email1.isEmpty() || username1.isEmpty() || password1.isEmpty() || cpassword.isEmpty() || selectedRole.isEmpty()){
+      if (firstname.isEmpty() || lastname.isEmpty() || email1.isEmpty() || username1.isEmpty() || password1.isEmpty() || cpassword.isEmpty()){
           JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
       }else if(password1.length() < 8){
           JOptionPane.showMessageDialog(this, "Password must be atleast 8 characters!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else if(){
-          
+      }else if(password.getText().length() < 8){
+          JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
+      }else if(!password.getText().equals(c_password.getText())){
+          JOptionPane.showMessageDialog(null, "Password not Matches");
+      }else if(role.getSelectedIndex() == 0){
+          JOptionPane.showMessageDialog(null, "Plese select a type of user");
+      }else if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword)"  
+              + "VALUES ('"+f_name.getText()+"', '"+l_name.getText()+"', '"+email.getText()+"', '"+role.getSelectedItem()+"', '"+username.getText()+"', '"+password.getText()+"', '"+c_password.getText()+"')") == 1){
+           JOptionPane.showMessageDialog(this, "Signup Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+           loginform lf = new loginform();
+           lf.setVisible(true);
+           this.dispose();
       }
-      else{
-           JOptionPane.showMessageDialog(this, "Sign up Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-      }
-      
+     
+     f_name.setText("");
      l_name.setText("");
+     role.setSelectedItem("");
      email.setText("");
      username.setText("");
-     password.setText("");  
+     password.setText(""); 
+     c_password.setText("");
     }//GEN-LAST:event_SignpaneMouseClicked
 
     private void lblsignupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblsignupMouseClicked
@@ -305,19 +311,34 @@ public class registerform extends javax.swing.JFrame {
       String username1 = username.getText();
       String password1 = new String(password.getPassword());
       String cpassword = new String(c_password.getPassword());
+      String selectedRole = role.getSelectedItem().toString();
+      dbConnector db = new dbConnector();
       
       if (firstname.isEmpty() || lastname.isEmpty() || email1.isEmpty() || username1.isEmpty() || password1.isEmpty() || cpassword.isEmpty()){
           JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
       }else if(password1.length() < 8){
           JOptionPane.showMessageDialog(this, "Password must be atleast 8 characters!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else{
-           JOptionPane.showMessageDialog(this, "Sign up Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+      }else if(password.getText().length() < 8){
+          JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
+      }else if(!password.getText().equals(c_password.getText())){
+          JOptionPane.showMessageDialog(null, "Password not Matches");
+      }else if(role.getSelectedIndex() == 0){
+          JOptionPane.showMessageDialog(null, "Plese select a type of user");
+      }else if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword)"  
+              + "VALUES ('"+f_name.getText()+"', '"+l_name.getText()+"', '"+email.getText()+"', '"+role.getSelectedItem()+"', '"+username.getText()+"', '"+password.getText()+"', '"+c_password.getText()+"')") == 1){
+           JOptionPane.showMessageDialog(this, "Signup Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+           loginform lf = new loginform();
+           lf.setVisible(true);
+           this.dispose();
       }
       
+     f_name.setText("");
      l_name.setText("");
+     role.setSelectedItem("");
      email.setText("");
      username.setText("");
-     password.setText("");
+     password.setText(""); 
+     c_password.setText("");
     }//GEN-LAST:event_lblsignupMouseClicked
 
     private void lbl_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_loginMouseClicked

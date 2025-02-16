@@ -26,10 +26,11 @@ public class loginform extends javax.swing.JFrame {
         initComponents();
     }
     
-    public static boolean loginAcc(String username, String password){
+    public static boolean loginAcc(String username, String password, String role){
         dbConnector connector = new dbConnector();
+        
         try{
-            String query = "SELECT * FROM tbl_admin WHERE a_username = " +username+" AND a_password = " +password+ "";
+            String query = "SELECT * FROM tbl_admin WHERE u_username = " +username+" AND u_password = " +password+ "AND u_type = " +role+ "";
             ResultSet resultSet = connector.getData(query);
             return resultSet.next();
             }catch (SQLException ex){
@@ -160,7 +161,6 @@ public class loginform extends javax.swing.JFrame {
 
         user.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        user.setBorder(null);
         user.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userActionPerformed(evt);
@@ -170,7 +170,6 @@ public class loginform extends javax.swing.JFrame {
 
         pass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pass.setBorder(null);
         jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 250, 40));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -181,7 +180,7 @@ public class loginform extends javax.swing.JFrame {
         jLabel7.setText("Password");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 30));
 
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Admin", "Employee" }));
         jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 120, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 320, 450));
@@ -223,20 +222,17 @@ public class loginform extends javax.swing.JFrame {
         String username = user.getText();
         String password = new String(pass.getPassword());
         String selectedRole = role.getSelectedItem().toString();
+        dbConnector db = new dbConnector();
 
         if (username.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        
-        dbConnector db = new dbConnector(); // Create an instance of dbconnector
-        Connection con = db.getConnection(); // Get connection
-        
-        if (loginAcc(user.getText(), pass.getText())){
-            JOptionPane.showMessageDialog(this, "Login Successfull!", "Success", JOptionPane.INFORMATION_MESSAGE);
-             admin_dashboard adb = new admin_dashboard();
-            adb.setVisible(true);
-            this.dispose();
+        }else if(role.getSelectedIndex() == 0){
+          JOptionPane.showMessageDialog(null, "Plese select a type of user");
+        }else if(db.getData("SELECT u_username, u_password, u_type FROM tbl_admin WHERE u_username = ? AND u_password = ? AND u_type = ?") == 1){
+           JOptionPane.showMessageDialog(this, "Login Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+           loginform lf = new loginform();
+           lf.setVisible(true);
+           this.dispose();
         }else{
             JOptionPane.showMessageDialog(null, "Error");
         }
@@ -248,12 +244,15 @@ public class loginform extends javax.swing.JFrame {
     private void btnloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginMouseClicked
         String username = user.getText();
         String password = new String(pass.getPassword());
+        String selectedRole = role.getSelectedItem().toString();
 
         if (username.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if (loginAcc(user.getText(), pass.getText())){
+        }else if(role.getSelectedIndex() == 0){
+          JOptionPane.showMessageDialog(null, "Plese select a type of user");
+        }else if (loginAcc(user.getText(), pass.getText(), role.getSelectedItem())){
             JOptionPane.showMessageDialog(this, "Login Successfull!", "Success", JOptionPane.INFORMATION_MESSAGE);
-             admin_dashboard adb = new admin_dashboard();
+            admin_dashboard adb = new admin_dashboard();
             adb.setVisible(true);
             this.dispose();
         }else{

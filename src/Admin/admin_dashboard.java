@@ -5,6 +5,8 @@
  */
 package Admin;
 
+import java.awt.Color;
+
 /**
  *
  * @author Chris
@@ -18,6 +20,9 @@ public class admin_dashboard extends javax.swing.JFrame {
         initComponents();
     }
 
+    Color bodycolor = new Color(255,152,0);
+    Color nav = new Color(255,204,51);
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,41 +35,108 @@ public class admin_dashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
+        add = new javax.swing.JPanel();
+        add1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        userpanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 51));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ADMIN DASHBOARD");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(139, 11, 570, 36));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(112, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 820, 60));
 
         jPanel2.setBackground(new java.awt.Color(255, 153, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 180, 460));
+
+        add.setBackground(new java.awt.Color(255, 153, 0));
+        add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                addMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                addMouseExited(evt);
+            }
+        });
+        add.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        add1.setBackground(new java.awt.Color(255, 204, 102));
+        add1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                add1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                add1MouseExited(evt);
+            }
+        });
+        add1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("ADD");
+        add1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 11, 100, 20));
+
+        add.add(add1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 210, 40));
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("USER");
+        add.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 110, 20));
+
+        jPanel2.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 180, 40));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 180, 450));
+
+        userpanel.setBackground(new java.awt.Color(255, 204, 102));
+
+        javax.swing.GroupLayout userpanelLayout = new javax.swing.GroupLayout(userpanel);
+        userpanel.setLayout(userpanelLayout);
+        userpanelLayout.setHorizontalGroup(
+            userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 640, Short.MAX_VALUE)
+        );
+        userpanelLayout.setVerticalGroup(
+            userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(userpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 640, 450));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void add1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add1MouseEntered
+
+    private void add1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_add1MouseExited
+
+    private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
+        add.setBackground(nav);
+    }//GEN-LAST:event_addMouseEntered
+
+    private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
+        add.setBackground(bodycolor);
+    }//GEN-LAST:event_addMouseExited
+
+    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
+       userTable ut = new userTable();
+       ut.setVisible(true);
+    }//GEN-LAST:event_addMouseClicked
 
     /**
      * @param args the command line arguments
@@ -102,8 +174,13 @@ public class admin_dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel add;
+    private javax.swing.JPanel add1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel userpanel;
     // End of variables declaration//GEN-END:variables
 }

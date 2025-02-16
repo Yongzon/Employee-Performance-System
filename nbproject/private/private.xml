@@ -3,8 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/PC5/Desktop/Task-Monitoring-System/src/loginform.java</file>
-            <file>file:/C:/Users/PC5/Desktop/Task-Monitoring-System/src/registerform.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/database/tbl_admin.sql</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/Admin/admin_dashboard.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/loginform.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/Admin/userTable.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/Admin/employeeDashboard.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/registerform.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/config/dbConnector.java</file>
         </group>
     </open-files>
 </project-private>
