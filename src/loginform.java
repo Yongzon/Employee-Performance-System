@@ -228,13 +228,8 @@ public class loginform extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(role.getSelectedIndex() == 0){
           JOptionPane.showMessageDialog(null, "Plese select a type of user");
-        }else if(db.getData("SELECT u_username, u_password, u_type FROM tbl_admin WHERE u_username = ? AND u_password = ? AND u_type = ?") == 1){
-           JOptionPane.showMessageDialog(this, "Login Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-           loginform lf = new loginform();
-           lf.setVisible(true);
-           this.dispose();
         }else{
-            JOptionPane.showMessageDialog(null, "Error");
+            JOptionPane.showMessageDialog(null, "Login Successfully");
         }
 
         user.setText("");
@@ -245,18 +240,14 @@ public class loginform extends javax.swing.JFrame {
         String username = user.getText();
         String password = new String(pass.getPassword());
         String selectedRole = role.getSelectedItem().toString();
+        dbConnector db = new dbConnector();
 
         if (username.isEmpty() || password.isEmpty()){
             JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(role.getSelectedIndex() == 0){
           JOptionPane.showMessageDialog(null, "Plese select a type of user");
-        }else if (loginAcc(user.getText(), pass.getText(), role.getSelectedItem())){
-            JOptionPane.showMessageDialog(this, "Login Successfull!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            admin_dashboard adb = new admin_dashboard();
-            adb.setVisible(true);
-            this.dispose();
         }else{
-            JOptionPane.showMessageDialog(null, "Error");
+            JOptionPane.showMessageDialog(null, "Login Successfully");
         }
 
         user.setText("");
