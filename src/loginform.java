@@ -98,11 +98,11 @@ public class loginform extends javax.swing.JFrame {
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Best-Task-Management-Software-Platforms.png"))); // NOI18N
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 450));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 450));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 380, 450));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 153));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnloginpanel.setBackground(new java.awt.Color(255, 51, 51));
@@ -132,7 +132,7 @@ public class loginform extends javax.swing.JFrame {
         });
         btnloginpanel.add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 60, 20));
 
-        jPanel3.add(btnloginpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, 200, 40));
+        jPanel3.add(btnloginpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 200, 40));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Username");
@@ -147,17 +147,17 @@ public class loginform extends javax.swing.JFrame {
                 lblsignupMouseClicked(evt);
             }
         });
-        jPanel3.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 250, 30));
+        jPanel3.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 250, 30));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Employee Performance System");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 290, 40));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 50, 290, 40));
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 15)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Good to see you again!");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 250, 30));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 250, 30));
 
         user.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -166,24 +166,24 @@ public class loginform extends javax.swing.JFrame {
                 userActionPerformed(evt);
             }
         });
-        jPanel3.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 250, 40));
+        jPanel3.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 290, 40));
 
         pass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 250, 40));
+        jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 290, 40));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Login as");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, 60, 30));
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 60, 30));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Password");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 30));
 
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Admin", "Employee" }));
-        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 120, 30));
+        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 120, 30));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 320, 450));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 370, 450));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

@@ -106,9 +106,9 @@ public class userTable extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("ADD");
-        add.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 11, 100, 20));
+        add.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 100, 20));
 
-        jPanel4.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 210, 40));
+        jPanel4.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 250, 40));
 
         edit.setBackground(new java.awt.Color(255, 204, 102));
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -124,9 +124,9 @@ public class userTable extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("EDIT");
-        edit.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 11, 100, 20));
+        edit.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 100, 20));
 
-        jPanel4.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, 210, 40));
+        jPanel4.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 250, 40));
 
         delete.setBackground(new java.awt.Color(255, 204, 102));
         delete.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -142,9 +142,9 @@ public class userTable extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("DELETE");
-        delete.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 11, 100, 20));
+        delete.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 100, 20));
 
-        jPanel4.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 210, 40));
+        jPanel4.add(delete, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 260, 250, 40));
 
         refresh.setBackground(new java.awt.Color(255, 204, 102));
         refresh.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -160,16 +160,16 @@ public class userTable extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("REFRESH");
-        refresh.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 11, 100, 20));
+        refresh.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 100, 20));
 
-        jPanel4.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, 210, 40));
+        jPanel4.add(refresh, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 330, 250, 40));
 
-        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 630));
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 540));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("USERS TABLE");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 24, 460, 60));
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 460, 60));
 
         usertbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -181,7 +181,7 @@ public class userTable extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(usertbl);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 630, 500));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 560, 470));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 650));
 
