@@ -1,5 +1,6 @@
 
-import Admin.admin_dashboard;
+import Admin.adminDashboard;
+import Admin.employeeDashboard;
 import config.dbConnector;
 import java.awt.Color;
 import java.sql.Connection;
@@ -26,15 +27,23 @@ public class loginform extends javax.swing.JFrame {
         initComponents();
     }
     
-    public static boolean loginAcc(String username, String password, String role){
+    static String status;
+    static String type;
+    public static boolean loginAcc(String username, String password){
         dbConnector connector = new dbConnector();
         
         try{
-            String query = "SELECT * FROM tbl_admin WHERE u_username = " +username+" AND u_password = " +password+ "AND u_type = " +role+ "";
+            String query = "SELECT * FROM tbl_admin WHERE u_username = '" + username + "' AND u_password = '" + password + "'";
             ResultSet resultSet = connector.getData(query);
-            return resultSet.next();
+            if(resultSet.next()){
+                status = resultSet.getString("u_status");
+                type = resultSet.getString("u_type");
+                return true;
+            }else{
+                return false;
+            }
             }catch (SQLException ex){
-            return false;
+                return false;
             }
     }
     
@@ -71,9 +80,7 @@ public class loginform extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         user = new javax.swing.JTextField();
         pass = new javax.swing.JPasswordField();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        role = new javax.swing.JComboBox<>();
 
         jTextField1.setText("jTextField1");
 
@@ -132,7 +139,7 @@ public class loginform extends javax.swing.JFrame {
         });
         btnloginpanel.add(btnlogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 60, 20));
 
-        jPanel3.add(btnloginpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 200, 40));
+        jPanel3.add(btnloginpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 200, 40));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Username");
@@ -147,7 +154,7 @@ public class loginform extends javax.swing.JFrame {
                 lblsignupMouseClicked(evt);
             }
         });
-        jPanel3.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 390, 250, 30));
+        jPanel3.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 250, 30));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -172,16 +179,9 @@ public class loginform extends javax.swing.JFrame {
         pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jPanel3.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 290, 40));
 
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel6.setText("Login as");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, 60, 30));
-
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Password");
         jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 100, 30));
-
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Admin", "Employee" }));
-        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 120, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 370, 450));
 
@@ -219,39 +219,51 @@ public class loginform extends javax.swing.JFrame {
     }//GEN-LAST:event_btnloginpanelMouseEntered
 
     private void btnloginpanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginpanelMouseClicked
-        String username = user.getText();
-        String password = new String(pass.getPassword());
-        String selectedRole = role.getSelectedItem().toString();
-        dbConnector db = new dbConnector();
-
-        if (username.isEmpty() || password.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(role.getSelectedIndex() == 0){
-          JOptionPane.showMessageDialog(null, "Plese select a type of user");
+        if(loginAcc(user.getText(), pass.getText())){
+            if(!status.equals("Active")){
+            JOptionPane.showMessageDialog(this, "In-Active Account contact Admin", "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                if(type.equals("Admin")){
+                    JOptionPane.showMessageDialog(null, "Login Successfully");
+                    adminDashboard ad = new adminDashboard();
+                    ad.setVisible(true);
+                    this.dispose(); 
+                }else if(type.equals("Employee")){
+                    JOptionPane.showMessageDialog(null, "Login Successfully");
+                    employeeDashboard ed = new employeeDashboard();
+                    ed.setVisible(true);
+                    this.dispose(); 
+                }else{
+                    JOptionPane.showMessageDialog(this, "No Account type found contact the Admin", "Error", JOptionPane.ERROR_MESSAGE);
+                } 
+            }
         }else{
-            JOptionPane.showMessageDialog(null, "Login Successfully");
+            JOptionPane.showMessageDialog(this, "Invalid Account", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        user.setText("");
-        pass.setText("");
     }//GEN-LAST:event_btnloginpanelMouseClicked
 
     private void btnloginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginMouseClicked
-        String username = user.getText();
-        String password = new String(pass.getPassword());
-        String selectedRole = role.getSelectedItem().toString();
-        dbConnector db = new dbConnector();
-
-        if (username.isEmpty() || password.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Username and Password cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(role.getSelectedIndex() == 0){
-          JOptionPane.showMessageDialog(null, "Plese select a type of user");
+        if(loginAcc(user.getText(), pass.getText())){
+            if(!status.equals("Active")){
+            JOptionPane.showMessageDialog(this, "In-Active Account contact Admin", "Error", JOptionPane.ERROR_MESSAGE);
+            }else{
+                if(type.equals("Admin")){
+                    JOptionPane.showMessageDialog(null, "Login Successfully");
+                    adminDashboard ad = new adminDashboard();
+                    ad.setVisible(true);
+                    this.dispose(); 
+                }else if(type.equals("Employee")){
+                    JOptionPane.showMessageDialog(null, "Login Successfully");
+                    employeeDashboard ed = new employeeDashboard();
+                    ed.setVisible(true);
+                    this.dispose(); 
+                }else{
+                    JOptionPane.showMessageDialog(this, "No Account type found contact the Admin", "Error", JOptionPane.ERROR_MESSAGE);
+                } 
+            }
         }else{
-            JOptionPane.showMessageDialog(null, "Login Successfully");
+            JOptionPane.showMessageDialog(this, "Invalid Account", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
-        user.setText("");
-        pass.setText("");
     }//GEN-LAST:event_btnloginMouseClicked
 
     /**
@@ -295,7 +307,6 @@ public class loginform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JList<String> jList1;
@@ -308,7 +319,6 @@ public class loginform extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel lblsignup;
     private javax.swing.JPasswordField pass;
-    private javax.swing.JComboBox<String> role;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }
