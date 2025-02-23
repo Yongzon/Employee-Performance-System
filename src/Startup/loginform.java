@@ -1,3 +1,5 @@
+package Startup;
+
 
 import Admin.adminDashboard;
 import Admin.employeeDashboard;
@@ -291,6 +293,7 @@ public class loginform extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(loginform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

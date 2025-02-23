@@ -1,4 +1,7 @@
+package Startup;
 
+
+import Startup.loginform;
 import config.dbConnector;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -515,6 +518,7 @@ public class registerform extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(registerform.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
