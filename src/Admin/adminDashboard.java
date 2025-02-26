@@ -46,6 +46,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         userpanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -54,10 +55,11 @@ public class adminDashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        wc = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -139,18 +141,17 @@ public class adminDashboard extends javax.swing.JFrame {
         userpanel.setBackground(new java.awt.Color(51, 51, 0));
         userpanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
+        jPanel4.setBackground(new java.awt.Color(204, 204, 0));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        userpanel.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 19, 220, -1));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Active Users");
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 130, 28));
+
+        userpanel.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 19, 220, 100));
+
+        jPanel6.setBackground(new java.awt.Color(204, 204, 0));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -165,6 +166,8 @@ public class adminDashboard extends javax.swing.JFrame {
 
         userpanel.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
 
+        jPanel7.setBackground(new java.awt.Color(204, 204, 0));
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -177,6 +180,8 @@ public class adminDashboard extends javax.swing.JFrame {
         );
 
         userpanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 20, -1, -1));
+
+        jPanel5.setBackground(new java.awt.Color(204, 204, 0));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -191,6 +196,8 @@ public class adminDashboard extends javax.swing.JFrame {
 
         userpanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 220, -1));
 
+        jPanel8.setBackground(new java.awt.Color(204, 204, 0));
+
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
@@ -203,6 +210,8 @@ public class adminDashboard extends javax.swing.JFrame {
         );
 
         userpanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 220, -1));
+
+        jPanel9.setBackground(new java.awt.Color(204, 204, 0));
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -234,10 +243,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Hello Yongzon, Welcome back");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 190, 40));
+        wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        wc.setText("Hello Yongzon, Welcome back");
+        jPanel1.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 190, 40));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -254,9 +263,12 @@ public class adminDashboard extends javax.swing.JFrame {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel10.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 130, 30));
+        jPanel10.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 130, 30));
 
-        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 190, 50));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile.png"))); // NOI18N
+        jPanel10.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
+
+        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 200, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 700, 90));
 
@@ -350,6 +362,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
@@ -366,5 +379,6 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JPanel us;
     private javax.swing.JPanel userpanel;
+    private javax.swing.JLabel wc;
     // End of variables declaration//GEN-END:variables
 }

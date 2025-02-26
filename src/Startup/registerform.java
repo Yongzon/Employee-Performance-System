@@ -56,15 +56,9 @@ public class registerform extends javax.swing.JFrame {
         }
     }
     
-    Color bodycolor = new Color(255,153,51);
-    Color bodycolor2 = new  Color(255,102,0);
-    Color lblogcolor = new Color(255,153,51);
-    Color lblogcolor2 = new Color(255,102,0);
-    Color bodycolorsign = new Color(255,102,102);
-    Color bodycolorsign2 = new Color(255,51,51);
-    Color lbsign = new Color(255,102,102);
-    Color lbsign2 = new Color(255,51,51);
-    
+    Color bodycolor = new Color(255,51,51);
+    Color nav = new  Color(255,102,102);
+    Color nav1 = new Color (255,240,240);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -76,15 +70,8 @@ public class registerform extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
+        jOptionPane1 = new javax.swing.JOptionPane();
         jPanel3 = new javax.swing.JPanel();
-        sgn = new javax.swing.JPanel();
-        btnloginpanel2 = new javax.swing.JPanel();
-        btnlogin2 = new javax.swing.JLabel();
-        lblsignup1 = new javax.swing.JLabel();
-        Signpane = new javax.swing.JPanel();
-        btnloginpanel1 = new javax.swing.JPanel();
-        btnlogin1 = new javax.swing.JLabel();
-        lblsignup = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -101,6 +88,10 @@ public class registerform extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         role = new javax.swing.JComboBox<>();
+        cl = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        sgn = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -110,118 +101,6 @@ public class registerform extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 153));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        sgn.setBackground(new java.awt.Color(255, 51, 51));
-        sgn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        sgn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sgnMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                sgnMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                sgnMouseExited(evt);
-            }
-        });
-        sgn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnloginpanel2.setBackground(new java.awt.Color(255, 51, 51));
-        btnloginpanel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnloginpanel2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnloginpanel2MouseExited(evt);
-            }
-        });
-        btnloginpanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnlogin2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnlogin2.setForeground(new java.awt.Color(255, 255, 255));
-        btnlogin2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnlogin2.setText("Login");
-        btnlogin2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnlogin2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnlogin2MouseExited(evt);
-            }
-        });
-        btnloginpanel2.add(btnlogin2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
-
-        sgn.add(btnloginpanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 200, 40));
-
-        lblsignup1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblsignup1.setForeground(new java.awt.Color(255, 255, 255));
-        lblsignup1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblsignup1.setText("Cancel");
-        lblsignup1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblsignup1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblsignup1MouseClicked(evt);
-            }
-        });
-        sgn.add(lblsignup1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 80, 20));
-
-        jPanel3.add(sgn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 400, 180, 40));
-
-        Signpane.setBackground(new java.awt.Color(255, 51, 51));
-        Signpane.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Signpane.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SignpaneMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                SignpaneMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                SignpaneMouseExited(evt);
-            }
-        });
-        Signpane.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnloginpanel1.setBackground(new java.awt.Color(255, 51, 51));
-        btnloginpanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnloginpanel1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnloginpanel1MouseExited(evt);
-            }
-        });
-        btnloginpanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnlogin1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        btnlogin1.setForeground(new java.awt.Color(255, 255, 255));
-        btnlogin1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btnlogin1.setText("Login");
-        btnlogin1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnlogin1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnlogin1MouseExited(evt);
-            }
-        });
-        btnloginpanel1.add(btnlogin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
-
-        Signpane.add(btnloginpanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 200, 40));
-
-        lblsignup.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        lblsignup.setForeground(new java.awt.Color(255, 255, 255));
-        lblsignup.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblsignup.setText("Signup");
-        lblsignup.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        lblsignup.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblsignupMouseClicked(evt);
-            }
-        });
-        Signpane.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 80, 20));
-
-        jPanel3.add(Signpane, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 180, 40));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Password");
@@ -321,19 +200,54 @@ public class registerform extends javax.swing.JFrame {
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 250, 40));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 600));
+        cl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        cl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                clMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                clMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                clMouseExited(evt);
+            }
+        });
+        cl.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("Cancel");
+        cl.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
+
+        jPanel3.add(cl, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 180, 40));
+
+        sgn.setBackground(new java.awt.Color(255, 51, 51));
+        sgn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                sgnMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                sgnMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                sgnMouseExited(evt);
+            }
+        });
+        sgn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Signup");
+        sgn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
+
+        jPanel3.add(sgn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 180, 40));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 510));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SignpaneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignpaneMouseEntered
-        Signpane.setBackground(bodycolorsign);
-    }//GEN-LAST:event_SignpaneMouseEntered
-
-    private void SignpaneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignpaneMouseExited
-        Signpane.setBackground(bodycolorsign2);
-    }//GEN-LAST:event_SignpaneMouseExited
 
     private void unActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unActionPerformed
         // TODO add your handling code here:
@@ -346,82 +260,6 @@ public class registerform extends javax.swing.JFrame {
     private void emActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_emActionPerformed
-
-    private void btnlogin1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlogin1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnlogin1MouseEntered
-
-    private void btnlogin1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlogin1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnlogin1MouseExited
-
-    private void btnloginpanel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginpanel1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnloginpanel1MouseEntered
-
-    private void btnloginpanel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginpanel1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnloginpanel1MouseExited
-
-    private void SignpaneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SignpaneMouseClicked
-      String firstname = fn.getText();
-      String lastname = ln.getText();
-      String email1 = em.getText();
-      String username1 = un.getText();
-      String password1 = new String(ps.getPassword());
-      String cpassword = new String(cp.getPassword());
-      String selectedRole = role.getSelectedItem().toString();
-      dbConnector db = new dbConnector();
-      
-      if (firstname.isEmpty() && lastname.isEmpty() && email1.isEmpty() && username1.isEmpty() && password1.isEmpty() && cpassword.isEmpty()){
-          JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else if(password1.length() < 8){
-          JOptionPane.showMessageDialog(this, "Password must be atleast 8 characters!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else if(ps.getText().length() < 8){
-          JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
-           ps.setText(""); 
-      }else if(duplicateCheck()){
-          System.out.println("Duplicate Exist");
-      }else if(!ps.getText().equals(cp.getText())){
-          JOptionPane.showMessageDialog(null, "Password not Matches");
-      }else if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_status)"  
-              + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+ps.getText()+"', '"+cp.getText()+"', 'Pending')") == 1){
-           JOptionPane.showMessageDialog(this, "Signup Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-           loginform lf = new loginform();
-           lf.setVisible(true);
-           this.dispose();
-      }
-    }//GEN-LAST:event_SignpaneMouseClicked
-
-    private void lblsignupMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblsignupMouseClicked
-      String firstname = fn.getText();
-      String lastname = ln.getText();
-      String email1 = em.getText();
-      String username1 = un.getText();
-      String password1 = new String(ps.getPassword());
-      String cpassword = new String(cp.getPassword());
-      String selectedRole = role.getSelectedItem().toString();
-      dbConnector db = new dbConnector();
-      
-      if (firstname.isEmpty() && lastname.isEmpty() && email1.isEmpty() && username1.isEmpty() && password1.isEmpty() && cpassword.isEmpty()){
-          JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else if(password1.length() < 8){
-          JOptionPane.showMessageDialog(this, "Password must be atleast 8 characters!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else if(ps.getText().length() < 8){
-          JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
-           ps.setText(""); 
-      }else if(duplicateCheck()){
-          System.out.println("Duplicate Exist");
-      }else if(!ps.getText().equals(cp.getText())){
-          JOptionPane.showMessageDialog(null, "Password not Matches");
-      }else if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_status)"  
-              + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+ps.getText()+"', '"+cp.getText()+"', 'Pending')") == 1){
-           JOptionPane.showMessageDialog(this, "Signup Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-           loginform lf = new loginform();
-           lf.setVisible(true);
-           this.dispose();
-      }
-    }//GEN-LAST:event_lblsignupMouseClicked
 
     private void lbl_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_loginMouseClicked
       loginform lf = new loginform();
@@ -437,37 +275,21 @@ public class registerform extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fnActionPerformed
 
-    private void btnlogin2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlogin2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnlogin2MouseEntered
+    private void clMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseEntered
+        cl.setBackground(bodycolor);
+    }//GEN-LAST:event_clMouseEntered
 
-    private void btnlogin2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlogin2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnlogin2MouseExited
+    private void clMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseExited
+        cl.setBackground(nav1);
+    }//GEN-LAST:event_clMouseExited
 
-    private void btnloginpanel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginpanel2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnloginpanel2MouseEntered
+    private void sgnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseEntered
+        sgn.setBackground(nav);
+    }//GEN-LAST:event_sgnMouseEntered
 
-    private void btnloginpanel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnloginpanel2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnloginpanel2MouseExited
-
-    private void lblsignup1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblsignup1MouseClicked
-      String firstname = fn.getText();
-      String lastname = ln.getText();
-      String email1 = em.getText();
-      String username1 = un.getText();
-      String password1 = new String(ps.getPassword());
-      String cpassword = new String(cp.getPassword());
-      
-      fn.setText("");
-      ln.setText("");
-      em.setText("");
-      un.setText("");
-      ps.setText("");
-      cp.setText("");
-    }//GEN-LAST:event_lblsignup1MouseClicked
+    private void sgnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseExited
+        sgn.setBackground(bodycolor);
+    }//GEN-LAST:event_sgnMouseExited
 
     private void sgnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseClicked
       String firstname = fn.getText();
@@ -476,6 +298,36 @@ public class registerform extends javax.swing.JFrame {
       String username1 = un.getText();
       String password1 = new String(ps.getPassword());
       String cpassword = new String(cp.getPassword());
+      String selectedRole = role.getSelectedItem().toString();
+      dbConnector db = new dbConnector();
+      
+      if (firstname.isEmpty() && lastname.isEmpty() && email1.isEmpty() && username1.isEmpty() && password1.isEmpty() && cpassword.isEmpty()){
+          JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
+      }else if(password1.length() < 8){
+          JOptionPane.showMessageDialog(this, "Password must be atleast 8 characters!", "Error", JOptionPane.ERROR_MESSAGE);
+      }else if(ps.getText().length() < 8){
+          JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
+           ps.setText(""); 
+      }else if(duplicateCheck()){
+          System.out.println("Duplicate Exist");
+      }else if(!ps.getText().equals(cp.getText())){
+          JOptionPane.showMessageDialog(null, "Password not Matches");
+      }else if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_status)"  
+              + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+ps.getText()+"', '"+cp.getText()+"', 'Pending')") == 1){
+           JOptionPane.showMessageDialog(this, "Signup Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+           loginform lf = new loginform();
+           lf.setVisible(true);
+           this.dispose();
+      }
+    }//GEN-LAST:event_sgnMouseClicked
+
+    private void clMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseClicked
+      String firstname = fn.getText();
+      String lastname = ln.getText();
+      String email1 = em.getText();
+      String username1 = un.getText();
+      String password1 = new String(ps.getPassword());
+      String cpassword = new String(cp.getPassword());
       
       fn.setText("");
       ln.setText("");
@@ -483,15 +335,7 @@ public class registerform extends javax.swing.JFrame {
       un.setText("");
       ps.setText("");
       cp.setText("");
-    }//GEN-LAST:event_sgnMouseClicked
-
-    private void sgnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sgnMouseEntered
-
-    private void sgnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_sgnMouseExited
+    }//GEN-LAST:event_clMouseClicked
 
     /**
      * @param args the command line arguments
@@ -530,27 +374,24 @@ public class registerform extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Signpane;
-    private javax.swing.JLabel btnlogin1;
-    private javax.swing.JLabel btnlogin2;
-    private javax.swing.JPanel btnloginpanel1;
-    private javax.swing.JPanel btnloginpanel2;
+    private javax.swing.JPanel cl;
     private javax.swing.JPasswordField cp;
     private javax.swing.JTextField em;
     private javax.swing.JTextField fn;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JOptionPane jOptionPane1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbl_login;
-    private javax.swing.JLabel lblsignup;
-    private javax.swing.JLabel lblsignup1;
     private javax.swing.JTextField ln;
     private javax.swing.JPasswordField ps;
     private javax.swing.JComboBox<String> role;
