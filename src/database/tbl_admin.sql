@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 12, 2025 at 10:32 AM
+-- Generation Time: Feb 26, 2025 at 06:11 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -29,19 +29,23 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tbl_admin` (
   `u_id` int(20) NOT NULL,
-  `u_name` varchar(50) NOT NULL,
+  `u_fname` varchar(50) NOT NULL,
+  `u_lname` varchar(50) NOT NULL,
   `u_email` varchar(50) NOT NULL,
   `u_type` varchar(50) NOT NULL,
-  `u_usename` varchar(50) NOT NULL,
-  `u_password` varchar(50) NOT NULL
+  `u_username` varchar(50) NOT NULL,
+  `u_password` varchar(50) NOT NULL,
+  `u_cpassword` varchar(50) NOT NULL,
+  `u_status` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_admin`
 --
 
-INSERT INTO `tbl_admin` (`u_id`, `u_name`, `u_email`, `u_type`, `u_usename`, `u_password`) VALUES
-(1, 'Christian Yongzon', 'cy@admin.com', 'Admin', 'admin', '1234');
+INSERT INTO `tbl_admin` (`u_id`, `u_fname`, `u_lname`, `u_email`, `u_type`, `u_username`, `u_password`, `u_cpassword`, `u_status`) VALUES
+(6, 'Christian ', 'Yongzon', 'cy@admin.com', 'Admin', 'admin', 'admin1234', 'admin1234', 'Active'),
+(7, 'Chan', 'Yong', 'yan@emp.com', 'Employee', 'yannie', 'yan123456', 'yan123456', 'Active');
 
 --
 -- Indexes for dumped tables
@@ -61,7 +65,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `u_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `u_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

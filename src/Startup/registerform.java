@@ -92,6 +92,8 @@ public class registerform extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         sgn = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -104,60 +106,64 @@ public class registerform extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Password");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 230, 100, 30));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 260, 100, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("Type");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 150, 40, 30));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 180, 40, 30));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 20)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Sign Up");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 120, 40));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, 120, 40));
 
         un.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         un.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        un.setBorder(null);
         un.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 unActionPerformed(evt);
             }
         });
-        jPanel3.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 250, 40));
+        jPanel3.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 220, 44));
 
         ps.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         ps.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ps.setBorder(null);
         ps.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 psActionPerformed(evt);
             }
         });
-        jPanel3.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 260, 250, 40));
+        jPanel3.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 290, 220, 44));
 
         ln.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         ln.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ln.setBorder(null);
         ln.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lnActionPerformed(evt);
             }
         });
-        jPanel3.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 250, 40));
+        jPanel3.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 130, 220, 44));
 
         em.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         em.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        em.setBorder(null);
         em.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emActionPerformed(evt);
             }
         });
-        jPanel3.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 250, 40));
+        jPanel3.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 210, 220, 44));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setText("Last Name");
-        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 100, 30));
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 100, 100, 30));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Username");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 100, 30));
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 260, 100, 30));
 
         lbl_login.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lbl_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -168,39 +174,54 @@ public class registerform extends javax.swing.JFrame {
                 lbl_loginMouseClicked(evt);
             }
         });
-        jPanel3.add(lbl_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, 220, 30));
+        jPanel3.add(lbl_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, 220, 30));
 
         cp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jPanel3.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, 250, 40));
+        cp.setBorder(null);
+        cp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cpActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 370, 220, 44));
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText("Confirm Password");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, 120, 30));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 120, 30));
 
         fn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         fn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        fn.setBorder(null);
         fn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fnActionPerformed(evt);
             }
         });
-        jPanel3.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 250, 40));
+        jPanel3.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 220, 44));
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Fist Name");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 100, 30));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 100, 30));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Email");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 100, 30));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 100, 30));
 
         role.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
+        role.setBorder(null);
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 250, 40));
+        role.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roleActionPerformed(evt);
+            }
+        });
+        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 210, 220, 44));
 
+        cl.setBackground(new java.awt.Color(255, 255, 255));
         cl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        cl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clMouseClicked(evt);
@@ -219,9 +240,10 @@ public class registerform extends javax.swing.JFrame {
         jLabel5.setText("Cancel");
         cl.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
-        jPanel3.add(cl, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 400, 180, 40));
+        jPanel3.add(cl, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, 180, 40));
 
         sgn.setBackground(new java.awt.Color(255, 51, 51));
+        sgn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sgn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 sgnMouseClicked(evt);
@@ -241,9 +263,17 @@ public class registerform extends javax.swing.JFrame {
         jLabel12.setText("Signup");
         sgn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
-        jPanel3.add(sgn, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 400, 180, 40));
+        jPanel3.add(sgn, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 440, 180, 40));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 510));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/sign.jpg"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 400, 540));
+
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 560));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 560));
 
         pack();
         setLocationRelativeTo(null);
@@ -337,6 +367,14 @@ public class registerform extends javax.swing.JFrame {
       cp.setText("");
     }//GEN-LAST:event_clMouseClicked
 
+    private void cpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpActionPerformed
+
+    private void roleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roleActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_roleActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -381,6 +419,7 @@ public class registerform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -389,6 +428,7 @@ public class registerform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JOptionPane jOptionPane1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbl_login;
