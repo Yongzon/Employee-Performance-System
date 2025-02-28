@@ -81,16 +81,16 @@ public class loginform extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        user = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        user = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         open = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
-        pass = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
+        pass = new javax.swing.JPasswordField();
         jPanel6 = new javax.swing.JPanel();
 
         jTextField1.setText("jTextField1");
@@ -174,6 +174,9 @@ public class loginform extends javax.swing.JFrame {
         jLabel2.setText("Username");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 80, 20));
 
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
         user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         user.setBorder(null);
         user.addActionListener(new java.awt.event.ActionListener() {
@@ -181,10 +184,7 @@ public class loginform extends javax.swing.JFrame {
                 userActionPerformed(evt);
             }
         });
-        jPanel4.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 28, 250, 44));
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jPanel4.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 290, 44));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -229,6 +229,9 @@ public class loginform extends javax.swing.JFrame {
 
         jPanel5.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/padlock.png"))); // NOI18N
+        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
         pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pass.setBorder(null);
         pass.addActionListener(new java.awt.event.ActionListener() {
@@ -236,10 +239,7 @@ public class loginform extends javax.swing.JFrame {
                 passActionPerformed(evt);
             }
         });
-        jPanel5.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 28, 250, 44));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/padlock.png"))); // NOI18N
-        jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+        jPanel5.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 290, 44));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 

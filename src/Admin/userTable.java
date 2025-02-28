@@ -41,6 +41,8 @@ public class userTable extends javax.swing.JFrame {
     Color bodycolor = new Color(255,255,153);
     Color nav = new Color(255,255,255);
     Color bodycolor1 = new Color(51,51,0);
+    Color textc = new Color (0,0,0);
+    Color textc2 = new Color (240,240,240);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,23 +70,24 @@ public class userTable extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         usertbl = new javax.swing.JTable();
         del = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        delT = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         add = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
+        addT = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         edit = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
+        editT = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         update = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
+        updateT = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -192,12 +195,12 @@ public class userTable extends javax.swing.JFrame {
         });
         del.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setBackground(new java.awt.Color(51, 51, 0));
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Delete User");
-        del.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
+        delT.setBackground(new java.awt.Color(51, 51, 0));
+        delT.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        delT.setForeground(new java.awt.Color(255, 255, 255));
+        delT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        delT.setText("Delete User");
+        del.add(delT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
         del.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, -1, 30));
@@ -215,11 +218,11 @@ public class userTable extends javax.swing.JFrame {
         });
         add.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel20.setText(" Add New User");
-        add.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
+        addT.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        addT.setForeground(new java.awt.Color(255, 255, 255));
+        addT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        addT.setText(" Add New User");
+        add.add(addT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
 
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
         add.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, -1, 30));
@@ -237,11 +240,11 @@ public class userTable extends javax.swing.JFrame {
         });
         edit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel22.setText("Edit User");
-        edit.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
+        editT.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        editT.setForeground(new java.awt.Color(255, 255, 255));
+        editT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        editT.setText("Edit User");
+        edit.add(editT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
 
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
         edit.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, -1, 30));
@@ -259,11 +262,11 @@ public class userTable extends javax.swing.JFrame {
         });
         update.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("Update User");
-        update.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 20));
+        updateT.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        updateT.setForeground(new java.awt.Color(255, 255, 255));
+        updateT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        updateT.setText("Update User");
+        update.add(updateT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 20));
 
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
         update.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, -1, 30));
@@ -293,19 +296,22 @@ public class userTable extends javax.swing.JFrame {
         jLabel2.setText("Users Table");
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 40));
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel10.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Logout", "Settings" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee", "Logout", "Settings" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel4.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 130, 30));
+        jPanel10.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 130, 30));
 
-        jPanel5.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 30, 190, 50));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile.png"))); // NOI18N
+        jPanel10.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
+
+        jPanel5.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 200, 50));
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 700, 90));
 
@@ -341,34 +347,42 @@ public class userTable extends javax.swing.JFrame {
 
     private void addMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseEntered
         add.setBackground(nav);
+        addT.setForeground(textc);
     }//GEN-LAST:event_addMouseEntered
 
     private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
         add.setBackground(bodycolor1);
+        addT.setForeground(textc2);
     }//GEN-LAST:event_addMouseExited
 
     private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
         edit.setBackground(bodycolor1);
+        editT.setForeground(textc2);
     }//GEN-LAST:event_editMouseExited
 
     private void editMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseEntered
        edit.setBackground(nav);
+       editT.setForeground(textc);
     }//GEN-LAST:event_editMouseEntered
 
     private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
        update.setBackground(bodycolor1);
+       updateT.setForeground(textc2);
     }//GEN-LAST:event_updateMouseExited
 
     private void updateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseEntered
       update.setBackground(nav);
+      updateT.setForeground(textc);
     }//GEN-LAST:event_updateMouseEntered
 
     private void delMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseExited
        del.setBackground(bodycolor1);
+       delT.setForeground(textc2);
     }//GEN-LAST:event_delMouseExited
 
     private void delMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseEntered
          del.setBackground(nav);
+         delT.setForeground(textc);
     }//GEN-LAST:event_delMouseEntered
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
@@ -385,10 +399,10 @@ public class userTable extends javax.swing.JFrame {
         String selectedValue = jComboBox1.getSelectedItem().toString();
 
         if (selectedValue.equals("Logout")) {
-        loginform lf = new loginform();
-        lf.setVisible(true);
-        this.dispose();
-      }
+            loginform lf = new loginform();
+            lf.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
@@ -429,9 +443,12 @@ public class userTable extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
+    private javax.swing.JLabel addT;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel del;
+    private javax.swing.JLabel delT;
     private javax.swing.JPanel edit;
+    private javax.swing.JLabel editT;
     private javax.swing.JPanel emp;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -440,25 +457,23 @@ public class userTable extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel update;
+    private javax.swing.JLabel updateT;
     private javax.swing.JPanel us;
     private javax.swing.JPanel userpanel;
     private javax.swing.JTable usertbl;
