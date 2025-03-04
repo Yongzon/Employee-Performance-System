@@ -7,7 +7,9 @@ package Admin;
 
 import Admin.userTable;
 import Startup.loginform;
+import config.Session;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -62,6 +64,11 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 153));
@@ -245,7 +252,6 @@ public class adminDashboard extends javax.swing.JFrame {
 
         wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        wc.setText("Hello Yongzon, Welcome back");
         jPanel1.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 190, 40));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -315,6 +321,18 @@ public class adminDashboard extends javax.swing.JFrame {
         this.dispose();
       }
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       Session sess = Session.getInstance();
+       if(sess.getUid() == 0){
+            JOptionPane.showMessageDialog(this, "No Account, Login First!", "Error", JOptionPane.ERROR_MESSAGE);
+            loginform lf = new loginform();
+            lf.setVisible(true);
+            this.dispose();
+       }else{
+            wc.setText("Hello " +sess.getLname()+", Welcome Back");
+       } 
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

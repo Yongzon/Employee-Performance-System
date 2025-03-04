@@ -6,11 +6,14 @@
 package Admin;
 
 import Startup.loginform;
+import config.Session;
 import config.dbConnector;
 import java.awt.Color;
 import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -71,16 +74,12 @@ public class userTable extends javax.swing.JFrame {
         usertbl = new javax.swing.JTable();
         del = new javax.swing.JPanel();
         delT = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         add = new javax.swing.JPanel();
         addT = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         edit = new javax.swing.JPanel();
         editT = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
         update = new javax.swing.JPanel();
         updateT = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
@@ -88,8 +87,14 @@ public class userTable extends javax.swing.JFrame {
         jPanel10 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        crtuser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 153));
@@ -202,13 +207,13 @@ public class userTable extends javax.swing.JFrame {
         delT.setText("Delete User");
         del.add(delT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
 
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
-        del.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, -1, 30));
-
         userpanel.add(del, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 40, 160, 40));
 
         add.setBackground(new java.awt.Color(51, 51, 0));
         add.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 addMouseEntered(evt);
             }
@@ -224,13 +229,13 @@ public class userTable extends javax.swing.JFrame {
         addT.setText(" Add New User");
         add.add(addT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
 
-        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
-        add.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, -1, 30));
-
         userpanel.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 160, 40));
 
         edit.setBackground(new java.awt.Color(51, 51, 0));
         edit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 editMouseEntered(evt);
             }
@@ -245,9 +250,6 @@ public class userTable extends javax.swing.JFrame {
         editT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         editT.setText("Edit User");
         edit.add(editT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
-
-        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
-        edit.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, -1, 30));
 
         userpanel.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 40, 160, 40));
 
@@ -267,9 +269,6 @@ public class userTable extends javax.swing.JFrame {
         updateT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         updateT.setText("Update User");
         update.add(updateT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 20));
-
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
-        update.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, -1, 30));
 
         userpanel.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 170, 40));
 
@@ -294,7 +293,7 @@ public class userTable extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Users Table");
-        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 150, 40));
+        jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 150, 40));
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 204));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -312,6 +311,9 @@ public class userTable extends javax.swing.JFrame {
         jPanel10.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
 
         jPanel5.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 200, 50));
+
+        crtuser.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jPanel5.add(crtuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 190, 40));
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 700, 90));
 
@@ -405,6 +407,56 @@ public class userTable extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+        if(sess.getUid() == 0){
+             JOptionPane.showMessageDialog(this, "No Account, Login First!", "Error", JOptionPane.ERROR_MESSAGE);
+             loginform lf = new loginform();
+             lf.setVisible(true);
+             this.dispose();
+        }else{
+             crtuser.setText("Current User: " +sess.getLname());
+        }   
+    }//GEN-LAST:event_formWindowActivated
+
+    private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
+      createUserForm cuf = new createUserForm();
+      cuf.setVisible(true);
+      this.dispose();
+    }//GEN-LAST:event_addMouseClicked
+
+    private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
+      int rowIndex = usertbl.getSelectedRow();
+      
+      if(rowIndex < 0){
+           JOptionPane.showMessageDialog(null, "Please Select an Item!");
+      }else{
+        try{
+            dbConnector db = new dbConnector();
+            TableModel tbl = usertbl.getModel();
+            ResultSet rs = db.getData("SELECT * FROM tbl_admin WHERE u_id = '" +tbl.getValueAt(rowIndex, 0)+"'"); 
+            
+            if(rs.next()){
+                createUserForm cuf = new createUserForm();
+                cuf.uid.setText(""+rs.getInt("u_id"));
+                cuf.fn.setText(""+rs.getString("u_fname"));
+                cuf.ln.setText(""+rs.getString("u_lname"));
+                cuf.em.setText(""+rs.getString("u_email"));
+                cuf.un.setText(""+rs.getString("u_username"));
+                cuf.ps.setText(""+rs.getString("u_password"));
+                cuf.role.setSelectedItem(""+rs.getString("u_type"));
+                cuf.acc_status.setSelectedItem(""+rs.getString("u_status"));
+                cuf.crt.setEnabled(false);
+                cuf.up.setEnabled(true);
+                cuf.setVisible(true);
+                this.dispose();
+            }
+        }catch(SQLException ex){
+            System.out.println(""+ex);
+        }
+      } 
+    }//GEN-LAST:event_editMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -444,6 +496,7 @@ public class userTable extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
     private javax.swing.JLabel addT;
+    private javax.swing.JLabel crtuser;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel del;
     private javax.swing.JLabel delT;
@@ -455,11 +508,7 @@ public class userTable extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

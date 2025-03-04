@@ -2,7 +2,8 @@ package Startup;
 
 
 import Admin.adminDashboard;
-import Admin.employeeDashboard;
+import User.employeeDashboard;
+import config.Session;
 import config.dbConnector;
 import java.awt.Color;
 import java.sql.Connection;
@@ -42,6 +43,14 @@ public class loginform extends javax.swing.JFrame {
             if(resultSet.next()){
                 status = resultSet.getString("u_status");
                 type = resultSet.getString("u_type");
+                Session sess = Session.getInstance();
+                    sess.setUid(resultSet.getInt("u_id"));
+                    sess.setFname(resultSet.getString("u_fname"));
+                    sess.setLname(resultSet.getString("u_lname"));
+                    sess.setEmail(resultSet.getString("u_email"));
+                    sess.setUsername(resultSet.getString("u_username"));
+                    sess.setType(resultSet.getString("u_type"));
+                    sess.setStatus(resultSet.getString("u_status"));
                 return true;
             }else{
                 return false;
@@ -82,16 +91,16 @@ public class loginform extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        user = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
+        user = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         open = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        pass = new javax.swing.JPasswordField();
         jPanel6 = new javax.swing.JPanel();
+        pass = new javax.swing.JPasswordField();
 
         jTextField1.setText("jTextField1");
 
@@ -174,17 +183,9 @@ public class loginform extends javax.swing.JFrame {
         jLabel2.setText("Username");
         jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 80, 20));
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
-
-        user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        user.setBorder(null);
-        user.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                userActionPerformed(evt);
-            }
-        });
-        jPanel4.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 290, 44));
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 34, -1, 40));
 
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -200,6 +201,15 @@ public class loginform extends javax.swing.JFrame {
         );
 
         jPanel4.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, -1));
+
+        user.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        user.setBorder(null);
+        user.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userActionPerformed(evt);
+            }
+        });
+        jPanel4.add(user, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 290, 44));
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 310, 80));
 
@@ -229,17 +239,9 @@ public class loginform extends javax.swing.JFrame {
 
         jPanel5.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 40, 40));
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/padlock.png"))); // NOI18N
         jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
-
-        pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pass.setBorder(null);
-        pass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
-            }
-        });
-        jPanel5.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 290, 44));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -255,6 +257,15 @@ public class loginform extends javax.swing.JFrame {
         );
 
         jPanel5.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 50, 40));
+
+        pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pass.setBorder(null);
+        pass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passActionPerformed(evt);
+            }
+        });
+        jPanel5.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 290, 44));
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 310, 80));
 

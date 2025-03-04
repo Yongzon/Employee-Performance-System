@@ -4,10 +4,12 @@
  * and open the template in the editor.
  */
 
-package Admin;
+package User;
 
 import Startup.loginform;
+import config.Session;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -41,14 +43,19 @@ public class employeeDashboard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        wc = new javax.swing.JLabel();
         userpanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 153));
@@ -104,11 +111,6 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Hello Yongzon, Welcome back");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 190, 40));
-
         jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Employee Dashboard");
@@ -130,6 +132,10 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel10.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 200, 50));
+
+        wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 190, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 700, 90));
 
@@ -178,6 +184,18 @@ public class employeeDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        Session sess = Session.getInstance();
+        if(sess.getUid() == 0){
+             JOptionPane.showMessageDialog(this, "No Account, Login First!", "Error", JOptionPane.ERROR_MESSAGE);
+             loginform lf = new loginform();
+             lf.setVisible(true);
+             this.dispose();
+        }else{
+             wc.setText("Hello " +sess.getLname()+", Welcome Back");
+        } 
+    }//GEN-LAST:event_formWindowActivated
+
     /**
      * @param args the command line arguments
      */
@@ -217,7 +235,6 @@ public class employeeDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dash;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -230,6 +247,7 @@ public class employeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel task;
     private javax.swing.JPanel userpanel;
+    private javax.swing.JLabel wc;
     // End of variables declaration//GEN-END:variables
 
 }
