@@ -6,6 +6,8 @@ import config.dbConnector;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /*
@@ -25,6 +27,13 @@ public class registerform extends javax.swing.JFrame {
      */
     public registerform() {
         initComponents();
+    }
+    
+    public static boolean isValidEmail(String email) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
     
     public static String email, usern;
@@ -333,8 +342,9 @@ public class registerform extends javax.swing.JFrame {
       
       if (firstname.isEmpty() && lastname.isEmpty() && email1.isEmpty() && username1.isEmpty() && password1.isEmpty() && cpassword.isEmpty()){
           JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else if(password1.length() < 8){
-          JOptionPane.showMessageDialog(this, "Password must be atleast 8 characters!", "Error", JOptionPane.ERROR_MESSAGE);
+      }else if(!isValidEmail(em.getText())){
+          JOptionPane.showMessageDialog(null, "Invalid email format!");
+          em.setText("");
       }else if(ps.getText().length() < 8){
           JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
            ps.setText(""); 

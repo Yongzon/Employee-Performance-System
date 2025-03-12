@@ -5,6 +5,7 @@
  */
 package Admin;
 
+import Error.ErrorPage;
 import Startup.loginform;
 import config.Session;
 import config.dbConnector;
@@ -408,12 +409,11 @@ public class userTable extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Session sess = Session.getInstance();
-        if(sess.getUid() == 0){
-             JOptionPane.showMessageDialog(this, "No Account, Login First!", "Error", JOptionPane.ERROR_MESSAGE);
-             loginform lf = new loginform();
-             lf.setVisible(true);
-             this.dispose();
+       Session sess = Session.getInstance();
+       if(sess.getUid() == 0){
+            ErrorPage ep = new ErrorPage();
+            ep.setVisible(true);
+            this.dispose();
         }else{
              crtuser.setText("Current User: " +sess.getLname());
         }   
