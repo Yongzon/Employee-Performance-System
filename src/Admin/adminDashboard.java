@@ -329,6 +329,7 @@ public class adminDashboard extends javax.swing.JFrame {
             ErrorPage ep = new ErrorPage();
             ep.setVisible(true);
             this.dispose();
+            System.out.println("");
        }else{
             wc.setText("Hello " +sess.getLname()+", Welcome Back");
        } 
