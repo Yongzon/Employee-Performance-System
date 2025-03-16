@@ -6,6 +6,7 @@
 
 package User;
 
+import Error.ErrorPage;
 import Startup.loginform;
 import config.Session;
 import java.awt.Color;
@@ -22,8 +23,8 @@ public class employeeDashboard extends javax.swing.JFrame {
         initComponents();
     }
     
-    Color bodycolor = new Color(255,255,153);
-    Color nav = new Color(255,255,255);
+    Color bodycolor = new Color (255,255,255);
+    Color nav = new Color (242,240,240);
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -35,20 +36,23 @@ public class employeeDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        wc1 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        wc = new javax.swing.JLabel();
         dash = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         task = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel4 = new javax.swing.JLabel();
-        wc = new javax.swing.JLabel();
         userpanel = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -58,10 +62,26 @@ public class employeeDashboard extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        dash.setBackground(new java.awt.Color(255, 255, 153));
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Capture-removebg-preview (1).png"))); // NOI18N
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
+
+        wc1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(wc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
+
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_16293394.png"))); // NOI18N
+        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
+
+        wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 180, 40));
+
+        dash.setBackground(new java.awt.Color(255, 255, 255));
         dash.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 dashMouseEntered(evt);
@@ -77,12 +97,13 @@ public class employeeDashboard extends javax.swing.JFrame {
         jLabel5.setText("Dashboard");
         dash.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 20));
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard-removebg-preview.png"))); // NOI18N
-        dash.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard_3481919.png"))); // NOI18N
+        dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
-        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 130, 180, 40));
+        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 180, -1));
 
-        task.setBackground(new java.awt.Color(255, 255, 153));
+        task.setBackground(new java.awt.Color(255, 255, 255));
         task.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 taskMouseEntered(evt);
@@ -98,61 +119,50 @@ public class employeeDashboard extends javax.swing.JFrame {
         jLabel9.setText("Tasks");
         task.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 50, 20));
 
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/app-removebg-preview (1).png"))); // NOI18N
-        task.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 30, 40));
+        task.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
-        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
+        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 180, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user-removebg-preview.png"))); // NOI18N
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 183, 560));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 560));
+        userpanel.setBackground(new java.awt.Color(241, 242, 247));
+        userpanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 204));
+        jLabel24.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("Dashboard |");
+        userpanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 120, 40));
+
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard_3481919.png"))); // NOI18N
+        userpanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 40, 40));
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("> Home > Dashboard");
+        userpanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 170, 40));
+
+        getContentPane().add(userpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 700, 510));
+
+        jPanel1.setBackground(new java.awt.Color(1, 216, 218));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Employee Dashboard");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 200, 40));
-
-        jPanel10.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user_10813400.png"))); // NOI18N
+        jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 50, 50));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee", "Logout", "Settings" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Logout", "Settings" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
-        jPanel10.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 130, 30));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 10, 130, 30));
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/profile.png"))); // NOI18N
-        jPanel10.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 50));
-
-        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 200, 50));
-
-        wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel1.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 190, 40));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 700, 90));
-
-        userpanel.setBackground(new java.awt.Color(51, 51, 0));
-
-        javax.swing.GroupLayout userpanelLayout = new javax.swing.GroupLayout(userpanel);
-        userpanel.setLayout(userpanelLayout);
-        userpanelLayout.setHorizontalGroup(
-            userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
-        );
-        userpanelLayout.setVerticalGroup(
-            userpanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(userpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, 700, 470));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 700, -1));
 
         pack();
         setLocationRelativeTo(null);
@@ -174,27 +184,38 @@ public class employeeDashboard extends javax.swing.JFrame {
         task.setBackground(bodycolor);
     }//GEN-LAST:event_taskMouseExited
 
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+       Session sess = Session.getInstance();
+       if(sess.getUid() == 0){
+            ErrorPage ep = new ErrorPage();
+            ep.setVisible(true);
+            this.dispose();
+            System.out.println("");
+       }else{
+            wc.setText("" +sess.getLname());
+       }
+    }//GEN-LAST:event_formWindowActivated
+
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         String selectedValue = jComboBox1.getSelectedItem().toString();
-
         if (selectedValue.equals("Logout")) {
-            loginform lf = new loginform();
-            lf.setVisible(true);
-            this.dispose();
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                loginform lf = new loginform();
+                lf.setVisible(true);
+                this.dispose();
+            }else {
+                jComboBox1.setSelectedIndex(0);
+            }
+        }else if(selectedValue.equals("Settings")){
+                userDetails ud = new userDetails();
+                ud.setVisible(true);
+                this.dispose();
+        }else{
+            jComboBox1.setSelectedIndex(0);
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-        Session sess = Session.getInstance();
-        if(sess.getUid() == 0){
-             JOptionPane.showMessageDialog(this, "No Account, Login First!", "Error", JOptionPane.ERROR_MESSAGE);
-             loginform lf = new loginform();
-             lf.setVisible(true);
-             this.dispose();
-        }else{
-             wc.setText("Hello " +sess.getLname()+", Welcome Back");
-        } 
-    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -237,17 +258,20 @@ public class employeeDashboard extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel task;
     private javax.swing.JPanel userpanel;
     private javax.swing.JLabel wc;
+    private javax.swing.JLabel wc1;
     // End of variables declaration//GEN-END:variables
 
 }

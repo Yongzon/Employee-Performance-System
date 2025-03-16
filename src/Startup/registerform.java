@@ -3,7 +3,9 @@ package Startup;
 
 import Startup.loginform;
 import config.dbConnector;
+import config.passHash;
 import java.awt.Color;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
@@ -28,6 +30,7 @@ public class registerform extends javax.swing.JFrame {
     public registerform() {
         initComponents();
     }
+    public String destination = "";
     
     public static boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -65,9 +68,11 @@ public class registerform extends javax.swing.JFrame {
         }
     }
     
-    Color bodycolor = new Color(255,51,51);
-    Color nav = new  Color(255,102,102);
+    Color bodycolor = new Color(0,204,204);
+    Color nav = new  Color(0,153,204);
     Color nav1 = new Color (255,240,240);
+    Color text = new Color (255,240,240);
+    Color text1 = new Color(0,0,0);
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -98,7 +103,7 @@ public class registerform extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         role = new javax.swing.JComboBox<>();
         cl = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        cnl = new javax.swing.JLabel();
         sgn = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -110,7 +115,7 @@ public class registerform extends javax.swing.JFrame {
         setBackground(new java.awt.Color(255, 255, 255));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel3.setBackground(new java.awt.Color(241, 242, 247));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -229,7 +234,7 @@ public class registerform extends javax.swing.JFrame {
         jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 210, 220, 44));
 
         cl.setBackground(new java.awt.Color(255, 255, 255));
-        cl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 51, 51)));
+        cl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 204, 204)));
         cl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -244,14 +249,14 @@ public class registerform extends javax.swing.JFrame {
         });
         cl.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("Cancel");
-        cl.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
+        cnl.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        cnl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        cnl.setText("Cancel");
+        cl.add(cnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
         jPanel3.add(cl, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 440, 180, 40));
 
-        sgn.setBackground(new java.awt.Color(255, 51, 51));
+        sgn.setBackground(new java.awt.Color(0, 204, 204));
         sgn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         sgn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -282,7 +287,7 @@ public class registerform extends javax.swing.JFrame {
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 560));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 960, 560));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 970, 550));
 
         pack();
         setLocationRelativeTo(null);
@@ -316,10 +321,12 @@ public class registerform extends javax.swing.JFrame {
 
     private void clMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseEntered
         cl.setBackground(bodycolor);
+        cnl.setForeground(text);
     }//GEN-LAST:event_clMouseEntered
 
     private void clMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseExited
         cl.setBackground(nav1);
+        cnl.setForeground(text1);
     }//GEN-LAST:event_clMouseExited
 
     private void sgnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseEntered
@@ -331,34 +338,45 @@ public class registerform extends javax.swing.JFrame {
     }//GEN-LAST:event_sgnMouseExited
 
     private void sgnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseClicked
-      String firstname = fn.getText();
-      String lastname = ln.getText();
-      String email1 = em.getText();
-      String username1 = un.getText();
-      String password1 = new String(ps.getPassword());
-      String cpassword = new String(cp.getPassword());
-      String selectedRole = role.getSelectedItem().toString();
-      dbConnector db = new dbConnector();
-      
-      if (firstname.isEmpty() && lastname.isEmpty() && email1.isEmpty() && username1.isEmpty() && password1.isEmpty() && cpassword.isEmpty()){
-          JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-      }else if(!isValidEmail(em.getText())){
-          JOptionPane.showMessageDialog(null, "Invalid email format!");
-          em.setText("");
-      }else if(ps.getText().length() < 8){
-          JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
-           ps.setText(""); 
-      }else if(duplicateCheck()){
-          System.out.println("Duplicate Exist");
-      }else if(!ps.getText().equals(cp.getText())){
-          JOptionPane.showMessageDialog(null, "Password not Matches");
-      }else if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_status)"  
-              + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+ps.getText()+"', '"+cp.getText()+"', 'Pending')") == 1){
-           JOptionPane.showMessageDialog(this, "Signup Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-           loginform lf = new loginform();
-           lf.setVisible(true);
-           this.dispose();
-      }
+    String firstname = fn.getText();
+    String lastname = ln.getText();
+    String email1 = em.getText();
+    String username1 = un.getText();
+    String password1 = new String(ps.getPassword());
+    String cpassword = new String(cp.getPassword());
+    String selectedRole = role.getSelectedItem().toString();
+
+    if (firstname.isEmpty() || lastname.isEmpty() || email1.isEmpty() || username1.isEmpty() || password1.isEmpty() || cpassword.isEmpty()){
+        JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
+    }else if(!isValidEmail(em.getText())){
+        JOptionPane.showMessageDialog(null, "Invalid email format!");
+        em.setText("");
+    }else if(ps.getText().length() < 8){
+        JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
+         ps.setText(""); 
+    }else if(duplicateCheck()){
+        System.out.println("Duplicate Exist");
+    }else if(!ps.getText().equals(cp.getText())){
+        JOptionPane.showMessageDialog(null, "Password not Matches");
+    }else{
+        dbConnector db = new dbConnector();
+        try{
+        String pass = passHash.hashPassword(ps.getText());
+        String pass2 = passHash.hashPassword(cp.getText());
+            
+        if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_image, u_status)"  
+            + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+pass+"', '"+pass2+"','"+destination+"' ,'Pending')") == 1){
+            JOptionPane.showMessageDialog(this, "Create Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            loginform lf = new loginform();
+            lf.setVisible(true);
+            this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(this, "Connection Error!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }catch(NoSuchAlgorithmException ex){
+            System.out.println(""+ex);
+        }
+    }
     }//GEN-LAST:event_sgnMouseClicked
 
     private void clMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseClicked
@@ -423,6 +441,7 @@ public class registerform extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel cl;
+    private javax.swing.JLabel cnl;
     private javax.swing.JPasswordField cp;
     private javax.swing.JTextField em;
     private javax.swing.JTextField fn;
@@ -432,7 +451,6 @@ public class registerform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
