@@ -263,13 +263,13 @@ public class indivPrint extends javax.swing.JFrame {
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 270, 40));
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Back");
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left_10977010.png"))); // NOI18N
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel12MouseClicked(evt);
             }
         });
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 30));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 30));
 
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 820, 60);

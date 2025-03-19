@@ -74,7 +74,7 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel2.add(wc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
 
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_16293394.png"))); // NOI18N
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/businessman_9439087.png"))); // NOI18N
         jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
 
         wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -120,8 +120,8 @@ public class employeeDashboard extends javax.swing.JFrame {
         task.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 50, 20));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/app-removebg-preview (1).png"))); // NOI18N
-        task.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
+        task.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
         jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 180, -1));
 
@@ -154,7 +154,7 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 50, 50));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Logout", "Settings" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee", "Logout", "Settings" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);

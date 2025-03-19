@@ -130,7 +130,7 @@ public class userTable extends javax.swing.JFrame {
 
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dashboard_3481919.png"))); // NOI18N
-        dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
         jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 180, 40));
 
@@ -154,8 +154,8 @@ public class userTable extends javax.swing.JFrame {
         us.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 20));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/team-removebg-preview.png"))); // NOI18N
-        us.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user_16116728.png"))); // NOI18N
+        us.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
         jPanel2.add(us, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 180, 40));
 
@@ -179,13 +179,13 @@ public class userTable extends javax.swing.JFrame {
         emp.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 20));
 
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/group-removebg-preview.png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/employee_2572970.png"))); // NOI18N
         emp.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, 40, 40));
 
         jPanel2.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 180, 40));
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_16293394.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/settings_17163803.png"))); // NOI18N
         jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
 
         crtuser.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -211,6 +211,9 @@ public class userTable extends javax.swing.JFrame {
 
         del.setBackground(new java.awt.Color(241, 242, 247));
         del.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                delMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 delMouseEntered(evt);
             }
@@ -396,7 +399,7 @@ public class userTable extends javax.swing.JFrame {
                 if(rs.next()){
                     indivPrint ip = new indivPrint();
                     ip.uid.setText(""+rs.getInt("u_id"));
-                    ip.uid.setText(""+rs.getString("u_fname"));
+                    ip.fn.setText(""+rs.getString("u_fname"));
                     ip.ln.setText(""+rs.getString("u_lname"));
                     ip.em.setText(""+rs.getString("u_email"));
                     ip.un.setText(""+rs.getString("u_username"));
@@ -536,6 +539,10 @@ public class userTable extends javax.swing.JFrame {
         ad.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_dashMouseClicked
+
+    private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_delMouseClicked
 
     /**
      * @param args the command line arguments

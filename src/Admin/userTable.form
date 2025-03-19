@@ -117,7 +117,7 @@
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="20" y="0" width="40" height="40"/>
+                      <AbsoluteConstraints x="10" y="0" width="50" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -162,12 +162,12 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/images/team-removebg-preview.png"/>
+                      <Image iconType="3" name="/images/user_16116728.png"/>
                     </Property>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="20" y="0" width="40" height="40"/>
+                      <AbsoluteConstraints x="10" y="0" width="50" height="40"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -223,7 +223,7 @@
                   <Properties>
                     <Property name="horizontalAlignment" type="int" value="0"/>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/images/group-removebg-preview.png"/>
+                      <Image iconType="3" name="/images/employee_2572970.png"/>
                     </Property>
                   </Properties>
                   <Constraints>
@@ -238,7 +238,7 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/people_16293394.png"/>
+                  <Image iconType="3" name="/images/settings_17163803.png"/>
                 </Property>
               </Properties>
               <Constraints>
@@ -306,6 +306,7 @@
                 </Property>
               </Properties>
               <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="delMouseClicked"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="delMouseEntered"/>
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="delMouseExited"/>
               </Events>

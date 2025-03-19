@@ -80,7 +80,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/images/people_16293394.png"/>
+              <Image iconType="3" name="/images/businessman_9439087.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -189,12 +189,12 @@
               <Properties>
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/images/app-removebg-preview (1).png"/>
+                  <Image iconType="3" name="/images/planning_12755894.png"/>
                 </Property>
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="20" y="0" width="40" height="40"/>
+                  <AbsoluteConstraints x="10" y="0" width="50" height="40"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -297,7 +297,7 @@
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
-                <StringItem index="0" value="Administrator"/>
+                <StringItem index="0" value="Employee"/>
                 <StringItem index="1" value="Logout"/>
                 <StringItem index="2" value="Settings"/>
               </StringArray>

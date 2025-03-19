@@ -167,13 +167,13 @@ public class changePass extends javax.swing.JFrame {
         userpanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 200, 40));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Back");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left_10977010.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
-        userpanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 30));
+        userpanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 30));
 
         getContentPane().add(userpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 460));
 
