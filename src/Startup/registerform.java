@@ -345,6 +345,8 @@ public class registerform extends javax.swing.JFrame {
     String password1 = new String(ps.getPassword());
     String cpassword = new String(cp.getPassword());
     String selectedRole = role.getSelectedItem().toString();
+    
+   
 
     if (firstname.isEmpty() || lastname.isEmpty() || email1.isEmpty() || username1.isEmpty() || password1.isEmpty() || cpassword.isEmpty()){
         JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -360,12 +362,28 @@ public class registerform extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Password not Matches");
     }else{
         dbConnector db = new dbConnector();
+         String[] questions = {"What is your pet's name?", "What is your mother's name?", "What is your favorite color?"};
+        String question = (String) JOptionPane.showInputDialog(this, 
+            "Select a Security Question:", "Security Question",
+            JOptionPane.QUESTION_MESSAGE, null, questions, questions[0]);
+
+        if (question == null) {
+            JOptionPane.showMessageDialog(this, "You must select a security question!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String answer = JOptionPane.showInputDialog(this, "Enter your Answer:");
+
+        if (answer == null || answer.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         try{
         String pass = passHash.hashPassword(ps.getText());
         String pass2 = passHash.hashPassword(cp.getText());
             
-        if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_image, u_status)"  
-            + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+pass+"', '"+pass2+"','"+destination+"' ,'Pending')") == 1){
+        if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_image, u_question, u_answer, u_status)"  
+            + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+pass+"', '"+pass2+"' ,'"+destination+"' ,'"+question+"', '"+answer+"' ,'Pending')") == 1){
             JOptionPane.showMessageDialog(this, "Create Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             loginform lf = new loginform();
             lf.setVisible(true);

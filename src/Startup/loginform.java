@@ -100,14 +100,15 @@ public class loginform extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         user = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         open = new javax.swing.JLabel();
         close = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         pass = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -148,7 +149,7 @@ public class loginform extends javax.swing.JFrame {
                 lblsignupMouseClicked(evt);
             }
         });
-        jPanel3.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 350, 250, 30));
+        jPanel3.add(lblsignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 410, 220, 30));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -181,7 +182,7 @@ public class loginform extends javax.swing.JFrame {
         jLabel12.setText("Login");
         sgn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 20));
 
-        jPanel3.add(sgn, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 200, 40));
+        jPanel3.add(sgn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 200, 40));
 
         jPanel4.setBackground(new java.awt.Color(241, 242, 247));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -222,10 +223,6 @@ public class loginform extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(241, 242, 247));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("Password");
-        jPanel5.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 80, 20));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -274,12 +271,26 @@ public class loginform extends javax.swing.JFrame {
         });
         jPanel5.add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 28, 290, 44));
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setText("Password");
+        jPanel5.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 4, 80, 20));
+
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, 310, 80));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Employee Performance");
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, 290, 40));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Forgot Password?");
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 180, 20));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 370, 450));
 
@@ -356,6 +367,12 @@ public class loginform extends javax.swing.JFrame {
         pass.setEchoChar('*');
     }//GEN-LAST:event_closeMouseReleased
 
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        forgotPassword fp = new forgotPassword();
+        fp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel3MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -401,6 +418,7 @@ public class loginform extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JList<String> jList1;

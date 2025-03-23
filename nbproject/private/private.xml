@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Chris/Documents/Employee-Performance-System/src/Admin/indivPrint.java</file>
-            <file>file:/C:/Users/Chris/Documents/Employee-Performance-System/src/Startup/loginform.java</file>
-            <file>file:/C:/Users/Chris/Documents/Employee-Performance-System/src/Admin/adminDashboard.java</file>
-            <file>file:/C:/Users/Chris/Documents/Employee-Performance-System/src/Admin/editUserForm.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/Startup/registerform.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/User/changePass.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/Admin/createUserForm.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/Startup/loginform.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/Startup/forgotPassword.java</file>
+            <file>file:/C:/Users/Chris/Desktop/Employee-Performance-System/src/Admin/editUserForm.java</file>
         </group>
     </open-files>
 </project-private>
