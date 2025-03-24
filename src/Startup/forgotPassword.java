@@ -34,6 +34,10 @@ public class forgotPassword extends javax.swing.JFrame {
     Color nav = new  Color(0,153,204);
     Color bodycolor1 = new Color(255,51,51);
     Color nav1 = new  Color(255,102,102);
+    Color sh = new  Color(51,204,255);
+    Color sh1 = new  Color(153,204,255);
+    Color sm = new  Color(102,255,0);
+    Color sm1 = new  Color(153,255,153);
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -190,10 +194,16 @@ public class forgotPassword extends javax.swing.JFrame {
         jLabel5.setText("New Password");
         userpanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 100, 30));
 
-        submit.setBackground(new java.awt.Color(153, 255, 102));
+        submit.setBackground(new java.awt.Color(102, 255, 0));
         submit.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 submitMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                submitMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                submitMouseExited(evt);
             }
         });
         submit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -221,7 +231,7 @@ public class forgotPassword extends javax.swing.JFrame {
         });
         userpanel.add(email, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 340, 50));
 
-        search.setBackground(new java.awt.Color(0, 204, 204));
+        search.setBackground(new java.awt.Color(51, 204, 255));
         search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         search.setEnabled(false);
         search.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -285,26 +295,22 @@ public class forgotPassword extends javax.swing.JFrame {
         }else{
             try {
                 dbConnector dbc = new dbConnector();
-                Session sess = Session.getInstance();
 
-                String query = "SELECT * FROM tbl_admin WHERE u_email = " +userInput+ ";";
-                ResultSet rs = dbc.getData(query);
-
-                if (rs.next()) {
                     String pass = passHash.hashPassword(newpass.getText());
                     String pass2 = passHash.hashPassword(cp.getText());
 
                     if (pass.equals(pass2)) {
-                        dbc.updateData("UPDATE tbl_admin SET u_password = '" + pass + "', u_cpass = '"+ pass2 +"' WHERE u_email = '"+email.getText()+"'");
+                        dbc.updateData("UPDATE tbl_admin SET u_password = '" + pass + "', u_cpassword = '"+ pass2 +"' WHERE u_email = '"+userInput+"'");
                         JOptionPane.showMessageDialog(null, "Change Password `Successfully!");
                         loginform lf = new loginform();
                         lf.setVisible(true);
                         this.dispose();
                     }else if(!newpass.getText().equals(cp.getText())){
                         JOptionPane.showMessageDialog(null, "Password not Matches");
+                        newpass.setText("");
+                        cp.setText("");
                     }
-                }
-            } catch (SQLException | NoSuchAlgorithmException ex){
+            } catch (NoSuchAlgorithmException ex){
                 System.out.println(""+ex);
             }
 
@@ -393,12 +399,20 @@ public class forgotPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_searchMouseClicked
 
     private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
-        changePass.setBackground(nav);
+        search.setBackground(sh1);
     }//GEN-LAST:event_searchMouseEntered
 
     private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
-        changePass.setBackground(bodycolor);
+        search.setBackground(sh);
     }//GEN-LAST:event_searchMouseExited
+
+    private void submitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseEntered
+        submit.setBackground(sm1);
+    }//GEN-LAST:event_submitMouseEntered
+
+    private void submitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseExited
+        submit.setBackground(sm);
+    }//GEN-LAST:event_submitMouseExited
 
     /**
      * @param args the command line arguments

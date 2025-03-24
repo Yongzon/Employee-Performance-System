@@ -92,7 +92,7 @@ public class loginform extends javax.swing.JFrame {
         lblsignup = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        sgn = new javax.swing.JPanel();
+        login = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -161,28 +161,28 @@ public class loginform extends javax.swing.JFrame {
         jLabel10.setText("Good to see you again!");
         jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 250, 30));
 
-        sgn.setBackground(new java.awt.Color(0, 204, 204));
-        sgn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        sgn.addMouseListener(new java.awt.event.MouseAdapter() {
+        login.setBackground(new java.awt.Color(0, 204, 204));
+        login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        login.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                sgnMouseClicked(evt);
+                loginMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                sgnMouseEntered(evt);
+                loginMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                sgnMouseExited(evt);
+                loginMouseExited(evt);
             }
         });
-        sgn.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        login.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("Login");
-        sgn.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 20));
+        login.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 20));
 
-        jPanel3.add(sgn, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 200, 40));
+        jPanel3.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 200, 40));
 
         jPanel4.setBackground(new java.awt.Color(241, 242, 247));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -285,6 +285,7 @@ public class loginform extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Forgot Password?");
+        jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel3MouseClicked(evt);
@@ -315,7 +316,7 @@ public class loginform extends javax.swing.JFrame {
       this.dispose();
     }//GEN-LAST:event_lblsignupMouseClicked
 
-    private void sgnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseClicked
+    private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
     if(loginAcc(user.getText(), pass.getText())){
         if(!status.equals("Active")){
             JOptionPane.showMessageDialog(this, "In-Active Account contact Admin", "Error", JOptionPane.ERROR_MESSAGE);
@@ -337,15 +338,15 @@ public class loginform extends javax.swing.JFrame {
     }else{
         JOptionPane.showMessageDialog(this, "Invalid Account", "Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_sgnMouseClicked
+    }//GEN-LAST:event_loginMouseClicked
 
-    private void sgnMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseEntered
-        sgn.setBackground(nav);
-    }//GEN-LAST:event_sgnMouseEntered
+    private void loginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseEntered
+        login.setBackground(nav);
+    }//GEN-LAST:event_loginMouseEntered
 
-    private void sgnMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sgnMouseExited
-        sgn.setBackground(bodycolor);
-    }//GEN-LAST:event_sgnMouseExited
+    private void loginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseExited
+        login.setBackground(bodycolor);
+    }//GEN-LAST:event_loginMouseExited
 
     private void userActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userActionPerformed
         // TODO add your handling code here:
@@ -435,9 +436,9 @@ public class loginform extends javax.swing.JFrame {
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JLabel lblsignup;
+    private javax.swing.JPanel login;
     private javax.swing.JLabel open;
     private javax.swing.JPasswordField pass;
-    private javax.swing.JPanel sgn;
     private javax.swing.JTextField user;
     // End of variables declaration//GEN-END:variables
 }

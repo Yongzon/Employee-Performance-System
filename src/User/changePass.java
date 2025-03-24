@@ -239,8 +239,11 @@ public class changePass extends javax.swing.JFrame {
                         this.dispose();
                     }else if(!newpass.getText().equals(cp.getText())){
                         JOptionPane.showMessageDialog(null, "Password not Matches");
+                        newpass.setText("");
+                        cp.setText("");
                     }else {
                         JOptionPane.showMessageDialog(null, "Old Password is Incorrect!");
+                        olps.setText("");
                     }
                 }
             } catch (SQLException | NoSuchAlgorithmException ex){

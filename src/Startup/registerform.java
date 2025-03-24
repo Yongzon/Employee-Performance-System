@@ -360,15 +360,14 @@ public class registerform extends javax.swing.JFrame {
         System.out.println("Duplicate Exist");
     }else if(!ps.getText().equals(cp.getText())){
         JOptionPane.showMessageDialog(null, "Password not Matches");
+        ps.setText("");
+        cp.setText("");
     }else{
         dbConnector db = new dbConnector();
-         String[] questions = {"What is your pet's name?", "What is your mother's name?", "What is your favorite color?"};
-        String question = (String) JOptionPane.showInputDialog(this, 
-            "Select a Security Question:", "Security Question",
-            JOptionPane.QUESTION_MESSAGE, null, questions, questions[0]);
+        String question = JOptionPane.showInputDialog(this, "Enter your Security Question:");
 
-        if (question == null) {
-            JOptionPane.showMessageDialog(this, "You must select a security question!", "Error", JOptionPane.ERROR_MESSAGE);
+        if (question == null || question.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Security question cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -378,12 +377,13 @@ public class registerform extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
         try{
         String pass = passHash.hashPassword(ps.getText());
         String pass2 = passHash.hashPassword(cp.getText());
             
-        if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_image, u_question, u_answer, u_status)"  
-            + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+pass+"', '"+pass2+"' ,'"+destination+"' ,'"+question+"', '"+answer+"' ,'Pending')") == 1){
+        if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_status, u_image, u_question, u_answer, u_password, u_cpassword)"  
+            + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', 'Pending', '"+destination+"' ,'"+question+"' ,'"+answer+"', '"+pass+"' ,'"+pass2+"')") == 1){
             JOptionPane.showMessageDialog(this, "Create Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             loginform lf = new loginform();
             lf.setVisible(true);
