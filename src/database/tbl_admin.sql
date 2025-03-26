@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2025 at 10:40 AM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.0.28
+-- Generation Time: Mar 26, 2025 at 05:31 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,6 +36,8 @@ CREATE TABLE `tbl_admin` (
   `u_username` varchar(50) NOT NULL,
   `u_status` varchar(50) NOT NULL,
   `u_image` varchar(100) NOT NULL,
+  `u_questions` varchar(50) NOT NULL,
+  `u_answers` varchar(50) NOT NULL,
   `u_password` varchar(50) NOT NULL,
   `u_cpassword` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -44,9 +46,11 @@ CREATE TABLE `tbl_admin` (
 -- Dumping data for table `tbl_admin`
 --
 
-INSERT INTO `tbl_admin` (`u_id`, `u_fname`, `u_lname`, `u_email`, `u_type`, `u_username`, `u_status`, `u_image`, `u_password`, `u_cpassword`) VALUES
-(8, 'Christiansssssss', 'Yongzon', 'cy@admin.com', 'Admin', 'admin', 'Pending', '', 'NyaDNd1pMQRb3N+SYj/4GaZCRLU9DnRtQ4eXNJ1NpXg=', 'rJaJ4ickJwheNbnT4+i+2IyzQ0gotDuG/AWWytTG4nA='),
-(12, 'test', 'test', 'test@test.test', 'Employee', 'test', 'Active', '', 'NyaDNd1pMQRb3N+SYj/4GaZCRLU9DnRtQ4eXNJ1NpXg=', 'NyaDNd1pMQRb3N+SYj/4GaZCRLU9DnRtQ4eXNJ1NpXg=');
+INSERT INTO `tbl_admin` (`u_id`, `u_fname`, `u_lname`, `u_email`, `u_type`, `u_username`, `u_status`, `u_image`, `u_questions`, `u_answers`, `u_password`, `u_cpassword`) VALUES
+(12, 'test', 'test', 'test@test.test', 'Employee', 'test', 'Active', '', '', '', 'wg6j73FiYMmrFQSDXPVLOZVKYAHp8+z7dNS1VuofeG4=', 'NyaDNd1pMQRb3N+SYj/4GaZCRLU9DnRtQ4eXNJ1NpXg='),
+(13, 'Chrisian', 'Yongzon', 'cy@admin.com', 'Admin', 'admin', 'Active', '', 'What is your laptop name?', 'Christian pc', 'wg6j73FiYMmrFQSDXPVLOZVKYAHp8+z7dNS1VuofeG4=', 'rJaJ4ickJwheNbnT4+i+2IyzQ0gotDuG/AWWytTG4nA='),
+(14, 'Angel Mae', 'Segismar', 'as@as.emp', 'Employee', 'Angel', 'Active', '', 'null', 'null', 'wg6j73FiYMmrFQSDXPVLOZVKYAHp8+z7dNS1VuofeG4=', 'ZRSXDF7UwusxK8G7eZR3y7jGFsinmKGiixdWgPc4opk='),
+(15, 'Zion Miguel', 'Yongzon', 'mig@zion.emp', 'Employee', 'Miguel', 'Active', 'src/userImages/test.png', '', '', 'wg6j73FiYMmrFQSDXPVLOZVKYAHp8+z7dNS1VuofeG4=', 'oO4ve/QNARupQn3fpB3Ewt1KzqyBYLJZzNlH2QCtbdU=');
 
 --
 -- Indexes for dumped tables
@@ -66,7 +70,7 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `u_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `u_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
