@@ -347,12 +347,12 @@ public class forgotPassword extends javax.swing.JFrame {
     String userInput = email.getText();
     dbConnector db = new dbConnector();
     try {
-        String query = "SELECT u_question, u_answer FROM tbl_admin WHERE u_email = '" + userInput + "'";
+        String query = "SELECT u_questions, u_answers FROM tbl_admin WHERE u_email = '" + userInput + "'";
         ResultSet rs = db.getData(query);
 
         if (rs.next()) {
-            question.setText(""+rs.getString("u_question"));
-            String storedAnswer = rs.getString("u_answer");
+            question.setText(""+rs.getString("u_questions"));
+            String storedAnswer = rs.getString("u_answers");
 
             String userAnswer = answer.getText();
 
@@ -384,11 +384,11 @@ public class forgotPassword extends javax.swing.JFrame {
 
         dbConnector db = new dbConnector();
         try {
-            String query = "SELECT u_question, u_email FROM tbl_admin WHERE u_email = '" + userInput + "'";
+            String query = "SELECT u_questions, u_email FROM tbl_admin WHERE u_email = '" + userInput + "'";
             ResultSet rs = db.getData(query);
 
             if (rs.next()) {
-                question.setText(""+rs.getString("u_question"));
+                question.setText(""+rs.getString("u_questions"));
                 JOptionPane.showMessageDialog(null, "Account Found");
             } else {
                 JOptionPane.showMessageDialog(this, "Account not found!", "Error", JOptionPane.ERROR_MESSAGE);

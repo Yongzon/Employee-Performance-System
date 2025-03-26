@@ -364,25 +364,32 @@ public class registerform extends javax.swing.JFrame {
         cp.setText("");
     }else{
         dbConnector db = new dbConnector();
-        String question = JOptionPane.showInputDialog(this, "Enter your Security Question:");
+        String question = "";
+        String answer = "";
+        while (true) {
+            question = JOptionPane.showInputDialog(this, "Enter your Security Question:");
 
-        if (question == null || question.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Security question cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (question == null || question.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Security question cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break;
         }
+        }
+        while (true) {
+            answer = JOptionPane.showInputDialog(this, "Enter your Answer:");
 
-        String answer = JOptionPane.showInputDialog(this, "Enter your Answer:");
-
-        if (answer == null || answer.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            if (answer == null || answer.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break;
+            }
         }
         
         try{
         String pass = passHash.hashPassword(ps.getText());
         String pass2 = passHash.hashPassword(cp.getText());
             
-        if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_status, u_image, u_question, u_answer, u_password, u_cpassword)"  
+        if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_status, u_image, u_questions, u_answers, u_password, u_cpassword)"  
             + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', 'Pending', '"+destination+"' ,'"+question+"' ,'"+answer+"', '"+pass+"' ,'"+pass2+"')") == 1){
             JOptionPane.showMessageDialog(this, "Create Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             loginform lf = new loginform();

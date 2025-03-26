@@ -51,11 +51,11 @@ public class changePass extends javax.swing.JFrame {
         newpass = new javax.swing.JPasswordField();
         jLabel11 = new javax.swing.JLabel();
         cp = new javax.swing.JPasswordField();
-        jLabel12 = new javax.swing.JLabel();
         olps = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -89,7 +89,7 @@ public class changePass extends javax.swing.JFrame {
         jLabel17.setText("Clear");
         cl.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
-        userpanel.add(cl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 180, 40));
+        userpanel.add(cl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 330, 180, 40));
 
         changePass.setBackground(new java.awt.Color(0, 204, 204));
         changePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -113,11 +113,11 @@ public class changePass extends javax.swing.JFrame {
         jLabel19.setText("Change Pass");
         changePass.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
-        userpanel.add(changePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 340, 180, 40));
+        userpanel.add(changePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 180, 40));
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel4.setText("New Password");
-        userpanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 100, 30));
+        userpanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 100, 30));
 
         newpass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         newpass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -127,11 +127,11 @@ public class changePass extends javax.swing.JFrame {
                 newpassActionPerformed(evt);
             }
         });
-        userpanel.add(newpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 220, 44));
+        userpanel.add(newpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 220, 44));
 
         jLabel11.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel11.setText("Confirm Password");
-        userpanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 120, 30));
+        userpanel.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 120, 30));
 
         cp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -141,11 +141,7 @@ public class changePass extends javax.swing.JFrame {
                 cpActionPerformed(evt);
             }
         });
-        userpanel.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 450, 44));
-
-        jLabel12.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel12.setText("Type Old Password");
-        userpanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 120, 30));
+        userpanel.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 450, 44));
 
         olps.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         olps.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -155,7 +151,7 @@ public class changePass extends javax.swing.JFrame {
                 olpsActionPerformed(evt);
             }
         });
-        userpanel.add(olps, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 220, 44));
+        userpanel.add(olps, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 220, 44));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen.png"))); // NOI18N
@@ -174,6 +170,10 @@ public class changePass extends javax.swing.JFrame {
             }
         });
         userpanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 30));
+
+        jLabel14.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel14.setText("Type Old Password");
+        userpanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 120, 30));
 
         getContentPane().add(userpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 500, 460));
 
@@ -211,15 +211,37 @@ public class changePass extends javax.swing.JFrame {
         String oldpass = new String (olps.getPassword());
         String password1 = new String(newpass.getPassword());
         String cpassword = new String(cp.getPassword());
-
+        dbConnector dbc = new dbConnector();
+        
         if (oldpass.isEmpty() && password1.isEmpty() && cpassword.isEmpty()){
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
         }else if(newpass.getText().length() < 8){
             JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
             newpass.setText("");
         }else{
+        String question = "";
+        String answer = "";
+        while (true) {
+            question = JOptionPane.showInputDialog(this, "Enter your Security Question:");
+
+            if (question == null || question.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Security question cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break;
+        }
+        }
+        while (true) {
+            answer = JOptionPane.showInputDialog(this, "Enter your Answer:");
+
+            if (answer == null || answer.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                break;
+            }
+        }
+            dbc.InsertData("INSERT INTO tbl_admin (u_questions, u_answers) VALUES ('"+question+"', '"+answer+"')");
             try {
-                dbConnector dbc = new dbConnector();
+                
                 Session sess = Session.getInstance();
 
                 String query = "SELECT * FROM tbl_admin WHERE u_id = " + sess.getUid() + ";";
@@ -231,6 +253,7 @@ public class changePass extends javax.swing.JFrame {
 
                     if (oldbpass.equals(oldhash)) {
                         String npass = passHash.hashPassword(newpass.getText());
+                       
                         dbc.updateData("UPDATE tbl_admin SET u_password = '" + npass + "';");
                         JOptionPane.showMessageDialog(null, "Change Password `Successfully!");
 
@@ -327,7 +350,7 @@ public class changePass extends javax.swing.JFrame {
     private javax.swing.JPasswordField cp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;

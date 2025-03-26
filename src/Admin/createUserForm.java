@@ -44,6 +44,8 @@ public class createUserForm extends javax.swing.JFrame {
     File selectedFile;
     public String oldpath;
     public String path;
+    public String answer = "";
+    public String question = "";
 
     public int FileExistenceChecker(String path){
         File file = new File(path);
@@ -505,8 +507,8 @@ public class createUserForm extends javax.swing.JFrame {
                 String pass = passHash.hashPassword(ps.getText());
                 String pass2 = passHash.hashPassword(cp.getText());
             
-            if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_password, u_cpassword, u_status, u_image)"
-                + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+pass+"', '"+pass2+"', '"+acc_status.getSelectedItem()+"', '"+destination+"')") == 1){
+            if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_status, u_image, u_questions, u_answers, u_password, u_cpassword)"  
+            + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', 'Pending', '"+destination+"' ,'"+question+"' ,'"+answer+"', '"+pass+"' ,'"+pass2+"')") == 1){
             try{
                 Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
                 JOptionPane.showMessageDialog(this, "Create Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
