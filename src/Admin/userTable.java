@@ -10,6 +10,7 @@ import Startup.loginform;
 import config.Session;
 import config.dbConnector;
 import java.awt.Color;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
 import java.sql.SQLException;
@@ -30,14 +31,24 @@ public class userTable extends javax.swing.JFrame {
         displayUsers();
     }
     
-    public void displayUsers(){
-        try{
+    public void displayUsers() {
+        try {
             dbConnector db = new dbConnector();
-            ResultSet rs = db.getData("SELECT * FROM tbl_admin");
+            ResultSet rs = db.getData(
+                "SELECT " +
+                "u_id AS 'User ID', " +
+                "u_fname AS 'First Name', " +
+                "u_lname AS 'Last Name', " +
+                "u_email AS 'Email', " +
+                "u_type AS 'Role', " +
+                "u_username AS 'Username', " +
+                "u_status AS 'Status' " +
+                "FROM tbl_admin"
+            );
             usertbl.setModel(DbUtils.resultSetToTableModel(rs));
-            rs.close();      
-        }catch(SQLException e){
-            System.out.println("Error: "+e.getMessage());
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
     
@@ -86,7 +97,7 @@ public class userTable extends javax.swing.JFrame {
         updateT = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        search = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -315,12 +326,12 @@ public class userTable extends javax.swing.JFrame {
         jLabel1.setText("Search:");
         userpanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 60, 30));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                searchActionPerformed(evt);
             }
         });
-        userpanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 170, 30));
+        userpanel.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 170, 30));
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -373,9 +384,33 @@ public class userTable extends javax.swing.JFrame {
         }   
     }//GEN-LAST:event_formWindowActivated
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+    String searchText = search.getText().trim();
+    
+    try {
+        dbConnector db = new dbConnector();
+        String query = "SELECT u_id AS 'User ID', u_fname AS 'First Name', " +
+                      "u_lname AS 'Last Name', u_email AS 'Email', " +
+                      "u_type AS 'Role', u_username AS 'Username', " +
+                      "u_status AS 'Status' FROM tbl_admin " +
+                      "WHERE u_fname LIKE ? OR u_lname LIKE ? OR " +
+                      "u_email LIKE ? OR u_username LIKE ?";
+
+        try (PreparedStatement pstmt = db.connect.prepareStatement(query)) {
+            String searchParam = "%" + searchText + "%";
+            pstmt.setString(1, searchParam);
+            pstmt.setString(2, searchParam);
+            pstmt.setString(3, searchParam);
+            pstmt.setString(4, searchParam);
+
+            ResultSet rs = pstmt.executeQuery();
+            usertbl.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Search error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_searchActionPerformed
 
     private void printMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseExited
         print.setBackground(bodycolor1);
@@ -541,7 +576,31 @@ public class userTable extends javax.swing.JFrame {
     }//GEN-LAST:event_dashMouseClicked
 
     private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
-        // TODO add your handling code here:
+    int selectedRow = usertbl.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(null, "Please Select an Item!");
+        return;
+    }
+
+    int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm Deletion",JOptionPane.YES_NO_OPTION);
+    
+    if (confirm == JOptionPane.YES_OPTION) {
+        int userId = (int) usertbl.getValueAt(selectedRow, 0); 
+        
+        try {
+            dbConnector db = new dbConnector();
+            db.updateData("DELETE FROM tbl_admin WHERE u_id = " + userId);
+
+            Session sess = Session.getInstance();
+            db.logActivity(sess.getUid(), "Deleted user ID: " + userId);
+
+            displayUsers();
+            JOptionPane.showMessageDialog(this, "User deleted successfully");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     }//GEN-LAST:event_delMouseClicked
 
     /**
@@ -619,8 +678,8 @@ public class userTable extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JPanel print;
+    private javax.swing.JTextField search;
     private javax.swing.JLabel updateT;
     private javax.swing.JPanel us;
     private javax.swing.JPanel userpanel;

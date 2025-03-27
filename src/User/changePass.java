@@ -208,72 +208,94 @@ public class changePass extends javax.swing.JFrame {
     }//GEN-LAST:event_clMouseExited
 
     private void changePassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePassMouseClicked
-        String oldpass = new String (olps.getPassword());
+        String oldpass = new String(olps.getPassword());
         String password1 = new String(newpass.getPassword());
         String cpassword = new String(cp.getPassword());
         dbConnector dbc = new dbConnector();
-        
-        if (oldpass.isEmpty() && password1.isEmpty() && cpassword.isEmpty()){
+        Session sess = Session.getInstance();
+
+        if (oldpass.isEmpty() || password1.isEmpty() || cpassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(newpass.getText().length() < 8){
-            JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
+        } else if (newpass.getText().length() < 8) {
+            JOptionPane.showMessageDialog(null, "Password must be at least 8 characters long");
             newpass.setText("");
-        }else{
-        String question = "";
-        String answer = "";
-        while (true) {
-            question = JOptionPane.showInputDialog(this, "Enter your Security Question:");
-
-            if (question == null || question.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Security question cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                break;
-        }
-        }
-        while (true) {
-            answer = JOptionPane.showInputDialog(this, "Enter your Answer:");
-
-            if (answer == null || answer.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                break;
-            }
-        }
-            dbc.InsertData("INSERT INTO tbl_admin (u_questions, u_answers) VALUES ('"+question+"', '"+answer+"')");
+        } else {
             try {
-                
-                Session sess = Session.getInstance();
-
-                String query = "SELECT * FROM tbl_admin WHERE u_id = " + sess.getUid() + ";";
+                String query = "SELECT u_password, u_questions FROM tbl_admin WHERE u_id = " + sess.getUid() + ";";
                 ResultSet rs = dbc.getData(query);
 
                 if (rs.next()) {
+                    String storedQuestion = rs.getString("u_questions");
+
+                    if (storedQuestion == null || storedQuestion.equalsIgnoreCase("No stored security questions") || storedQuestion.trim().isEmpty()) {
+                        int security = JOptionPane.showConfirmDialog(this, "No security question found. Add one now?", "Security Question", JOptionPane.YES_NO_OPTION);
+
+                        if (security == JOptionPane.YES_OPTION) {
+                            String question1 = "";
+                            String answer1 = "";
+
+                            while (true) {
+                                question1 = JOptionPane.showInputDialog(this, "Enter your Security Question:");
+
+                                if (question1 == null || question1.trim().isEmpty()) {
+                                    JOptionPane.showMessageDialog(this, "Security question cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+                                } else {
+                                    break;
+                                }
+                            }
+
+                            while (true) {
+                                answer1 = JOptionPane.showInputDialog(this, "Enter your Answer:");
+
+                                if (answer1 == null || answer1.trim().isEmpty()) {
+                                    JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
+                                } else {
+                                    break;
+                                }
+                            }
+
+                            String updateQuery = "UPDATE tbl_admin SET u_questions = '" + question1 + "', u_answers = '" + answer1 + "' WHERE u_id = '" + sess.getUid() + "'";
+                            dbc.InsertData(updateQuery);
+
+                            JOptionPane.showMessageDialog(this, "Security Question Added Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            return;
+                        }
+                    }
+
                     String oldbpass = rs.getString("u_password");
                     String oldhash = passHash.hashPassword(olps.getText());
+                    String npass = passHash.hashPassword(newpass.getText());
+                    String cpass = passHash.hashPassword(cp.getText());
 
                     if (oldbpass.equals(oldhash)) {
-                        String npass = passHash.hashPassword(newpass.getText());
-                       
-                        dbc.updateData("UPDATE tbl_admin SET u_password = '" + npass + "';");
-                        JOptionPane.showMessageDialog(null, "Change Password `Successfully!");
+                        if (oldbpass.equals(npass)) {
+                            JOptionPane.showMessageDialog(null, "Old Password and New Password cannot be the same!");
+                            newpass.setText("");
+                            cp.setText("");
+                        } else if (!newpass.getText().equals(cp.getText())) {
+                            JOptionPane.showMessageDialog(null, "Passwords do not match");
+                            newpass.setText("");
+                            cp.setText("");
+                        } else {
+                            dbc.updateData("UPDATE tbl_admin SET u_password = '" + npass + "', u_cpassword = '" + cpass + "' WHERE u_id = '" + sess.getUid() + "'");
+                            JOptionPane.showMessageDialog(null, "Password Changed Successfully!");
 
-                        loginform lf = new loginform();
-                        lf.setVisible(true);
-                        this.dispose();
-                    }else if(!newpass.getText().equals(cp.getText())){
-                        JOptionPane.showMessageDialog(null, "Password not Matches");
-                        newpass.setText("");
-                        cp.setText("");
-                    }else {
+                            loginform lf = new loginform();
+                            lf.setVisible(true);
+                            this.dispose();
+                        }
+                    } else {
                         JOptionPane.showMessageDialog(null, "Old Password is Incorrect!");
                         olps.setText("");
                     }
                 }
-            } catch (SQLException | NoSuchAlgorithmException ex){
-                System.out.println(""+ex);
+            } catch (SQLException | NoSuchAlgorithmException ex) {
+                System.out.println("" + ex);
             }
-
         }
+
+
     }//GEN-LAST:event_changePassMouseClicked
 
     private void changePassMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePassMouseEntered

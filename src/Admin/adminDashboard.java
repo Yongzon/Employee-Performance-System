@@ -27,17 +27,17 @@ public class adminDashboard extends javax.swing.JFrame {
      */
     public adminDashboard() {
         initComponents();
-        displayUsers();
+        displayLogs();
     }
     
-    public void displayUsers(){
-        try{
+        public void displayLogs() {
+        try {
             dbConnector db = new dbConnector();
-            ResultSet rs = db.getData("SELECT * FROM tbl_admin");
-            usertbl.setModel(DbUtils.resultSetToTableModel(rs));
-            rs.close();      
-        }catch(SQLException e){
-            System.out.println("Error: "+e.getMessage());
+            ResultSet rs = db.getLogs();
+            logtbl.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        } catch(SQLException e) {
+            System.out.println("Error loading logs: "+e.getMessage());
         }
     }
     
@@ -91,7 +91,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        usertbl = new javax.swing.JTable();
+        logtbl = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
@@ -313,7 +313,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         userpanel.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 220, -1));
 
-        usertbl.setModel(new javax.swing.table.DefaultTableModel(
+        logtbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -321,7 +321,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(usertbl);
+        jScrollPane1.setViewportView(logtbl);
 
         userpanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 680, 210));
 
@@ -505,9 +505,9 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable logtbl;
     private javax.swing.JPanel us;
     private javax.swing.JPanel userpanel;
-    private javax.swing.JTable usertbl;
     private javax.swing.JLabel wc;
     // End of variables declaration//GEN-END:variables
 }

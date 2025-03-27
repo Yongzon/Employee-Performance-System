@@ -600,14 +600,15 @@ public class editUserForm extends javax.swing.JFrame {
                 + "u_email = '"+em.getText()+"', u_username = '"+un.getText()+"', "
                 + "u_password = '"+ps.getText()+"', u_cpassword = '"+cp.getText()+"', u_type='"+role.getSelectedItem()+"', "
                 + "u_status = '"+acc_status.getSelectedItem()+"', u_image = '"+destination+"' WHERE u_id = '"+uid.getText()+"'");
-
+            Session sess = Session.getInstance();
+            dbc.logActivity(sess.getUid(), "Updated a user: " + un.getText());
             if(destination.isEmpty()){
                 File existingFile = new File(oldpath);
                 if(existingFile.exists()){
                     existingFile.delete();
                 }
             }else{
-                if(!(oldpath.equals(path))){
+                if(!(oldpath.equals(path))){    
                     imageUpdater(oldpath, path);
                 }
             }

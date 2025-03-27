@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author Chris
  */
 public class dbConnector {
-    private Connection connect;
+    public Connection connect;
 
        // constructor to connect to our database
         public dbConnector(){
@@ -61,5 +61,29 @@ public class dbConnector {
                 System.out.println("Connection Error: "+ex);
             }
         
+        }
+        
+        // Function to log user activity
+        public void logActivity(int userId, String action) {
+            String query = "INSERT INTO tbl_logs (user_id, log_action) VALUES (?, ?)";
+            try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+                pstmt.setInt(1, userId);
+                pstmt.setString(2, action);
+                pstmt.executeUpdate();
+                System.out.println("Activity logged: " + action);
+            } catch (SQLException e) {
+                System.out.println("Error logging activity: " + e.getMessage());
+            }
+        }
+        
+        public ResultSet getLogs() throws SQLException {
+            String query = "SELECT l.log_id AS 'Log ID', " +
+                           "u.u_username AS 'Username', " +
+                           "l.log_action AS 'Action', " +
+                           "l.log_timestamp AS 'Timestamp' " +
+                           "FROM tbl_logs l " +
+                           "JOIN tbl_admin u ON l.user_id = u.u_id " +
+                           "ORDER BY l.log_timestamp DESC";
+            return getData(query);
         }
 }

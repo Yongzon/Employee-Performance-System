@@ -179,6 +179,7 @@ public class forgotPassword extends javax.swing.JFrame {
         answer.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         answer.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        answer.setEnabled(false);
         answer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 answerActionPerformed(evt);
@@ -266,10 +267,8 @@ public class forgotPassword extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void clMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseClicked
-
         String password1 = new String(cp.getPassword());
         String cpassword = new String(newpass.getPassword());
-
         cp.setText("");
         newpass.setText("");
     }//GEN-LAST:event_clMouseClicked
@@ -345,29 +344,36 @@ public class forgotPassword extends javax.swing.JFrame {
 
     private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
     String userInput = email.getText();
+    String an = answer.getText();
     dbConnector db = new dbConnector();
-    try {
-        String query = "SELECT u_questions, u_answers FROM tbl_admin WHERE u_email = '" + userInput + "'";
-        ResultSet rs = db.getData(query);
+    
+    if(an.isEmpty()){
+       JOptionPane.showMessageDialog(this, "Input an answer first!", "Error", JOptionPane.ERROR_MESSAGE);
+    }else{
+        try {
+            String query = "SELECT u_questions, u_answers FROM tbl_admin WHERE u_email = '" + userInput + "'";
+            ResultSet rs = db.getData(query);
 
-        if (rs.next()) {
-            question.setText(""+rs.getString("u_questions"));
-            String storedAnswer = rs.getString("u_answers");
+            if (rs.next()) {
+                question.setText(""+rs.getString("u_questions"));
+                String storedAnswer = rs.getString("u_answers");
 
-            String userAnswer = answer.getText();
+                String userAnswer = answer.getText();
 
-            if (userAnswer != null && userAnswer.equalsIgnoreCase(storedAnswer)) {
-                JOptionPane.showMessageDialog(this, "Security answer correct! Proceeding to reset password.");
-                newpass.setEnabled(true);
-                cp.setEnabled(true);
-            } else {
-                JOptionPane.showMessageDialog(this, "Incorrect answer!", "Error", JOptionPane.ERROR_MESSAGE);
-                newpass.setEnabled(false);
-                cp.setEnabled(false);
+                if (userAnswer != null && userAnswer.equalsIgnoreCase(storedAnswer)) {
+                    JOptionPane.showMessageDialog(this, "Security answer correct! Proceeding to reset password.");
+                    newpass.setEnabled(true);
+                    cp.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Incorrect answer!", "Error", JOptionPane.ERROR_MESSAGE);
+                    newpass.setEnabled(false);
+                    cp.setEnabled(false);
+                    answer.setText("");
+                }
             }
+        } catch (SQLException ex) {
+            System.out.println(ex);
         }
-    } catch (SQLException ex) {
-        System.out.println(ex);
     }
     }//GEN-LAST:event_submitMouseClicked
 
@@ -388,8 +394,18 @@ public class forgotPassword extends javax.swing.JFrame {
             ResultSet rs = db.getData(query);
 
             if (rs.next()) {
-                question.setText(""+rs.getString("u_questions"));
-                JOptionPane.showMessageDialog(null, "Account Found");
+                String storedQuestion = rs.getString("u_questions");
+                if (storedQuestion == null || storedQuestion.equalsIgnoreCase("No stored security questions") || storedQuestion.trim().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "No security question found, cannot proceed to reset password!", "Error", JOptionPane.ERROR_MESSAGE);
+                    question.setText("");
+                    answer.setText("");
+                    answer.setEnabled(false);
+                }else{
+                    question.setText(""+rs.getString("u_questions"));
+                    JOptionPane.showMessageDialog(null, "Account Found");
+                    answer.setEnabled(true);
+                }
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Account not found!", "Error", JOptionPane.ERROR_MESSAGE);
             }

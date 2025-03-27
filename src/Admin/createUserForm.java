@@ -44,8 +44,8 @@ public class createUserForm extends javax.swing.JFrame {
     File selectedFile;
     public String oldpath;
     public String path;
-    public String answer = "";
-    public String question = "";
+    public String answer = "No stored security answers";
+    public String question = "No stored security questions";
 
     public int FileExistenceChecker(String path){
         File file = new File(path);
@@ -511,6 +511,8 @@ public class createUserForm extends javax.swing.JFrame {
             + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', 'Pending', '"+destination+"' ,'"+question+"' ,'"+answer+"', '"+pass+"' ,'"+pass2+"')") == 1){
             try{
                 Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "Create a user: " + un.getText());
                 JOptionPane.showMessageDialog(this, "Create Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 userTable ut = new userTable();
                 ut.setVisible(true);
