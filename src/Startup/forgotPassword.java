@@ -164,7 +164,7 @@ public class forgotPassword extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Account Information");
+        jLabel9.setText("Reset Password");
         userpanel.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 200, 40));
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

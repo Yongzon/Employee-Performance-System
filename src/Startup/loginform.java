@@ -3,6 +3,7 @@ package Startup;
 
 import Admin.adminDashboard;
 import User.employeeDashboard;
+import User.evaluatorDashboard;
 import config.Session;
 import config.dbConnector;
 import config.passHash;
@@ -322,14 +323,19 @@ public class loginform extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "In-Active Account contact Admin", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             if(type.equals("Admin")){
-                JOptionPane.showMessageDialog(null, "Login Successfully");
+                JOptionPane.showMessageDialog(null, "Login Successfully!");
                 adminDashboard ad = new adminDashboard();
                 ad.setVisible(true);
                 this.dispose();
             }else if(type.equals("Employee")){
-                JOptionPane.showMessageDialog(null, "Login Successfully");
+                JOptionPane.showMessageDialog(null, "Login Successfully!");
                 employeeDashboard ed = new employeeDashboard();
                 ed.setVisible(true);
+                this.dispose();
+            }else if(type.equals("Evaluator")){
+                JOptionPane.showMessageDialog(null, "Login Successfully!");
+                evaluatorDashboard ev = new evaluatorDashboard();
+                ev.setVisible(true);
                 this.dispose();
             }else{
                 JOptionPane.showMessageDialog(this, "No Account type found contact the Admin", "Error", JOptionPane.ERROR_MESSAGE);

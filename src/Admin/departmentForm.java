@@ -21,31 +21,31 @@ import javax.swing.table.TableModel;
  *
  * @author PC5
  */
-public class userTable extends javax.swing.JFrame {
+public class departmentForm extends javax.swing.JFrame {
 
     /**
      * Creates new form userTable
      */
-    public userTable() {
+    public departmentForm() {
         initComponents();
-        displayUsers();
+        displayDepartment();
     }
     
-    public void displayUsers() {
+    public void displayDepartment() {
         try {
             dbConnector db = new dbConnector();
             ResultSet rs = db.getData(
-                "SELECT " +
-                "u_id AS 'User ID', " +
-                "u_fname AS 'First Name', " +
-                "u_lname AS 'Last Name', " +
-                "u_email AS 'Email', " +
-                "u_type AS 'Role', " +
-                "u_username AS 'Username', " +
-                "u_status AS 'Status' " +
-                "FROM tbl_admin"
+            "SELECT " +
+               "d.dep_id AS `Department ID`, " +
+               "CONCAT(a.u_fname, ' ', a.u_lname) AS `Department Head`, " + 
+               "a.u_email AS `Email`, " +
+               "d.dep_name AS `Department Name`, " +
+               "d.dep_totalemp AS `Total Employees` " +
+               "FROM tbl_admin a " +
+               "JOIN tbl_department d ON d.dep_userid = a.u_id"
             );
-            usertbl.setModel(DbUtils.resultSetToTableModel(rs));
+            
+            deptbl.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch (SQLException e) {
             System.out.println("Error: " + e.getMessage());
@@ -70,24 +70,20 @@ public class userTable extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         userpanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        usertbl = new javax.swing.JTable();
+        deptbl = new javax.swing.JTable();
         del = new javax.swing.JPanel();
-        delT = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         add = new javax.swing.JPanel();
-        addT = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         edit = new javax.swing.JPanel();
-        editT = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        print = new javax.swing.JPanel();
-        updateT = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         search = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -128,7 +124,8 @@ public class userTable extends javax.swing.JFrame {
         userpanel.setBackground(new java.awt.Color(241, 242, 247));
         userpanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        usertbl.setModel(new javax.swing.table.DefaultTableModel(
+        deptbl.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        deptbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -136,9 +133,9 @@ public class userTable extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(usertbl);
+        jScrollPane1.setViewportView(deptbl);
 
-        userpanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 680, 370));
+        userpanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 630, 380));
 
         del.setBackground(new java.awt.Color(241, 242, 247));
         del.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -155,19 +152,12 @@ public class userTable extends javax.swing.JFrame {
         });
         del.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        delT.setBackground(new java.awt.Color(51, 51, 0));
-        delT.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        delT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        delT.setText("Delete User");
-        delT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        del.add(delT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
-
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_14871413.png"))); // NOI18N
         jLabel8.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        del.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        del.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        userpanel.add(del, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 80, 160, 40));
+        userpanel.add(del, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 230, 60, 40));
 
         add.setBackground(new java.awt.Color(241, 242, 247));
         add.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -184,18 +174,12 @@ public class userTable extends javax.swing.JFrame {
         });
         add.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        addT.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        addT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        addT.setText(" Add New User");
-        addT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        add.add(addT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
-
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/plus_10021374.png"))); // NOI18N
         jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         add.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        userpanel.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 160, 40));
+        userpanel.add(add, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 150, 60, 40));
 
         edit.setBackground(new java.awt.Color(241, 242, 247));
         edit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -212,72 +196,48 @@ public class userTable extends javax.swing.JFrame {
         });
         edit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        editT.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        editT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        editT.setText("Edit User");
-        editT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        edit.add(editT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
-
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/edit_13077251.png"))); // NOI18N
         jLabel13.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        edit.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        edit.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        userpanel.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 160, 40));
+        userpanel.add(edit, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 190, 60, 40));
 
-        print.setBackground(new java.awt.Color(241, 242, 247));
-        print.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        print.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                printMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                printMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                printMouseExited(evt);
-            }
-        });
-        print.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        updateT.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        updateT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        updateT.setText("Print Details");
-        updateT.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        print.add(updateT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 20));
-
-        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh_5791276 (1).png"))); // NOI18N
-        jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        print.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
-
-        userpanel.add(print, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 80, 170, 40));
-
-        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Search:");
-        userpanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 40, 60, 30));
+        jLabel1.setText("All Departments");
+        userpanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 30));
 
         search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchActionPerformed(evt);
             }
         });
-        userpanel.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 40, 170, 30));
+        userpanel.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 190, 30));
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText(" Users |");
-        userpanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 90, 40));
+        jLabel24.setText(" Departments |");
+        userpanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 140, 40));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("> Home > Users");
-        userpanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 130, 40));
+        jLabel2.setText("> Home > Departments");
+        userpanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 190, 40));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home_6269504.png"))); // NOI18N
-        userpanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 40, 40));
+        userpanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 40, 40));
+
+        jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Search:");
+        userpanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 80, 30));
+
+        jLabel14.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Action");
+        userpanel.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 120, 60, 20));
 
         jPanel3.add(userpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 700, 510));
 
@@ -485,69 +445,37 @@ public class userTable extends javax.swing.JFrame {
 
     private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
     String searchText = search.getText().trim();
-    
+
     try {
         dbConnector db = new dbConnector();
-        String query = "SELECT u_id AS 'User ID', u_fname AS 'First Name', " +
-                      "u_lname AS 'Last Name', u_email AS 'Email', " +
-                      "u_type AS 'Role', u_username AS 'Username', " +
-                      "u_status AS 'Status' FROM tbl_admin " +
-                      "WHERE u_fname LIKE ? OR u_lname LIKE ? OR " +
-                      "u_email LIKE ? OR u_username LIKE ?";
+        String query = "SELECT " +
+               "a.u_lname AS `Department Head`, " +
+               "a.u_email AS `Email`, " +
+               "d.dep_id AS `Department ID`, " +
+               "d.dep_name AS `Department Name`, " +
+               "d.dep_totalemp AS `Total Employees` " +
+               "FROM tbl_admin a " +
+               "JOIN tbl_department d ON d.dep_userid = a.u_id " +
+               "WHERE LOWER (d.dep_name) LIKE LOWER (?) OR " +
+               "LOWER (a.u_lname) LIKE LOWER (?) OR " +
+               "LOWER (a.u_email) LIKE LOWER (?) " +
+               "ORDER BY d.dep_name";  
 
         try (PreparedStatement pstmt = db.connect.prepareStatement(query)) {
             String searchParam = "%" + searchText + "%";
             pstmt.setString(1, searchParam);
             pstmt.setString(2, searchParam);
             pstmt.setString(3, searchParam);
-            pstmt.setString(4, searchParam);
 
             ResultSet rs = pstmt.executeQuery();
-            usertbl.setModel(DbUtils.resultSetToTableModel(rs));
-            rs.close();
+            deptbl.setModel(DbUtils.resultSetToTableModel(rs));
+
         }
     } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Search error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Search error: " + e.getMessage(), 
+            "Error", JOptionPane.ERROR_MESSAGE);
     }
     }//GEN-LAST:event_searchActionPerformed
-
-    private void printMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseExited
-        print.setBackground(bodycolor1);
-    }//GEN-LAST:event_printMouseExited
-
-    private void printMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseEntered
-        print.setBackground(nav1);
-    }//GEN-LAST:event_printMouseEntered
-
-    private void printMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_printMouseClicked
-        int rowIndex = usertbl.getSelectedRow();
-
-        if(rowIndex < 0){
-            JOptionPane.showMessageDialog(null, "Please Select an Item!");
-        }else{
-            try{
-                dbConnector db = new dbConnector();
-                TableModel tbl = usertbl.getModel();
-                ResultSet rs = db.getData("SELECT * FROM tbl_admin WHERE u_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
-
-                if(rs.next()){
-                    indivPrint ip = new indivPrint();
-                    ip.uid.setText(""+rs.getInt("u_id"));
-                    ip.fn.setText(""+rs.getString("u_fname"));
-                    ip.ln.setText(""+rs.getString("u_lname"));
-                    ip.em.setText(""+rs.getString("u_email"));
-                    ip.un.setText(""+rs.getString("u_username"));
-                    ip.role.setText(""+rs.getString("u_type"));
-                    ip.acc_status.setText(""+rs.getString("u_status"));
-                    ip.image.setIcon(ip.ResizeImage(rs.getString("u_image"), null, ip.image));
-                    ip.setVisible(true);
-                    this.dispose();
-                }
-            }catch(SQLException ex){
-                System.out.println(""+ex);
-            }
-        }
-    }//GEN-LAST:event_printMouseClicked
 
     private void editMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseExited
         edit.setBackground(bodycolor1);
@@ -558,47 +486,49 @@ public class userTable extends javax.swing.JFrame {
     }//GEN-LAST:event_editMouseEntered
 
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
-        int rowIndex = usertbl.getSelectedRow();
+    int rowIndex = deptbl.getSelectedRow();
 
-        if(rowIndex < 0){
-            JOptionPane.showMessageDialog(null, "Please Select an Item!");
-        }else{
-            try{
-                dbConnector db = new dbConnector();
-                TableModel tbl = usertbl.getModel();
-                ResultSet rs = db.getData("SELECT * FROM tbl_admin WHERE u_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
+    if (rowIndex < 0) {
+        JOptionPane.showMessageDialog(null, "Please Select an Item!");
+    } else {
+        try {
+            dbConnector db = new dbConnector();
+            TableModel tbl = deptbl.getModel();
 
-                if(rs.next()){
-                    editUserForm euf = new editUserForm();
-                    euf.uid.setText(""+rs.getInt("u_id"));
-                    euf.fn.setText(""+rs.getString("u_fname"));
-                    euf.ln.setText(""+rs.getString("u_lname"));
-                    euf.em.setText(""+rs.getString("u_email"));
-                    euf.un.setText(""+rs.getString("u_username"));
-                    euf.ps.setText(""+rs.getString("u_password"));
-                    euf.cp.setText(""+rs.getString("u_cpassword"));
-                    euf.role.setSelectedItem(""+rs.getString("u_type"));
-                    euf.acc_status.setSelectedItem(""+rs.getString("u_status"));
-                    euf.image.setIcon(euf.ResizeImage(rs.getString("u_image"), null, euf.image));
-                    euf.oldpath = rs.getString("u_image");
-                    euf.path = rs.getString("u_image");
-                    euf.destination = rs.getString("u_image");
-                    euf.setVisible(true);
+            String depId = tbl.getValueAt(rowIndex, 2).toString(); 
 
-//                    if(rs.getString("u_image").isEmpty()){
-//                            euf.select.setVisible(true);
-//                            euf.rm.setVisible(false);
-//                        }else{
-//                            euf.select.setVisible(false);
-//                            euf.rm.setVisible(true);
-//                        }
+            String query = "SELECT " +
+                "a.u_id, " +
+                "a.u_fname, " +
+                "a.u_lname, " +
+                "a.u_email, " +
+                "d.dep_id, " +
+                "d.dep_name, " +
+                "d.dep_totalemp " +
+                "FROM tbl_department d " +
+                "LEFT JOIN tbl_admin a ON d.dep_userid = a.u_id " +
+                "WHERE d.dep_id = ?";
 
+            try (PreparedStatement pstmt = db.connect.prepareStatement(query)) {
+                pstmt.setString(1, depId);
+                ResultSet rs = pstmt.executeQuery();
+
+                if (rs.next()) {
+                    editDepartmentForm edf = new editDepartmentForm();
+                    edf.dpname.setText(rs.getString("dep_name"));
+                    edf.depid.setText(rs.getString("dep_id"));
+                    edf.totalemp.setText(String.valueOf(rs.getInt("dep_totalemp")));
+                    edf.setVisible(true);
                     this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Department not found!");
                 }
-            }catch(SQLException ex){
-                System.out.println(""+ex);
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
+            ex.printStackTrace();
         }
+    }
     }//GEN-LAST:event_editMouseClicked
 
     private void addMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseExited
@@ -610,8 +540,8 @@ public class userTable extends javax.swing.JFrame {
     }//GEN-LAST:event_addMouseEntered
 
     private void addMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addMouseClicked
-        createUserForm cuf = new createUserForm();
-        cuf.setVisible(true);
+        createDepartmentForm cdf = new createDepartmentForm();
+        cdf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_addMouseClicked
 
@@ -639,27 +569,28 @@ public class userTable extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
-    int selectedRow = usertbl.getSelectedRow();
+    int selectedRow = deptbl.getSelectedRow();
     
     if (selectedRow == -1) {
         JOptionPane.showMessageDialog(null, "Please Select an Item!");
         return;
     }
 
-    int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm Deletion",JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this Department?", "Confirm Deletion",JOptionPane.YES_NO_OPTION);
     
     if (confirm == JOptionPane.YES_OPTION) {
-        int userId = (int) usertbl.getValueAt(selectedRow, 0); 
+        int depId = (int) deptbl.getValueAt(selectedRow, 2);
+        String depName = deptbl.getValueAt(selectedRow, 3).toString();
         
         try {
             dbConnector db = new dbConnector();
-            db.deleteData("DELETE FROM tbl_admin WHERE u_id = " + userId);
+            db.deleteData("DELETE FROM tbl_department WHERE dep_id = " + depId);
 
             Session sess = Session.getInstance();
-            db.logActivity(sess.getUid(), "Deleted user ID: " + userId);
+            db.logActivity(sess.getUid(), "Deleted Department: " + depName);
 
-            displayUsers();
-            JOptionPane.showMessageDialog(this, "User deleted successfully");
+            displayDepartment();
+            JOptionPane.showMessageDialog(this, "Department deleted successfully");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -767,14 +698,38 @@ public class userTable extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(userTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(departmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(userTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(departmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(userTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(departmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(userTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(departmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -787,21 +742,19 @@ public class userTable extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new userTable().setVisible(true);
+                new departmentForm().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
-    private javax.swing.JLabel addT;
     private javax.swing.JLabel crtuser;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel del;
-    private javax.swing.JLabel delT;
     private javax.swing.JPanel dep;
+    public javax.swing.JTable deptbl;
     private javax.swing.JPanel edit;
-    private javax.swing.JLabel editT;
     private javax.swing.JPanel emp;
     private javax.swing.JPanel evaluator;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -825,6 +778,7 @@ public class userTable extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -833,12 +787,9 @@ public class userTable extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPanel print;
     private javax.swing.JTextField search;
     private javax.swing.JPanel task;
-    private javax.swing.JLabel updateT;
     private javax.swing.JPanel us;
     private javax.swing.JPanel userpanel;
-    private javax.swing.JTable usertbl;
     // End of variables declaration//GEN-END:variables
 }

@@ -63,6 +63,24 @@ public class dbConnector {
         
         }
         
+                // Function to delete data
+        public boolean deleteData(String sql) {
+            try {
+                PreparedStatement pst = connect.prepareStatement(sql);
+                int rowsDeleted = pst.executeUpdate();
+                if (rowsDeleted > 0) {
+                   
+                    return true;
+                } else {
+                    System.out.println("No records deleted");
+                    return false;
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error deleting data: " + ex.getMessage());
+                return false;
+            }
+        }
+        
         // Function to log user activity
         public void logActivity(int userId, String action) {
             String query = "INSERT INTO tbl_logs (user_id, log_action) VALUES (?, ?)";

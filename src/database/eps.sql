@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 27, 2025 at 06:04 PM
+-- Generation Time: Mar 28, 2025 at 07:08 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,6 +54,32 @@ INSERT INTO `tbl_admin` (`u_id`, `u_fname`, `u_lname`, `u_email`, `u_type`, `u_u
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tbl_department`
+--
+
+CREATE TABLE `tbl_department` (
+  `dep_id` int(11) NOT NULL,
+  `dep_name` int(11) NOT NULL,
+  `dep_description` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_employee`
+--
+
+CREATE TABLE `tbl_employee` (
+  `emp_id` int(11) NOT NULL,
+  `emp_userid` int(11) NOT NULL,
+  `emp_depid` int(11) NOT NULL,
+  `emp_role` varchar(50) NOT NULL,
+  `emp_email` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbl_logs`
 --
 
@@ -72,9 +98,24 @@ INSERT INTO `tbl_logs` (`log_id`, `user_id`, `log_action`, `log_timestamp`) VALU
 (1, 16, 'Updated user: miguel', '2025-03-27 15:25:59'),
 (2, 16, 'Updated a user: miguel', '2025-03-27 15:37:33'),
 (3, 16, 'Create a user: test', '2025-03-27 15:38:37'),
-(4, 16, 'Updated a user: test', '2025-03-27 15:42:02'),
-(6, 16, 'Deleted user ID: 19', '2025-03-27 16:16:14'),
-(7, 16, 'Logged out', '2025-03-27 16:57:41');
+(4, 16, 'Updated a user: test', '2025-03-27 15:42:02');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_task`
+--
+
+CREATE TABLE `tbl_task` (
+  `t_id` int(11) NOT NULL,
+  `t_depid` int(11) NOT NULL,
+  `t_empid` int(11) NOT NULL,
+  `t_name` varchar(50) NOT NULL,
+  `t_description` varchar(255) NOT NULL,
+  `t_deadline` date NOT NULL,
+  `t_status` varchar(10) NOT NULL,
+  `t_progress` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -87,11 +128,32 @@ ALTER TABLE `tbl_admin`
   ADD PRIMARY KEY (`u_id`);
 
 --
+-- Indexes for table `tbl_department`
+--
+ALTER TABLE `tbl_department`
+  ADD PRIMARY KEY (`dep_id`);
+
+--
+-- Indexes for table `tbl_employee`
+--
+ALTER TABLE `tbl_employee`
+  ADD PRIMARY KEY (`emp_id`),
+  ADD KEY `emp_userid` (`emp_userid`);
+
+--
 -- Indexes for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
   ADD PRIMARY KEY (`log_id`),
   ADD KEY `u_id` (`user_id`);
+
+--
+-- Indexes for table `tbl_task`
+--
+ALTER TABLE `tbl_task`
+  ADD PRIMARY KEY (`t_id`),
+  ADD KEY `t_depid` (`t_depid`),
+  ADD KEY `t_empid` (`t_empid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -104,20 +166,51 @@ ALTER TABLE `tbl_admin`
   MODIFY `u_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT for table `tbl_department`
+--
+ALTER TABLE `tbl_department`
+  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbl_employee`
+--
+ALTER TABLE `tbl_employee`
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `tbl_task`
+--
+ALTER TABLE `tbl_task`
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `tbl_employee`
+--
+ALTER TABLE `tbl_employee`
+  ADD CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`emp_userid`) REFERENCES `tbl_admin` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
   ADD CONSTRAINT `tbl_logs_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_admin` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbl_task`
+--
+ALTER TABLE `tbl_task`
+  ADD CONSTRAINT `tbl_task_ibfk_1` FOREIGN KEY (`t_depid`) REFERENCES `tbl_department` (`dep_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_task_ibfk_2` FOREIGN KEY (`t_empid`) REFERENCES `tbl_employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

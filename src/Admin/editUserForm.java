@@ -222,6 +222,7 @@ public class editUserForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         select = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -255,7 +256,7 @@ public class editUserForm extends javax.swing.JFrame {
         jLabel16.setText("Update");
         up.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
-        jPanel3.add(up, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 500, 180, 40));
+        jPanel3.add(up, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 530, 180, 40));
 
         rm.setBackground(new java.awt.Color(255, 51, 51));
         rm.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -310,12 +311,12 @@ public class editUserForm extends javax.swing.JFrame {
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen.png"))); // NOI18N
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, -1, -1));
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Edit User ");
-        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 70, 200, 40));
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 200, 40));
 
         uid.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         uid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -326,15 +327,15 @@ public class editUserForm extends javax.swing.JFrame {
                 uidActionPerformed(evt);
             }
         });
-        jPanel3.add(uid, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 410, 44));
+        jPanel3.add(uid, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 410, 44));
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("User ID:");
-        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 120, 50, 30));
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 50, 30));
 
         jLabel18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel18.setText("Fist Name");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 100, 30));
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 100, 30));
 
         fn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         fn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -344,7 +345,7 @@ public class editUserForm extends javax.swing.JFrame {
                 fnActionPerformed(evt);
             }
         });
-        jPanel3.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, 220, 44));
+        jPanel3.add(fn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 220, 44));
 
         ln.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         ln.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -354,11 +355,11 @@ public class editUserForm extends javax.swing.JFrame {
                 lnActionPerformed(evt);
             }
         });
-        jPanel3.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 220, 44));
+        jPanel3.add(ln, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 220, 44));
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel14.setText("Last Name");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 170, 100, 30));
+        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 100, 30));
 
         role.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
@@ -369,15 +370,15 @@ public class editUserForm extends javax.swing.JFrame {
                 roleActionPerformed(evt);
             }
         });
-        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 220, 44));
+        jPanel3.add(role, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, 220, 44));
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel13.setText("Account Type");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 250, 80, 30));
+        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 280, 80, 30));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel4.setText("Account Status");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 90, 30));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 90, 30));
 
         acc_status.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         acc_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
@@ -388,7 +389,7 @@ public class editUserForm extends javax.swing.JFrame {
                 acc_statusActionPerformed(evt);
             }
         });
-        jPanel3.add(acc_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 220, 44));
+        jPanel3.add(acc_status, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 220, 44));
 
         ps.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         ps.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -399,11 +400,11 @@ public class editUserForm extends javax.swing.JFrame {
                 psActionPerformed(evt);
             }
         });
-        jPanel3.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 220, 44));
+        jPanel3.add(ps, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 220, 44));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Password");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 100, 30));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 100, 30));
 
         cp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -414,11 +415,11 @@ public class editUserForm extends javax.swing.JFrame {
                 cpActionPerformed(evt);
             }
         });
-        jPanel3.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, 220, 44));
+        jPanel3.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 470, 220, 44));
 
         jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel9.setText("Confirm Password");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 120, 30));
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 440, 120, 30));
 
         un.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         un.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -428,11 +429,11 @@ public class editUserForm extends javax.swing.JFrame {
                 unActionPerformed(evt);
             }
         });
-        jPanel3.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 220, 44));
+        jPanel3.add(un, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 220, 44));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Username");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 100, 30));
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 100, 30));
 
         em.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         em.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -442,11 +443,11 @@ public class editUserForm extends javax.swing.JFrame {
                 emActionPerformed(evt);
             }
         });
-        jPanel3.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 220, 44));
+        jPanel3.add(em, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 220, 44));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Email");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, 100, 30));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 100, 30));
 
         cnl.setBackground(new java.awt.Color(255, 51, 51));
         cnl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -469,7 +470,7 @@ public class editUserForm extends javax.swing.JFrame {
         jLabel17.setText("Cancel");
         cnl.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
-        jPanel3.add(cnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 500, 180, 40));
+        jPanel3.add(cnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 180, 40));
 
         jLabel6.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -499,15 +500,18 @@ public class editUserForm extends javax.swing.JFrame {
 
         jPanel3.add(select, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 480, 150, 40));
 
+        jPanel2.setBackground(new java.awt.Color(1, 216, 218));
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 20));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
         );
 
         pack();
@@ -602,6 +606,7 @@ public class editUserForm extends javax.swing.JFrame {
                 + "u_status = '"+acc_status.getSelectedItem()+"', u_image = '"+destination+"' WHERE u_id = '"+uid.getText()+"'");
             Session sess = Session.getInstance();
             dbc.logActivity(sess.getUid(), "Updated a user: " + un.getText());
+            JOptionPane.showMessageDialog(null, "Account Updated Successfully!");            
             if(destination.isEmpty()){
                 File existingFile = new File(oldpath);
                 if(existingFile.exists()){
@@ -745,6 +750,7 @@ public class editUserForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     public javax.swing.JTextField ln;
     public javax.swing.JPasswordField ps;
