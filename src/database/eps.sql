@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 28, 2025 at 07:08 PM
+-- Generation Time: Apr 02, 2025 at 01:41 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,9 +59,18 @@ INSERT INTO `tbl_admin` (`u_id`, `u_fname`, `u_lname`, `u_email`, `u_type`, `u_u
 
 CREATE TABLE `tbl_department` (
   `dep_id` int(11) NOT NULL,
-  `dep_name` int(11) NOT NULL,
-  `dep_description` int(11) NOT NULL
+  `dep_userid` int(11) NOT NULL,
+  `dep_name` varchar(20) NOT NULL,
+  `dep_totalemp` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_department`
+--
+
+INSERT INTO `tbl_department` (`dep_id`, `dep_userid`, `dep_name`, `dep_totalemp`) VALUES
+(6, 18, 'PC Tech', 20),
+(7, 17, 'Admin', 12);
 
 -- --------------------------------------------------------
 
@@ -73,9 +82,16 @@ CREATE TABLE `tbl_employee` (
   `emp_id` int(11) NOT NULL,
   `emp_userid` int(11) NOT NULL,
   `emp_depid` int(11) NOT NULL,
-  `emp_role` varchar(50) NOT NULL,
-  `emp_email` varchar(50) NOT NULL
+  `emp_position` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_employee`
+--
+
+INSERT INTO `tbl_employee` (`emp_id`, `emp_userid`, `emp_depid`, `emp_position`) VALUES
+(7, 18, 7, 'HR Manager'),
+(8, 17, 6, 'Data Analysiss');
 
 -- --------------------------------------------------------
 
@@ -98,7 +114,17 @@ INSERT INTO `tbl_logs` (`log_id`, `user_id`, `log_action`, `log_timestamp`) VALU
 (1, 16, 'Updated user: miguel', '2025-03-27 15:25:59'),
 (2, 16, 'Updated a user: miguel', '2025-03-27 15:37:33'),
 (3, 16, 'Create a user: test', '2025-03-27 15:38:37'),
-(4, 16, 'Updated a user: test', '2025-03-27 15:42:02');
+(4, 16, 'Updated a user: test', '2025-03-27 15:42:02'),
+(13, 16, 'Deleted Employee: 3', '2025-03-31 07:28:55'),
+(14, 16, 'Deleted Employee: 4', '2025-03-31 07:29:02'),
+(15, 16, 'Updated a user: angel', '2025-03-31 15:42:19'),
+(16, 16, 'Deleted Department: 5', '2025-03-31 17:08:07'),
+(17, 16, 'Deleted Department: PC Tech', '2025-03-31 17:13:03'),
+(18, 16, 'Created a Departmen: PC Tech', '2025-03-31 17:25:39'),
+(19, 16, 'Created a Departmen: Admin', '2025-03-31 17:26:00'),
+(20, 16, 'Created a new Employee: 18', '2025-03-31 17:26:24'),
+(21, 16, 'Created a new Employee: 17', '2025-03-31 17:26:58'),
+(22, 16, 'Updated a Employee: 8', '2025-03-31 17:29:11');
 
 -- --------------------------------------------------------
 
@@ -131,14 +157,16 @@ ALTER TABLE `tbl_admin`
 -- Indexes for table `tbl_department`
 --
 ALTER TABLE `tbl_department`
-  ADD PRIMARY KEY (`dep_id`);
+  ADD PRIMARY KEY (`dep_id`),
+  ADD KEY `dep_userid` (`dep_userid`);
 
 --
 -- Indexes for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
   ADD PRIMARY KEY (`emp_id`),
-  ADD KEY `emp_userid` (`emp_userid`);
+  ADD KEY `emp_userid` (`emp_userid`),
+  ADD KEY `emp_depid` (`emp_depid`);
 
 --
 -- Indexes for table `tbl_logs`
@@ -169,19 +197,19 @@ ALTER TABLE `tbl_admin`
 -- AUTO_INCREMENT for table `tbl_department`
 --
 ALTER TABLE `tbl_department`
-  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `dep_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_task`
@@ -194,10 +222,17 @@ ALTER TABLE `tbl_task`
 --
 
 --
+-- Constraints for table `tbl_department`
+--
+ALTER TABLE `tbl_department`
+  ADD CONSTRAINT `tbl_department_ibfk_1` FOREIGN KEY (`dep_userid`) REFERENCES `tbl_admin` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  ADD CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`emp_userid`) REFERENCES `tbl_admin` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`emp_userid`) REFERENCES `tbl_admin` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tbl_employee_ibfk_2` FOREIGN KEY (`emp_depid`) REFERENCES `tbl_department` (`dep_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tbl_logs`
