@@ -176,7 +176,7 @@ public class createTaskForm extends javax.swing.JFrame {
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 100, 30));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-friend_12391319.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/evaluator.png"))); // NOI18N
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -185,8 +185,6 @@ public class createTaskForm extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(1, 216, 218));
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 30));
-
-        dd.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jPanel3.add(dd, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 220, 30));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 560));

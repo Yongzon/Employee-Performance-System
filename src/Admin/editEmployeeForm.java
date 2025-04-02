@@ -145,7 +145,7 @@ public class editEmployeeForm extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Create New Employee");
+        jLabel8.setText("Edit Employee");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 200, 40));
 
         pst.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -220,7 +220,7 @@ public class editEmployeeForm extends javax.swing.JFrame {
         jPanel3.add(cnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 180, 40));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-friend_12391319.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen.png"))); // NOI18N
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(1, 216, 218));

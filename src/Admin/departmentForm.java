@@ -559,6 +559,9 @@ public class departmentForm extends javax.swing.JFrame {
             int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "User Logout: " + sess.getLname());                
                 loginform lf = new loginform();
                 lf.setVisible(true);
                 this.dispose();
@@ -579,7 +582,7 @@ public class departmentForm extends javax.swing.JFrame {
     int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this Department?", "Confirm Deletion",JOptionPane.YES_NO_OPTION);
     
     if (confirm == JOptionPane.YES_OPTION) {
-        int depId = (int) deptbl.getValueAt(selectedRow, 2);
+        int depId = (int) deptbl.getValueAt(selectedRow, 0);
         String depName = deptbl.getValueAt(selectedRow, 3).toString();
         
         try {

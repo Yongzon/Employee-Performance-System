@@ -476,6 +476,9 @@ public class taskForm extends javax.swing.JFrame {
             int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
 
             if (confirm == JOptionPane.YES_OPTION) {
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "User Logout: " + sess.getLname());
                 loginform lf = new loginform();
                 lf.setVisible(true);
                 this.dispose();

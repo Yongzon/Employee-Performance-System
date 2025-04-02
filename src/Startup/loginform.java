@@ -323,6 +323,9 @@ public class loginform extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "In-Active Account contact Admin", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             if(type.equals("Admin")){
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "User Login: " + sess.getLname());
                 JOptionPane.showMessageDialog(null, "Login Successfully!");
                 adminDashboard ad = new adminDashboard();
                 ad.setVisible(true);

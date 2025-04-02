@@ -199,7 +199,7 @@ public class createDepartmentForm extends javax.swing.JFrame {
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 120, 30));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add-friend_12391319.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/department.png"))); // NOI18N
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(1, 216, 218));
