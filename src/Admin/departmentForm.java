@@ -587,7 +587,7 @@ public class departmentForm extends javax.swing.JFrame {
         
         try {
             dbConnector db = new dbConnector();
-            db.deleteData("DELETE FROM tbl_department WHERE dep_id = " + depId);
+            db.deleteDep("DELETE FROM tbl_department WHERE dep_id = " + depId);
 
             Session sess = Session.getInstance();
             db.logActivity(sess.getUid(), "Deleted Department: " + depName);
@@ -595,7 +595,7 @@ public class departmentForm extends javax.swing.JFrame {
             displayDepartment();
             JOptionPane.showMessageDialog(this, "Department deleted successfully");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error deleting department: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     }//GEN-LAST:event_delMouseClicked

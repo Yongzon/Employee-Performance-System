@@ -13,6 +13,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -70,6 +72,7 @@ public class createEmployeeForm extends javax.swing.JFrame {
         try {
             dbConnector db = new dbConnector();
 
+            // Query to get users with type 'Employee' from tbl_admin
             String query = "SELECT u_id, u_fname, u_lname, u_image FROM tbl_admin WHERE u_type = 'Employee' ORDER BY u_fname";
             ResultSet rs = db.getData(query);
 
@@ -78,27 +81,40 @@ public class createEmployeeForm extends javax.swing.JFrame {
 
             emp.addItem("Please Select Employee");
 
+            // Query to get all employees already in tbl_employee (assigned to a department)
+            String alreadyAssignedQuery = "SELECT emp_userid FROM tbl_employee";
+            Set<Integer> assignedUserIds = new HashSet<>();
+            ResultSet assignedRs = db.getData(alreadyAssignedQuery);
+            while (assignedRs.next()) {
+                assignedUserIds.add(assignedRs.getInt("emp_userid"));
+            }
+
             boolean hasEmployees = false;
             while (rs.next()) {
                 hasEmployees = true;
                 int userId = rs.getInt("u_id");
-                String fullName = rs.getString("u_fname") + " " + rs.getString("u_lname");
-                emp.addItem(fullName);
-                employeeMap.put(fullName, userId);
+
+                // Skip users already assigned to tbl_employee
+                if (!assignedUserIds.contains(userId)) {
+                    String fullName = rs.getString("u_fname") + " " + rs.getString("u_lname");
+                    emp.addItem(fullName);
+                    employeeMap.put(fullName, userId);
+                }
             }
 
             if (!hasEmployees) {
                 emp.addItem("N/A");
-                JOptionPane.showMessageDialog(this, 
-                    "No employees available. Please create an user with employee type first.", 
-                    "No Employees Found", 
-                    JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(this,
+                        "No employees available. Please create a user with employee type first.",
+                        "No Employees Found",
+                        JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error loading employees: " + e.getMessage());
         }
     }
+
     
     Color bodycolor = new Color(0,204,204);
     Color nav = new  Color(0,153,204);
