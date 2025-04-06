@@ -441,7 +441,7 @@ public class employeeForm extends javax.swing.JFrame {
             ep.setVisible(true);
             this.dispose();
         }else{
-             crtuser.setText("Current User: " +sess.getLname());
+             crtuser.setText("" +sess.getLname());
         }   
     }//GEN-LAST:event_formWindowActivated
 

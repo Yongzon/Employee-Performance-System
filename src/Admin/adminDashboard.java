@@ -28,6 +28,7 @@ public class adminDashboard extends javax.swing.JFrame {
     public adminDashboard() {
         initComponents();
         displayLogs();
+        updateDashboardCounts();
     }
     
         public void displayLogs() {
@@ -40,6 +41,31 @@ public class adminDashboard extends javax.swing.JFrame {
             System.out.println("Error loading logs: "+e.getMessage());
         }
     }
+        
+    private void updateDashboardCounts() {
+    try {
+        dbConnector db = new dbConnector();
+        
+        // Get counts from database
+        int activeUsers = db.getActiveUsersCount();
+        int totalDepartments = db.getCount("tbl_department");
+        int totalUsers = db.getCount("tbl_admin");
+        int totalEmployees = db.getCount("tbl_employee");
+        int totalEvaluators = db.getCount("tbl_evaluators"); 
+        int totalTasks = db.getCount("tbl_task"); 
+
+        activeUser.setText(String.valueOf(activeUsers));
+        totalDep.setText(String.valueOf(totalDepartments));
+        totalUser.setText(String.valueOf(totalUsers));
+        totalEmp.setText(String.valueOf(totalEmployees));
+        totalEva.setText(String.valueOf(totalEvaluators));
+        totalTask.setText(String.valueOf(totalTasks));
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error loading dashboard data: " + e.getMessage(), 
+            "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     
     Color bodycolor = new Color (255,255,255);
     Color nav = new Color (242,240,240);
@@ -56,29 +82,29 @@ public class adminDashboard extends javax.swing.JFrame {
 
         userpanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        activeUser = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
+        totalDep = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        totalUser = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
+        totalEmp = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
+        totalEva = new javax.swing.JLabel();
         jPanel9 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel30 = new javax.swing.JLabel();
+        totalTask = new javax.swing.JLabel();
         del = new javax.swing.JPanel();
         jLabel38 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -127,10 +153,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel4.setBackground(new java.awt.Color(153, 255, 153));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("0");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        activeUser.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        activeUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        activeUser.setText("0");
+        jPanel4.add(activeUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_15457231.png"))); // NOI18N
@@ -155,10 +181,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel4.setText("Total Department");
         jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 28));
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("0");
-        jPanel6.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        totalDep.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        totalDep.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalDep.setText("0");
+        jPanel6.add(totalDep, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         userpanel.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 220, -1));
 
@@ -174,10 +200,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel15.setText("Total Users");
         jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 130, 28));
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel27.setText("0");
-        jPanel7.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        totalUser.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        totalUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalUser.setText("0");
+        jPanel7.add(totalUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         userpanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 220, -1));
 
@@ -193,10 +219,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel17.setText("Total Employees");
         jPanel5.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 190, 28));
 
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel28.setText("0");
-        jPanel5.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        totalEmp.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        totalEmp.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalEmp.setText("0");
+        jPanel5.add(totalEmp, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         userpanel.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 220, -1));
 
@@ -212,10 +238,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel19.setText("Total Evaluators");
         jPanel8.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 170, 28));
 
-        jLabel29.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel29.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel29.setText("0");
-        jPanel8.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        totalEva.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        totalEva.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalEva.setText("0");
+        jPanel8.add(totalEva, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         userpanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 180, 220, -1));
 
@@ -231,10 +257,10 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel21.setText("Total Tasks");
         jPanel9.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 130, 28));
 
-        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel30.setText("0");
-        jPanel9.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        totalTask.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        totalTask.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        totalTask.setText("0");
+        jPanel9.add(totalTask, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         userpanel.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 180, 220, -1));
 
@@ -664,13 +690,13 @@ public class adminDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel activeUser;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel del;
     private javax.swing.JPanel dep;
     private javax.swing.JPanel emp;
     private javax.swing.JPanel evaluator;
     private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -688,12 +714,7 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
@@ -719,6 +740,11 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable logtbl;
     private javax.swing.JPanel task;
+    private javax.swing.JLabel totalDep;
+    private javax.swing.JLabel totalEmp;
+    private javax.swing.JLabel totalEva;
+    private javax.swing.JLabel totalTask;
+    private javax.swing.JLabel totalUser;
     private javax.swing.JPanel us;
     private javax.swing.JPanel userpanel;
     private javax.swing.JLabel wc;

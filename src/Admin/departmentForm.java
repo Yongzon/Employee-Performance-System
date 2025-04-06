@@ -439,7 +439,7 @@ public class departmentForm extends javax.swing.JFrame {
             ep.setVisible(true);
             this.dispose();
         }else{
-             crtuser.setText("Current User: " +sess.getLname());
+             crtuser.setText("" +sess.getLname());
         }   
     }//GEN-LAST:event_formWindowActivated
 
@@ -587,13 +587,16 @@ public class departmentForm extends javax.swing.JFrame {
         
         try {
             dbConnector db = new dbConnector();
-            db.deleteDep("DELETE FROM tbl_department WHERE dep_id = " + depId);
+            boolean deleteSuccess = db.deleteData("DELETE FROM tbl_department WHERE dep_id = " + depId);
 
-            Session sess = Session.getInstance();
-            db.logActivity(sess.getUid(), "Deleted Department: " + depName);
-
-            displayDepartment();
-            JOptionPane.showMessageDialog(this, "Department deleted successfully");
+            if (deleteSuccess) {
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "Deleted Department: " + depName);
+                displayDepartment();
+                JOptionPane.showMessageDialog(this, "Department deleted successfully");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to delete department. It may have assigned employees.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error deleting department: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

@@ -81,24 +81,6 @@ public class dbConnector {
             }
         }
         
-        public boolean deleteDep(String sql) {
-            try {
-                PreparedStatement pst = connect.prepareStatement(sql);
-                int rowsDeleted = pst.executeUpdate();
-                if (rowsDeleted > 0) {
-                   
-                    return true;
-                } else {
-                    System.out.println("No records deleted");
-                    return false;
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error deleting data: " + ex.getMessage());
-                JOptionPane.showMessageDialog(null, "There was an Employee assigned in departmen", "Error Deleting Department", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-        
         // Function to log user activity
         public void logActivity(int userId, String action) {
             String query = "INSERT INTO tbl_logs (user_id, log_action) VALUES (?, ?)";
@@ -121,5 +103,33 @@ public class dbConnector {
                            "JOIN tbl_admin u ON l.user_id = u.u_id " +
                            "ORDER BY l.log_timestamp DESC";
             return getData(query);
+        }
+        
+        public int getCount(String tableName) {
+            try {
+                String sql = "SELECT COUNT(*) FROM " + tableName;
+                PreparedStatement pst = connect.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error getting count: " + ex.getMessage());
+            }
+            return 0;
+        }
+
+        public int getActiveUsersCount() {
+            try {
+                String sql = "SELECT COUNT(*) FROM tbl_admin WHERE u_status = 'Active'";
+                PreparedStatement pst = connect.prepareStatement(sql);
+                ResultSet rs = pst.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            } catch (SQLException ex) {
+                System.out.println("Error getting active users count: " + ex.getMessage());
+            }
+            return 0;
         }
 }
