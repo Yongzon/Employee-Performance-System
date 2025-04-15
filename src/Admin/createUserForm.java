@@ -507,27 +507,46 @@ public class createUserForm extends javax.swing.JFrame {
         }else{
             dbConnector db = new dbConnector();
             try{
-                String pass = passHash.hashPassword(ps.getText());
-                String pass2 = passHash.hashPassword(cp.getText());
-            
-            if(db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_status, u_image, u_questions, u_answers, u_password, u_cpassword)"  
-            + "VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+role.getSelectedItem()+"', '"+un.getText()+"', '"+acc_status.getSelectedItem()+"', '"+destination+"' ,'"+question+"' ,'"+answer+"', '"+pass+"' ,'"+pass2+"')") == 1){
-            try{
-                Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
-                Session sess = Session.getInstance();
-                db.logActivity(sess.getUid(), "Create a user: " + un.getText());
-                JOptionPane.showMessageDialog(this, "Account Created Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                userTable ut = new userTable();
-                ut.setVisible(true);
-                this.dispose();
-            }catch(IOException ex){
-                System.out.println("Insert Image Error:"+ex);
+                String password = passHash.hashPassword(ps.getText());
+                String password2 = passHash.hashPassword(cp.getText());
+                String imagePath = "";
+
+                int confirm = JOptionPane.showConfirmDialog(this, "Do you want to upload a user image?", "Image Upload", JOptionPane.YES_NO_OPTION);
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    if (selectedFile != null && destination != null && !destination.trim().isEmpty()) {
+                        imagePath = destination;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No image selected. Proceeding without image.", "Notice", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 }
-            }else{
-                JOptionPane.showMessageDialog(null, "Connection Error");
-            }
-            }catch(NoSuchAlgorithmException ex){
-            System.out.println(""+ex);
+
+                if (db.InsertData("INSERT INTO tbl_admin (u_fname, u_lname, u_email, u_type, u_username, u_status, u_image, u_questions, u_answers, u_password, u_cpassword)"  
+                    + "VALUES ('" + fn.getText() + "', '" + ln.getText() + "', '" + em.getText() + "', '" + role.getSelectedItem() + "', '" 
+                    + un.getText() + "', '" + acc_status.getSelectedItem() + "', '" + imagePath + "', '" + question + "', '" + answer + "', '"+password+"', '"+password2+"')") == 1) {
+
+                    try {
+                        if (confirm == JOptionPane.YES_OPTION && selectedFile != null && destination != null && !destination.trim().isEmpty()) {
+                            Files.copy(selectedFile.toPath(), new File(destination).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        }
+
+                        Session sess = Session.getInstance();
+                        db.logActivity(sess.getUid(), "Create a user: " + un.getText());
+                        JOptionPane.showMessageDialog(this, "Account Created Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                        userTable ut = new userTable();
+                        ut.setVisible(true);
+                        this.dispose();
+
+                    } catch (IOException ex) {
+                        System.out.println("Insert Image Error: " + ex);
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(this, "Connection Error!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NoSuchAlgorithmException ex) {
+                System.out.println("" + ex);
             }
         }
     }//GEN-LAST:event_crtMouseClicked
