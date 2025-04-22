@@ -9,6 +9,12 @@ import Error.ErrorPage;
 import config.Session;
 import config.dbConnector;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -22,6 +28,55 @@ public class editTaskForm extends javax.swing.JFrame {
      */
     public editTaskForm() {
         initComponents();
+        loadEmployees();
+    }
+    
+    private HashMap<String, Integer> employeeMap = new HashMap<>();
+    private void loadEmployees() {
+        try {
+            dbConnector db = new dbConnector();
+
+            // Query to get users with type 'Employee' from tbl_admin
+            String query = "SELECT u_id, u_fname, u_lname, u_image FROM tbl_admin WHERE u_type = 'Employee' ORDER BY u_fname";
+            ResultSet rs = db.getData(query);
+
+            assto.removeAllItems();
+            employeeMap.clear();
+
+            assto.addItem("Please Select Employee");
+
+            // Query to get all employees already in tbl_employee (assigned to a department)
+            String alreadyAssignedQuery = "SELECT t_empid FROM tbl_task";
+            Set<Integer> assignedUserIds = new HashSet<>();
+            ResultSet assignedRs = db.getData(alreadyAssignedQuery);
+            while (assignedRs.next()) {
+                assignedUserIds.add(assignedRs.getInt("t_empid"));
+            }
+
+            boolean hasEmployees = false;
+            while (rs.next()) {
+                hasEmployees = true;
+                int userId = rs.getInt("u_id");
+
+                // Skip users already assigned to tbl_task
+                if (!assignedUserIds.contains(userId)) {
+                    String fullName = rs.getString("u_fname") + " " + rs.getString("u_lname");
+                    assto.addItem(fullName);
+                    employeeMap.put(fullName, userId);
+                }
+            }
+
+            if (!hasEmployees) {
+                assto.addItem("N/A");
+                JOptionPane.showMessageDialog(this,
+                        "No employees available. Please create a user with employee type first.",
+                        "No Employees Found",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading employees: " + e.getMessage());
+        }
     }
     
     Color bodycolor = new Color(0,204,204);
@@ -39,7 +94,6 @@ public class editTaskForm extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        td = new javax.swing.JTextField();
         pl = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tn = new javax.swing.JTextField();
@@ -55,6 +109,10 @@ public class editTaskForm extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         dd = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        td = new javax.swing.JTextArea();
+        jLabel19 = new javax.swing.JLabel();
+        tid = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -71,16 +129,6 @@ public class editTaskForm extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Edit Task");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 200, 40));
-
-        td.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        td.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        td.setBorder(null);
-        td.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tdActionPerformed(evt);
-            }
-        });
-        jPanel3.add(td, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 220, 190));
 
         pl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         pl.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -104,7 +152,7 @@ public class editTaskForm extends javax.swing.JFrame {
                 tnActionPerformed(evt);
             }
         });
-        jPanel3.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 460, 44));
+        jPanel3.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 340, 44));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Deadline");
@@ -187,15 +235,33 @@ public class editTaskForm extends javax.swing.JFrame {
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 30));
         jPanel3.add(dd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 230, 30));
 
+        td.setColumns(20);
+        td.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        td.setRows(5);
+        jScrollPane1.setViewportView(td);
+
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 220, 180));
+
+        jLabel19.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel19.setText("Task ID");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 160, 70, 30));
+
+        tid.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tid.setBorder(null);
+        tid.setEnabled(false);
+        tid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tidActionPerformed(evt);
+            }
+        });
+        jPanel3.add(tid, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 190, 110, 44));
+
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 560));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tdActionPerformed
 
     private void plActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plActionPerformed
         // TODO add your handling code here:
@@ -206,15 +272,42 @@ public class editTaskForm extends javax.swing.JFrame {
     }//GEN-LAST:event_tnActionPerformed
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateString = dd.getDate() != null ? sdf.format(dd.getDate()) : null;
+        String selectedEmployee = assto.getSelectedItem().toString();
         String taskname = tn.getText();
         String taskdiscrip = td.getText();
         String prioritylevel = pl.getText();
-        
-        if (taskname.isEmpty() && taskdiscrip.isEmpty() && prioritylevel.isEmpty()){
+
+        if (taskname.isEmpty() || taskdiscrip.isEmpty() || prioritylevel.isEmpty() || dd.getDate() == null) {
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
+        } else {
             dbConnector db = new dbConnector();
+            Integer userId = employeeMap.get(selectedEmployee);
+    
+        try {
+            // Get the emp_id from tbl_employee that corresponds to this user
+            String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = " + userId;
+            ResultSet empRs = db.getData(empQuery);
+
+            if (empRs.next()) {
+                int empId = empRs.getInt("emp_id");
+                    
+                    db.updateData("UPDATE tbl_task SET t_empid = '"+empId+"', t_name = '"+tn.getText()+"', t_description = '"+td.getText()+"', "
+                            + "t_deadline = '"+dateString+"', t_prlevel = '"+pl.getText()+"', t_status = 'Pending', t_progress = '0' WHERE t_id = '"+tid.getText()+"'");
+                    Session sess = Session.getInstance();
+                    db.logActivity(sess.getUid(), "Updated a task: " + tn.getText());
+                    JOptionPane.showMessageDialog(this, "Updated Task Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    taskForm tf = new taskForm();
+                    tf.setVisible(true);
+                    this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "Selected employee not found in employee table", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
         }
+    }
     }//GEN-LAST:event_saveMouseClicked
 
     private void saveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseEntered
@@ -230,8 +323,8 @@ public class editTaskForm extends javax.swing.JFrame {
     }//GEN-LAST:event_asstoActionPerformed
 
     private void cnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnlMouseClicked
-        userTable ut = new userTable();
-        ut.setVisible(true);
+        taskForm tf = new taskForm();
+        tf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cnlMouseClicked
 
@@ -251,6 +344,10 @@ public class editTaskForm extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_formWindowActivated
+
+    private void tidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tidActionPerformed
 
     /**
      * @param args the command line arguments
@@ -293,7 +390,7 @@ public class editTaskForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JComboBox<String> assto;
     private javax.swing.JPanel cnl;
-    private com.toedter.calendar.JDateChooser dd;
+    public com.toedter.calendar.JDateChooser dd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -301,13 +398,16 @@ public class editTaskForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField pl;
     public javax.swing.JPanel save;
-    public javax.swing.JTextField td;
+    public javax.swing.JTextArea td;
+    public javax.swing.JTextField tid;
     public javax.swing.JTextField tn;
     // End of variables declaration//GEN-END:variables
 }

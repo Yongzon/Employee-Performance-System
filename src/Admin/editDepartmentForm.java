@@ -233,7 +233,7 @@ public class editDepartmentForm extends javax.swing.JFrame {
     }//GEN-LAST:event_depidActionPerformed
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-        String departmentname = depid.getText();
+        String departmentname = dpname.getText();
         String totalemployees = totalemp.getText();
         String selectedHead = dphead.getSelectedItem().toString();  
         
@@ -334,21 +334,7 @@ public class editDepartmentForm extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(editDepartmentForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {

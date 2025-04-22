@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2025 at 01:41 AM
+-- Generation Time: Apr 22, 2025 at 06:34 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -48,8 +48,9 @@ CREATE TABLE `tbl_admin` (
 
 INSERT INTO `tbl_admin` (`u_id`, `u_fname`, `u_lname`, `u_email`, `u_type`, `u_username`, `u_status`, `u_image`, `u_questions`, `u_answers`, `u_password`, `u_cpassword`) VALUES
 (16, 'Christian', 'Yongzon', 'cy@admin.com', 'Admin', 'admin', 'Active', '', 'What is your full name?', 'Christian', 'rJaJ4ickJwheNbnT4+i+2IyzQ0gotDuG/AWWytTG4nA=', 'rJaJ4ickJwheNbnT4+i+2IyzQ0gotDuG/AWWytTG4nA='),
-(17, 'Miguel Zion', 'Yongzon', 'mig@emp.com', 'Employee', 'miguel', 'Pending', 'src/userImages/test2.jpg', '', '', 'PAIDsy0gxpdtlTzjd7H8L4ZUZ8NvyK07KGe98txtSnc=', 'PAIDsy0gxpdtlTzjd7H8L4ZUZ8NvyK07KGe98txtSnc='),
-(18, 'Angel Mae', 'Segismar', 'as@as.emp', 'Employee', 'angel', 'Active', 'src/userImages/test3.jpg', 'What is your favorite pet?', 'bird', 'ZRSXDF7UwusxK8G7eZR3y7jGFsinmKGiixdWgPc4opk=', 'ZRSXDF7UwusxK8G7eZR3y7jGFsinmKGiixdWgPc4opk=');
+(17, 'Miguel Zion', 'Yongzon', 'mig@emp.com', 'Employee', 'miguel', 'Active', 'src/userImages/test2.jpg', '', '', 'PAIDsy0gxpdtlTzjd7H8L4ZUZ8NvyK07KGe98txtSnc=', 'PAIDsy0gxpdtlTzjd7H8L4ZUZ8NvyK07KGe98txtSnc='),
+(18, 'Angel Mae', 'Segismar', 'as@as.emp', 'Employee', 'angel', 'Active', 'src/userImages/test3.jpg', 'What is your favorite pet?', 'bird', 'ZRSXDF7UwusxK8G7eZR3y7jGFsinmKGiixdWgPc4opk=', 'ZRSXDF7UwusxK8G7eZR3y7jGFsinmKGiixdWgPc4opk='),
+(20, 'Christian', 'Yongzon', 'cy@eval.com', 'Evaluator', 'yannie', 'Active', '', 'No stored security questions', 'No stored security answers', 'rJaJ4ickJwheNbnT4+i+2IyzQ0gotDuG/AWWytTG4nA=', 'rJaJ4ickJwheNbnT4+i+2IyzQ0gotDuG/AWWytTG4nA=');
 
 -- --------------------------------------------------------
 
@@ -90,8 +91,29 @@ CREATE TABLE `tbl_employee` (
 --
 
 INSERT INTO `tbl_employee` (`emp_id`, `emp_userid`, `emp_depid`, `emp_position`) VALUES
-(7, 18, 7, 'HR Manager'),
-(8, 17, 6, 'Data Analysiss');
+(8, 17, 6, 'Data Analysiss'),
+(9, 18, 6, 'test');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_evaluator`
+--
+
+CREATE TABLE `tbl_evaluator` (
+  `eval_id` int(11) NOT NULL,
+  `eval_userid` int(11) NOT NULL,
+  `eval_depid` int(11) NOT NULL,
+  `eval_position` varchar(200) NOT NULL,
+  `eval_accesslvl` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_evaluator`
+--
+
+INSERT INTO `tbl_evaluator` (`eval_id`, `eval_userid`, `eval_depid`, `eval_position`, `eval_accesslvl`) VALUES
+(1, 20, 6, 'Hr Manager', 'High');
 
 -- --------------------------------------------------------
 
@@ -124,7 +146,88 @@ INSERT INTO `tbl_logs` (`log_id`, `user_id`, `log_action`, `log_timestamp`) VALU
 (19, 16, 'Created a Departmen: Admin', '2025-03-31 17:26:00'),
 (20, 16, 'Created a new Employee: 18', '2025-03-31 17:26:24'),
 (21, 16, 'Created a new Employee: 17', '2025-03-31 17:26:58'),
-(22, 16, 'Updated a Employee: 8', '2025-03-31 17:29:11');
+(22, 16, 'Updated a Employee: 8', '2025-03-31 17:29:11'),
+(25, 18, 'User Login: Segismar', '2025-04-17 02:29:01'),
+(26, 18, 'User Logout: Segismar', '2025-04-17 02:29:52'),
+(27, 18, 'User Login: Segismar', '2025-04-17 02:43:03'),
+(28, 18, 'User Logout: Segismar', '2025-04-17 02:43:39'),
+(29, 18, 'User Login: Segismar', '2025-04-17 02:48:21'),
+(30, 18, 'User Logout: Segismar', '2025-04-17 02:49:22'),
+(31, 18, 'User Login: Segismar', '2025-04-17 16:52:39'),
+(32, 18, 'User Logout: Segismar', '2025-04-17 16:52:57'),
+(33, 18, 'User Login: Segismar', '2025-04-17 16:58:49'),
+(34, 18, 'Create a user: yannie', '2025-04-17 17:00:43'),
+(35, 18, 'User Login: Segismar', '2025-04-17 17:06:56'),
+(36, 18, 'User Logout: Segismar', '2025-04-17 17:07:26'),
+(37, 18, 'User Login: Segismar', '2025-04-17 17:08:42'),
+(38, 18, 'User Login: Segismar', '2025-04-17 17:11:42'),
+(39, 18, 'User Login: Segismar', '2025-04-17 17:13:03'),
+(40, 18, 'Created a new Evaluator: 20', '2025-04-17 17:13:20'),
+(41, 18, 'User Logout: Segismar', '2025-04-17 17:14:28'),
+(42, 18, 'User Login: Segismar', '2025-04-17 17:17:45'),
+(43, 18, 'User Login: Segismar', '2025-04-17 17:21:22'),
+(44, 18, 'User Logout: Segismar', '2025-04-17 17:21:43'),
+(45, 18, 'User Login: Segismar', '2025-04-17 17:22:57'),
+(46, 18, 'Updated a Evaluator: 1', '2025-04-17 17:23:14'),
+(47, 18, 'Updated a Evaluator: 1', '2025-04-17 17:23:42'),
+(48, 18, 'User Logout: Segismar', '2025-04-17 17:23:53'),
+(49, 18, 'User Login: Segismar', '2025-04-17 17:25:07'),
+(50, 18, 'User Logout: Segismar', '2025-04-17 17:27:01'),
+(51, 16, 'User Login: Yongzon', '2025-04-18 11:20:11'),
+(52, 16, 'User Login: Yongzon', '2025-04-18 11:27:15'),
+(53, 16, 'User Logout: Yongzon', '2025-04-18 11:27:53'),
+(54, 16, 'User Login: Yongzon', '2025-04-18 11:30:57'),
+(55, 16, 'Updated a user: miguel', '2025-04-18 11:32:25'),
+(56, 16, 'User Logout: Yongzon', '2025-04-18 11:34:57'),
+(57, 16, 'User Login: Yongzon', '2025-04-18 12:32:13'),
+(58, 16, 'Deleted Employee: Angel Mae Segismar', '2025-04-18 12:33:50'),
+(60, 16, 'User Login: Yongzon', '2025-04-18 12:38:56'),
+(61, 16, 'User Logout: Yongzon', '2025-04-18 12:40:16'),
+(62, 16, 'User Login: Yongzon', '2025-04-18 12:51:08'),
+(63, 16, 'User Logout: Yongzon', '2025-04-18 12:52:50'),
+(64, 16, 'User Login: Yongzon', '2025-04-18 12:54:15'),
+(65, 16, 'User Login: Yongzon', '2025-04-18 13:00:21'),
+(66, 16, 'User Logout: Yongzon', '2025-04-18 13:00:36'),
+(68, 16, 'User Login: Yongzon', '2025-04-22 03:26:26'),
+(69, 16, 'User Logout: Yongzon', '2025-04-22 03:26:59'),
+(70, 16, 'User Login: Yongzon', '2025-04-22 03:29:12'),
+(71, 16, 'User Logout: Yongzon', '2025-04-22 03:29:30'),
+(72, 16, 'User Login: Yongzon', '2025-04-22 03:33:39'),
+(73, 16, 'User Logout: Yongzon', '2025-04-22 03:34:03'),
+(74, 16, 'User Login: Yongzon', '2025-04-22 03:35:13'),
+(75, 16, 'User Login: Yongzon', '2025-04-22 03:36:53'),
+(76, 16, 'User Login: Yongzon', '2025-04-22 04:24:39'),
+(77, 16, 'User Logout: Yongzon', '2025-04-22 04:25:19'),
+(78, 16, 'User Login: Yongzon', '2025-04-22 04:26:07'),
+(79, 16, 'Created a new Task: Web test', '2025-04-22 04:26:48'),
+(80, 16, 'User Logout: Yongzon', '2025-04-22 04:28:52'),
+(81, 16, 'User Login: Yongzon', '2025-04-22 04:42:38'),
+(82, 16, 'User Login: Yongzon', '2025-04-22 04:49:35'),
+(83, 16, 'Deleted user ID: 5', '2025-04-22 04:49:50'),
+(84, 16, 'Created a new Task: Simple Web', '2025-04-22 04:50:25'),
+(85, 16, 'User Logout: Yongzon', '2025-04-22 04:50:44'),
+(86, 16, 'User Login: Yongzon', '2025-04-22 04:51:23'),
+(87, 16, 'User Logout: Yongzon', '2025-04-22 04:51:36'),
+(88, 16, 'User Login: Yongzon', '2025-04-22 12:03:18'),
+(89, 16, 'User Logout: Yongzon', '2025-04-22 12:06:03'),
+(90, 16, 'User Login: Yongzon', '2025-04-22 12:17:46'),
+(91, 16, 'User Logout: Yongzon', '2025-04-22 12:18:03'),
+(92, 16, 'User Login: Yongzon', '2025-04-22 12:25:36'),
+(93, 16, 'User Logout: Yongzon', '2025-04-22 12:25:48'),
+(94, 16, 'User Login: Yongzon', '2025-04-22 12:26:34'),
+(95, 16, 'User Logout: Yongzon', '2025-04-22 12:27:03'),
+(96, 16, 'User Login: Yongzon', '2025-04-22 12:45:27'),
+(97, 16, 'Updated a Task: Simple Web', '2025-04-22 12:45:44'),
+(98, 16, 'User Logout: Yongzon', '2025-04-22 12:46:28'),
+(99, 16, 'User Login: Yongzon', '2025-04-22 14:43:01'),
+(100, 16, 'User Logout: Yongzon', '2025-04-22 14:43:06'),
+(101, 16, 'User Login: Yongzon', '2025-04-22 15:59:47'),
+(102, 16, 'Created a new Employee: 18', '2025-04-22 16:00:45'),
+(103, 16, 'Created a new Task: App test', '2025-04-22 16:01:08'),
+(104, 16, 'User Logout: Yongzon', '2025-04-22 16:01:16'),
+(105, 18, 'Updated a task: App test', '2025-04-22 16:24:23'),
+(106, 18, 'User Logout: Segismar', '2025-04-22 16:24:34'),
+(107, 18, 'Updated a task: App test', '2025-04-22 16:31:13');
 
 -- --------------------------------------------------------
 
@@ -134,14 +237,22 @@ INSERT INTO `tbl_logs` (`log_id`, `user_id`, `log_action`, `log_timestamp`) VALU
 
 CREATE TABLE `tbl_task` (
   `t_id` int(11) NOT NULL,
-  `t_depid` int(11) NOT NULL,
   `t_empid` int(11) NOT NULL,
   `t_name` varchar(50) NOT NULL,
   `t_description` varchar(255) NOT NULL,
   `t_deadline` date NOT NULL,
+  `t_prlevel` varchar(50) NOT NULL,
   `t_status` varchar(10) NOT NULL,
-  `t_progress` double NOT NULL
+  `t_progress` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_task`
+--
+
+INSERT INTO `tbl_task` (`t_id`, `t_empid`, `t_name`, `t_description`, `t_deadline`, `t_prlevel`, `t_status`, `t_progress`) VALUES
+(6, 8, 'Simple Web', 'make a simple webiste using html', '2025-04-23', 'Low', 'Pending', 0),
+(7, 9, 'App test', 'test', '2025-04-24', 'Low', 'Completed', 100);
 
 --
 -- Indexes for dumped tables
@@ -169,6 +280,14 @@ ALTER TABLE `tbl_employee`
   ADD KEY `emp_depid` (`emp_depid`);
 
 --
+-- Indexes for table `tbl_evaluator`
+--
+ALTER TABLE `tbl_evaluator`
+  ADD PRIMARY KEY (`eval_id`),
+  ADD KEY `eval_userid` (`eval_userid`),
+  ADD KEY `eval_depid` (`eval_depid`);
+
+--
 -- Indexes for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
@@ -180,7 +299,6 @@ ALTER TABLE `tbl_logs`
 --
 ALTER TABLE `tbl_task`
   ADD PRIMARY KEY (`t_id`),
-  ADD KEY `t_depid` (`t_depid`),
   ADD KEY `t_empid` (`t_empid`);
 
 --
@@ -191,7 +309,7 @@ ALTER TABLE `tbl_task`
 -- AUTO_INCREMENT for table `tbl_admin`
 --
 ALTER TABLE `tbl_admin`
-  MODIFY `u_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `u_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `tbl_department`
@@ -203,19 +321,25 @@ ALTER TABLE `tbl_department`
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `tbl_evaluator`
+--
+ALTER TABLE `tbl_evaluator`
+  MODIFY `eval_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbl_logs`
 --
 ALTER TABLE `tbl_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `tbl_task`
 --
 ALTER TABLE `tbl_task`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables
@@ -225,14 +349,21 @@ ALTER TABLE `tbl_task`
 -- Constraints for table `tbl_department`
 --
 ALTER TABLE `tbl_department`
-  ADD CONSTRAINT `tbl_department_ibfk_1` FOREIGN KEY (`dep_userid`) REFERENCES `tbl_admin` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_department_ibfk_1` FOREIGN KEY (`dep_userid`) REFERENCES `tbl_admin` (`u_id`);
 
 --
 -- Constraints for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
-  ADD CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`emp_userid`) REFERENCES `tbl_admin` (`u_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_employee_ibfk_2` FOREIGN KEY (`emp_depid`) REFERENCES `tbl_department` (`dep_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`emp_userid`) REFERENCES `tbl_admin` (`u_id`),
+  ADD CONSTRAINT `tbl_employee_ibfk_2` FOREIGN KEY (`emp_depid`) REFERENCES `tbl_department` (`dep_id`);
+
+--
+-- Constraints for table `tbl_evaluator`
+--
+ALTER TABLE `tbl_evaluator`
+  ADD CONSTRAINT `tbl_evaluator_ibfk_1` FOREIGN KEY (`eval_userid`) REFERENCES `tbl_admin` (`u_id`),
+  ADD CONSTRAINT `tbl_evaluator_ibfk_2` FOREIGN KEY (`eval_depid`) REFERENCES `tbl_department` (`dep_id`);
 
 --
 -- Constraints for table `tbl_logs`
@@ -244,8 +375,7 @@ ALTER TABLE `tbl_logs`
 -- Constraints for table `tbl_task`
 --
 ALTER TABLE `tbl_task`
-  ADD CONSTRAINT `tbl_task_ibfk_1` FOREIGN KEY (`t_depid`) REFERENCES `tbl_department` (`dep_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `tbl_task_ibfk_2` FOREIGN KEY (`t_empid`) REFERENCES `tbl_employee` (`emp_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tbl_task_ibfk_2` FOREIGN KEY (`t_empid`) REFERENCES `tbl_employee` (`emp_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

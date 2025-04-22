@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Admin;
+package User;
 
+import Admin.*;
 import Error.ErrorPage;
 import config.Session;
 import config.dbConnector;
@@ -21,62 +22,15 @@ import javax.swing.JOptionPane;
  *
  * @author Chris
  */
-public class createTaskForm extends javax.swing.JFrame {
+public class updateTask extends javax.swing.JFrame {
 
     /**
      * Creates new form createUserForm
      */
-    public createTaskForm() {
+    public updateTask() {
         initComponents();
-        loadEmployees();
     }
-    private HashMap<String, Integer> employeeMap = new HashMap<>();
-    private void loadEmployees() {
-        try {
-            dbConnector db = new dbConnector();
 
-            // Query to get users with type 'Employee' from tbl_admin
-            String query = "SELECT u_id, u_fname, u_lname, u_image FROM tbl_admin WHERE u_type = 'Employee' ORDER BY u_fname";
-            ResultSet rs = db.getData(query);
-
-            assto.removeAllItems();
-            employeeMap.clear();
-
-            assto.addItem("Please Select Employee");
-
-            // Query to get all employees already in tbl_employee (assigned to a department)
-            String alreadyAssignedQuery = "SELECT t_empid FROM tbl_task";
-            Set<Integer> assignedUserIds = new HashSet<>();
-            ResultSet assignedRs = db.getData(alreadyAssignedQuery);
-            while (assignedRs.next()) {
-                assignedUserIds.add(assignedRs.getInt("t_empid"));
-            }
-
-            boolean hasEmployees = false;
-            while (rs.next()) {
-                hasEmployees = true;
-                int userId = rs.getInt("u_id");
-
-                // Skip users already assigned to tbl_task
-                if (!assignedUserIds.contains(userId)) {
-                    String fullName = rs.getString("u_fname") + " " + rs.getString("u_lname");
-                    assto.addItem(fullName);
-                    employeeMap.put(fullName, userId);
-                }
-            }
-
-            if (!hasEmployees) {
-                assto.addItem("N/A");
-                JOptionPane.showMessageDialog(this,
-                        "No employees available. Please create a user with employee type first.",
-                        "No Employees Found",
-                        JOptionPane.WARNING_MESSAGE);
-            }
-
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error loading employees: " + e.getMessage());
-        }
-    }
     
     Color bodycolor = new Color(0,204,204);
     Color nav = new  Color(0,153,204);
@@ -99,17 +53,16 @@ public class createTaskForm extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         save = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        assto = new javax.swing.JComboBox<>();
-        jLabel13 = new javax.swing.JLabel();
         cnl = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         dd = new com.toedter.calendar.JDateChooser();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        td = new javax.swing.JTextArea();
+        pp = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        tid = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -124,9 +77,10 @@ public class createTaskForm extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("Add New Task");
+        jLabel8.setText("Update Task");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, 200, 40));
 
+        pl.setEditable(false);
         pl.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         pl.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pl.setBorder(null);
@@ -135,12 +89,13 @@ public class createTaskForm extends javax.swing.JFrame {
                 plActionPerformed(evt);
             }
         });
-        jPanel3.add(pl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 410, 220, 44));
+        jPanel3.add(pl, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 230, 30));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Priority Level");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 100, 30));
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 100, 30));
 
+        tn.setEditable(false);
         tn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         tn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tn.setBorder(null);
@@ -149,11 +104,11 @@ public class createTaskForm extends javax.swing.JFrame {
                 tnActionPerformed(evt);
             }
         });
-        jPanel3.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 460, 44));
+        jPanel3.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 350, 44));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Deadline");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 240, 100, 30));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 100, 30));
 
         save.setBackground(new java.awt.Color(0, 204, 204));
         save.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -176,22 +131,7 @@ public class createTaskForm extends javax.swing.JFrame {
         jLabel12.setText("Save");
         save.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
-        jPanel3.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 490, 180, 40));
-
-        assto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        assto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please Select Employee" }));
-        assto.setBorder(null);
-        assto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        assto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                asstoActionPerformed(evt);
-            }
-        });
-        jPanel3.add(assto, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 330, 220, 44));
-
-        jLabel13.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel13.setText("Assign To");
-        jPanel3.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, 80, 30));
+        jPanel3.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 410, 180, 40));
 
         cnl.setBackground(new java.awt.Color(255, 51, 51));
         cnl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -214,32 +154,53 @@ public class createTaskForm extends javax.swing.JFrame {
         jLabel17.setText("Cancel");
         cnl.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
 
-        jPanel3.add(cnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 490, 180, 40));
+        jPanel3.add(cnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 410, 180, 40));
 
         jLabel18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel18.setText("Task Name");
         jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 100, 30));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/evaluator.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/office_16626103 (1).png"))); // NOI18N
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 50, -1, -1));
-
-        jLabel14.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel14.setText("Task Description");
-        jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 100, 30));
 
         jPanel2.setBackground(new java.awt.Color(1, 216, 218));
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 30));
-        jPanel3.add(dd, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 270, 220, 30));
 
-        td.setColumns(20);
-        td.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        td.setRows(5);
-        jScrollPane1.setViewportView(td);
+        dd.setEnabled(false);
+        dd.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jPanel3.add(dd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 220, 30));
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 220, 180));
+        pp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        pp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pp.setBorder(null);
+        pp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ppActionPerformed(evt);
+            }
+        });
+        jPanel3.add(pp, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 230, 40));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 560));
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel9.setText("Progress Percentage");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 310, 130, 30));
+
+        jLabel19.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel19.setText("Task ID");
+        jPanel3.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, 90, 30));
+
+        tid.setEditable(false);
+        tid.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        tid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tid.setBorder(null);
+        tid.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tidActionPerformed(evt);
+            }
+        });
+        jPanel3.add(tid, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 190, 90, 44));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 470));
 
         pack();
         setLocationRelativeTo(null);
@@ -254,45 +215,38 @@ public class createTaskForm extends javax.swing.JFrame {
     }//GEN-LAST:event_tnActionPerformed
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = dd.getDate() != null ? sdf.format(dd.getDate()) : null;
-        String selectedEmployee = assto.getSelectedItem().toString();
-        String taskname = tn.getText();
-        String taskdiscrip = td.getText();
-        String prioritylevel = pl.getText();
+        String progress = pp.getText();
 
-        if (taskname.isEmpty() || taskdiscrip.isEmpty() || prioritylevel.isEmpty() || dd.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
+        if (progress.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Progress percentage fields is required!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if(!progress.matches("\\d+")) {
+            JOptionPane.showMessageDialog(null, "Progress percentage should contain only numbers!");
         } else {
-            dbConnector db = new dbConnector();
-            Integer userId = employeeMap.get(selectedEmployee);
-    
-        try {
-            
-            String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = " + userId;
-            ResultSet empRs = db.getData(empQuery);
+            int progressValue = Integer.parseInt(progress);
 
-            if (empRs.next()) {
-                int empId = empRs.getInt("emp_id");
-
-                if(db.InsertData("INSERT INTO tbl_task (t_empid, t_name, t_description, t_deadline, t_prlevel,t_status, t_progress)"
-                    + "VALUES ('"+empId+"', '"+tn.getText()+"', '"+td.getText()+"', '"+dateString+"', '"+pl.getText()+"','Pending', '0')") == 1) {
-                    Session sess = Session.getInstance();
-                    db.logActivity(sess.getUid(), "Created a new Task: " + tn.getText());
-                    JOptionPane.showMessageDialog(this, "Added New Task Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    taskForm tf = new taskForm();
-                    tf.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Connection Error");
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Selected employee not found in employee table", "Error", JOptionPane.ERROR_MESSAGE);
+            if (progressValue > 100) {
+                JOptionPane.showMessageDialog(this, "Progress cannot exceed 100%!", "Invalid Value", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage());
+
+            String status;
+            if (progressValue == 100) {
+                status = "Completed";
+            } else {
+                status = "Active";
+            }
+
+            dbConnector db = new dbConnector();
+            db.updateData("UPDATE tbl_task SET t_status = '"+status+"', t_progress = '"+progress+"' WHERE t_id = '"+tid.getText()+"'");
+
+            Session sess = Session.getInstance();
+            db.logActivity(sess.getUid(), "Updated a task: " + tn.getText());
+
+            JOptionPane.showMessageDialog(this, "Updated Task Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            employeeTask et = new employeeTask();
+            et.setVisible(true);
+            this.dispose();
         }
-    }
     }//GEN-LAST:event_saveMouseClicked
 
     private void saveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseEntered
@@ -303,13 +257,9 @@ public class createTaskForm extends javax.swing.JFrame {
         save.setBackground(bodycolor);
     }//GEN-LAST:event_saveMouseExited
 
-    private void asstoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_asstoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_asstoActionPerformed
-
     private void cnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnlMouseClicked
-        taskForm tf = new taskForm();
-        tf.setVisible(true);
+        employeeTask et = new employeeTask();
+        et.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cnlMouseClicked
 
@@ -330,6 +280,14 @@ public class createTaskForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowActivated
 
+    private void ppActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ppActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ppActionPerformed
+
+    private void tidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tidActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tidActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -347,44 +305,45 @@ public class createTaskForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(createTaskForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updateTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(createTaskForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updateTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(createTaskForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updateTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(createTaskForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(updateTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new createTaskForm().setVisible(true);
+                new updateTask().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JComboBox<String> assto;
     private javax.swing.JPanel cnl;
-    private com.toedter.calendar.JDateChooser dd;
+    public com.toedter.calendar.JDateChooser dd;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField pl;
+    public javax.swing.JTextField pp;
     public javax.swing.JPanel save;
-    private javax.swing.JTextArea td;
+    public javax.swing.JTextField tid;
     public javax.swing.JTextField tn;
     // End of variables declaration//GEN-END:variables
 }

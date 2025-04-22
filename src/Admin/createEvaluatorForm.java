@@ -8,25 +8,13 @@ package Admin;
 import Error.ErrorPage;
 import config.Session;
 import config.dbConnector;
-import config.passHash;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
 
 /**
@@ -40,46 +28,89 @@ public class createEvaluatorForm extends javax.swing.JFrame {
      */
     public createEvaluatorForm() {
         initComponents();
-        loadEmployees();
-      //  loadDepartment();
+        loadEvaluators();
+        loadDepartment();
         
     }
     
     
-    private HashMap<String, Integer> employeeMap = new HashMap<>();
+    private HashMap<String, Integer> evaluatorMap = new HashMap<>();
     private HashMap<String, Integer> departmentMap = new HashMap<>();  
     
-    private void loadEmployees() {
+    public void loadDepartment(){
+        dbConnector db = new dbConnector();
+        try {
+            String query = "SELECT dep_id, dep_name FROM tbl_department ORDER BY dep_name";
+            ResultSet rs = db.getData(query);
+
+            department.removeAllItems();
+            departmentMap.clear(); 
+            department.addItem("Please Select Department");
+            boolean hasDepartment = false;
+
+            while (rs.next()) {
+                    hasDepartment = true;
+                    int depId = rs.getInt("dep_id");
+                    String depName = rs.getString("dep_name");
+                    department.addItem(depName);
+                    departmentMap.put(depName, depId);
+            }
+
+            if (!hasDepartment) {
+                JOptionPane.showMessageDialog(this,"No department available. Do you want to proceed anyway?", "No Department Found", JOptionPane.INFORMATION_MESSAGE);
+                department.addItem("N/A");
+            }
+
+            department.revalidate();
+            department.repaint();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading department: " + e.getMessage());
+        }
+    }
+    
+    private void loadEvaluators() {
         try {
             dbConnector db = new dbConnector();
 
-            String query = "SELECT u_id, u_fname, u_lname, u_image FROM tbl_admin WHERE u_type = 'Employee' ORDER BY u_fname";
+            String query = "SELECT u_id, u_fname, u_lname, u_image FROM tbl_admin WHERE u_type = 'Evaluator' ORDER BY u_fname";
             ResultSet rs = db.getData(query);
 
-            emp.removeAllItems();
-            employeeMap.clear();
+            eval.removeAllItems();
+            evaluatorMap.clear();
 
-            emp.addItem("Please Select Employee");
+            eval.addItem("Please Select Evaluator");
+
+            // Query to get all employees already in tbl_employee (assigned to a department)
+            String alreadyAssignedQuery = "SELECT eval_userid FROM tbl_evaluator";
+            Set<Integer> assignedUserIds = new HashSet<>();
+            ResultSet assignedRs = db.getData(alreadyAssignedQuery);
+            while (assignedRs.next()) {
+                assignedUserIds.add(assignedRs.getInt("eval_userid"));
+            }
 
             boolean hasEmployees = false;
             while (rs.next()) {
                 hasEmployees = true;
                 int userId = rs.getInt("u_id");
-                String fullName = rs.getString("u_fname") + " " + rs.getString("u_lname");
-                emp.addItem(fullName);
-                employeeMap.put(fullName, userId);
+
+                
+                if (!assignedUserIds.contains(userId)) {
+                    String fullName = rs.getString("u_fname") + " " + rs.getString("u_lname");
+                    eval.addItem(fullName);
+                    evaluatorMap.put(fullName, userId);
+                }
             }
 
             if (!hasEmployees) {
-                emp.addItem("N/A");
-                JOptionPane.showMessageDialog(this, 
-                    "No employees available. Please create an user with employee type first.", 
-                    "No Employees Found", 
-                    JOptionPane.WARNING_MESSAGE);
+                eval.addItem("N/A");
+                JOptionPane.showMessageDialog(this,
+                        "No evaluators available. Please create a user with evaluator type first.",
+                        "No Evaluators Found",
+                        JOptionPane.WARNING_MESSAGE);
             }
 
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error loading employees: " + e.getMessage());
+            JOptionPane.showMessageDialog(this, "Error loading evaluators: " + e.getMessage());
         }
     }
     
@@ -101,7 +132,7 @@ public class createEvaluatorForm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        emp = new javax.swing.JComboBox<>();
+        eval = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         pst = new javax.swing.JTextField();
         cnl = new javax.swing.JPanel();
@@ -137,19 +168,19 @@ public class createEvaluatorForm extends javax.swing.JFrame {
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 200, 40));
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        jLabel15.setText("Select Employee");
+        jLabel15.setText("Select Evaluator");
         jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 100, 30));
 
-        emp.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        emp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select Employee" }));
-        emp.setBorder(null);
-        emp.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        emp.addActionListener(new java.awt.event.ActionListener() {
+        eval.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        eval.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Please select Evaluator" }));
+        eval.setBorder(null);
+        eval.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        eval.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                empActionPerformed(evt);
+                evalActionPerformed(evt);
             }
         });
-        jPanel3.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 220, 44));
+        jPanel3.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 220, 44));
 
         jLabel3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel3.setText("Position");
@@ -255,16 +286,16 @@ public class createEvaluatorForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowActivated
 
-    private void empActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empActionPerformed
+    private void evalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_evalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_empActionPerformed
+    }//GEN-LAST:event_evalActionPerformed
 
     private void pstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pstActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_pstActionPerformed
 
     private void cnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnlMouseClicked
-        employeeForm ef = new employeeForm();
+        evaluatorForm ef = new evaluatorForm();
         ef.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cnlMouseClicked
@@ -278,24 +309,24 @@ public class createEvaluatorForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cnlMouseExited
 
     private void crtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_crtMouseClicked
-        String position = pst.getText().trim();
-        String selectedEmployee = emp.getSelectedItem().toString();
+        String position = pst.getText();
+        String accesslvl = evl.getText();
+        String selectedEvaluator = eval.getSelectedItem().toString();
         String selectedDepartment = department.getSelectedItem().toString();
 
-        if (position.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Position field is required!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if ("Please Select Employee".equals(selectedEmployee) || "N/A".equals(selectedEmployee)) {
-            JOptionPane.showMessageDialog(this, "Please select a valid employee", "Error", JOptionPane.ERROR_MESSAGE);
+        if (position.isEmpty() || accesslvl.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Position and Access level field are required!", "Error", JOptionPane.ERROR_MESSAGE);
+        }else if ("Please Select Evaluator".equals(selectedEvaluator) || "N/A".equals(selectedEvaluator)) {
+            JOptionPane.showMessageDialog(this, "Please select a valid evauator", "Error", JOptionPane.ERROR_MESSAGE);
         }else if ("Please Select Department".equals(selectedDepartment) || "N/A".equals(selectedDepartment)) {
             JOptionPane.showMessageDialog(this, "Please select a valid department", "Error", JOptionPane.ERROR_MESSAGE);
         }else{
             dbConnector db = new dbConnector();
-            Integer userId = employeeMap.get(selectedEmployee);
+            Integer userId = evaluatorMap.get(selectedEvaluator);
             Integer depId = departmentMap.get(selectedDepartment);
 
-            // Check department capacity
             String capacityQuery = "SELECT dep_totalemp, "
-            + "(SELECT COUNT(*) FROM tbl_employee WHERE emp_depid = ?) AS current_employees "
+            + "(SELECT COUNT(*) FROM tbl_evaluator WHERE eval_depid = ?) AS current_evaluator "
             + "FROM tbl_department WHERE dep_id = ?";
 
             try (PreparedStatement pstmt = db.connect.prepareStatement(capacityQuery)) {
@@ -305,11 +336,11 @@ public class createEvaluatorForm extends javax.swing.JFrame {
                 ResultSet rs = pstmt.executeQuery();
                 if (rs.next()) {
                     int maxCapacity = rs.getInt("dep_totalemp");
-                    int currentEmployees = rs.getInt("current_employees");
+                    int currentEvaluator = rs.getInt("current_evaluator");
 
-                    if (currentEmployees >= maxCapacity) {
+                    if (currentEvaluator >= maxCapacity) {
                         JOptionPane.showMessageDialog(this,
-                            "Cannot add employee - department is full! (Current: " + currentEmployees +
+                            "Cannot add evaluator - department is full! (Current: " + currentEvaluator +
                             "/Max: " + maxCapacity + ")",
                             "Error", JOptionPane.ERROR_MESSAGE);
                         return;
@@ -319,12 +350,12 @@ public class createEvaluatorForm extends javax.swing.JFrame {
                 System.out.println(""+ex);
             }
 
-            if(db.InsertData("INSERT INTO tbl_employee (emp_userid, emp_position, emp_depid)"
-                + "VALUES ('"+userId+"', '"+pst.getText()+"', '"+depId+"')") == 1){
+            if(db.InsertData("INSERT INTO tbl_evaluator (eval_userid, eval_depid, eval_position, eval_accesslvl)"
+                + "VALUES ('"+userId+"', '"+depId+"', '"+pst.getText()+"', '"+evl.getText()+"')") == 1){
             Session sess = Session.getInstance();
-            db.logActivity(sess.getUid(), "Created a new Employee: " + userId);
-            JOptionPane.showMessageDialog(this, "Added New Employee Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            employeeForm ef = new employeeForm();
+            db.logActivity(sess.getUid(), "Created a new Evaluator: " + userId);
+            JOptionPane.showMessageDialog(this, "Added New Evaluator Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            evaluatorForm ef = new evaluatorForm();
             ef.setVisible(true);
             this.dispose();
         }else{
@@ -391,7 +422,7 @@ public class createEvaluatorForm extends javax.swing.JFrame {
     private javax.swing.JPanel cnl;
     public javax.swing.JPanel crt;
     public javax.swing.JComboBox<String> department;
-    public javax.swing.JComboBox<String> emp;
+    public javax.swing.JComboBox<String> eval;
     public javax.swing.JTextField evl;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;

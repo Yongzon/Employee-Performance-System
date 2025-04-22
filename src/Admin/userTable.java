@@ -10,10 +10,17 @@ import Startup.loginform;
 import config.Session;
 import config.dbConnector;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import net.proteanit.sql.DbUtils;
 import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
@@ -51,6 +58,43 @@ public class userTable extends javax.swing.JFrame {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    
+    public static int getHeightFromWidth(String imagePath, int desiredWidth) {
+    try {
+        // Read the image file
+        File imageFile = new File(imagePath);
+        BufferedImage image = ImageIO.read(imageFile);
+
+        // Get the original width and height of the image
+        int originalWidth = image.getWidth();
+        int originalHeight = image.getHeight();
+
+        // Calculate the new height based on the desired width and the aspect ratio
+        int newHeight = (int) ((double) desiredWidth / originalWidth * originalHeight);
+
+        return newHeight;
+    } catch (IOException ex) {
+        System.out.println("No image found!");
+    }
+
+    return -1;
+    }
+    
+    public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+    ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
+        
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
     
     Color bodycolor = new Color (255,255,255);
     Color nav = new Color (242,240,240);
@@ -93,8 +137,8 @@ public class userTable extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        crtuser = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
+        wc = new javax.swing.JLabel();
         dash = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
@@ -306,13 +350,12 @@ public class userTable extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Capture-removebg-preview (1).png"))); // NOI18N
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/settings_17163803.png"))); // NOI18N
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
+        image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 100, 80));
 
-        crtuser.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        crtuser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(crtuser, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
+        wc.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 180, 40));
 
         dash.setBackground(new java.awt.Color(255, 255, 255));
         dash.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -337,7 +380,7 @@ public class userTable extends javax.swing.JFrame {
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/business-report_18640352.png"))); // NOI18N
         dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 190, 163, 40));
+        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 163, 40));
 
         task.setBackground(new java.awt.Color(255, 255, 255));
         task.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -362,7 +405,7 @@ public class userTable extends javax.swing.JFrame {
         jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
         task.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 230, 163, 40));
+        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 163, 40));
 
         evaluator.setBackground(new java.awt.Color(255, 255, 255));
         evaluator.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -387,7 +430,7 @@ public class userTable extends javax.swing.JFrame {
         jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/accountability_16842053 (1).png"))); // NOI18N
         evaluator.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(evaluator, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 350, 163, 40));
+        jPanel2.add(evaluator, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 163, 40));
 
         dep.setBackground(new java.awt.Color(255, 255, 255));
         dep.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -412,7 +455,7 @@ public class userTable extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/company_7716170 (1).png"))); // NOI18N
         dep.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(dep, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 310, 163, 40));
+        jPanel2.add(dep, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 163, 40));
 
         emp.setBackground(new java.awt.Color(255, 255, 255));
         emp.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -437,7 +480,7 @@ public class userTable extends javax.swing.JFrame {
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/employee_2572970.png"))); // NOI18N
         emp.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(17, 0, 40, 40));
 
-        jPanel2.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 270, 163, 40));
+        jPanel2.add(emp, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 163, 40));
 
         us.setBackground(new java.awt.Color(255, 255, 255));
         us.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -462,7 +505,7 @@ public class userTable extends javax.swing.JFrame {
         jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user_16116728.png"))); // NOI18N
         us.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(us, new org.netbeans.lib.awtextra.AbsoluteConstraints(8, 390, 163, 40));
+        jPanel2.add(us, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 163, 40));
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 560));
 
@@ -474,12 +517,29 @@ public class userTable extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        Session sess = Session.getInstance();
-       if(sess.getUid() == 0){
-            ErrorPage ep = new ErrorPage();
-            ep.setVisible(true);
-            this.dispose();
+        if(sess.getUid() == 0){
+             ErrorPage ep = new ErrorPage();
+             ep.setVisible(true);
+             this.dispose();
+             System.out.println("");
         }else{
-             crtuser.setText("" +sess.getLname());
+            try {
+            dbConnector db = new dbConnector();
+            try (ResultSet rs = db.getData("SELECT u_image FROM tbl_admin WHERE u_id = '" + sess.getUid() + "'")) {
+                if(rs.next()) {
+                    String imagePath = rs.getString("u_image");
+                    if(imagePath != null && !imagePath.isEmpty()) {
+                        wc.setText(""+sess.getLname());
+                        image.setIcon(ResizeImage(imagePath, null, image));
+                    }else{
+                        image.setText("No image");
+                        wc.setText(""+sess.getLname());
+                    }
+                }
+                }
+            } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+            }    
         }   
     }//GEN-LAST:event_formWindowActivated
 
@@ -798,7 +858,6 @@ public class userTable extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel add;
     private javax.swing.JLabel addT;
-    private javax.swing.JLabel crtuser;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel del;
     private javax.swing.JLabel delT;
@@ -807,6 +866,7 @@ public class userTable extends javax.swing.JFrame {
     private javax.swing.JLabel editT;
     private javax.swing.JPanel emp;
     private javax.swing.JPanel evaluator;
+    public javax.swing.JLabel image;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -818,7 +878,6 @@ public class userTable extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -843,5 +902,6 @@ public class userTable extends javax.swing.JFrame {
     private javax.swing.JPanel us;
     private javax.swing.JPanel userpanel;
     private javax.swing.JTable usertbl;
+    private javax.swing.JLabel wc;
     // End of variables declaration//GEN-END:variables
 }

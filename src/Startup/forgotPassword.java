@@ -6,13 +6,11 @@
 
 package Startup;
 
-import User.*;
-import Error.ErrorPage;
 import Startup.loginform;
-import config.Session;
 import config.dbConnector;
 import config.passHash;
 import java.awt.Color;
+import java.awt.Component;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,18 +51,13 @@ public class forgotPassword extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         changePass = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         cp = new javax.swing.JPasswordField();
-        question = new javax.swing.JLabel();
         newpass = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        answer = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        submit = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         email = new javax.swing.JTextField();
         search = new javax.swing.JPanel();
@@ -102,7 +95,7 @@ public class forgotPassword extends javax.swing.JFrame {
         jLabel18.setText("Clear");
         cl.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 60, 20));
 
-        userpanel.add(cl, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 450, 180, 40));
+        userpanel.add(cl, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 180, 40));
 
         changePass.setBackground(new java.awt.Color(0, 204, 204));
         changePass.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -126,11 +119,7 @@ public class forgotPassword extends javax.swing.JFrame {
         jLabel19.setText("Change Pass");
         changePass.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, 20));
 
-        userpanel.add(changePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, 180, 40));
-
-        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        jLabel4.setText("Answer");
-        userpanel.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 100, 30));
+        userpanel.add(changePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 180, 40));
 
         cp.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         cp.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -141,11 +130,7 @@ public class forgotPassword extends javax.swing.JFrame {
                 cpActionPerformed(evt);
             }
         });
-        userpanel.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 220, 44));
-
-        question.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        question.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        userpanel.add(question, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 340, 50));
+        userpanel.add(cp, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 260, 220, 44));
 
         newpass.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         newpass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -156,7 +141,7 @@ public class forgotPassword extends javax.swing.JFrame {
                 newpassActionPerformed(evt);
             }
         });
-        userpanel.add(newpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 210, 44));
+        userpanel.add(newpass, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 210, 44));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pen.png"))); // NOI18N
@@ -176,46 +161,13 @@ public class forgotPassword extends javax.swing.JFrame {
         });
         userpanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 40, 30));
 
-        answer.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        answer.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        answer.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        answer.setEnabled(false);
-        answer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                answerActionPerformed(evt);
-            }
-        });
-        userpanel.add(answer, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 340, 50));
-
         jLabel12.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel12.setText("Confirm Password");
-        userpanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 360, 120, 30));
+        userpanel.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 120, 30));
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel5.setText("New Password");
-        userpanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 100, 30));
-
-        submit.setBackground(new java.awt.Color(102, 255, 0));
-        submit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                submitMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                submitMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                submitMouseExited(evt);
-            }
-        });
-        submit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Submit");
-        submit.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 60, 20));
-
-        userpanel.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 100, 40));
+        userpanel.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, 100, 30));
 
         jLabel11.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -256,7 +208,7 @@ public class forgotPassword extends javax.swing.JFrame {
 
         userpanel.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 100, 40));
 
-        getContentPane().add(userpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 540));
+        getContentPane().add(userpanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 400));
 
         pack();
         setLocationRelativeTo(null);
@@ -266,20 +218,88 @@ public class forgotPassword extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowActivated
 
-    private void clMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseClicked
-        String password1 = new String(cp.getPassword());
-        String cpassword = new String(newpass.getPassword());
-        cp.setText("");
-        newpass.setText("");
-    }//GEN-LAST:event_clMouseClicked
+    private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
+        search.setBackground(sh);
+    }//GEN-LAST:event_searchMouseExited
 
-    private void clMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseEntered
-        cl.setBackground(nav1);
-    }//GEN-LAST:event_clMouseEntered
+    private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
+        search.setBackground(sh1);
+    }//GEN-LAST:event_searchMouseEntered
 
-    private void clMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseExited
-        cl.setBackground(bodycolor1);
-    }//GEN-LAST:event_clMouseExited
+    private void searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseClicked
+        String userInput = email.getText();
+        if (userInput.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter your email!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        dbConnector db = new dbConnector();
+        try {
+            String query = "SELECT u_questions, u_answers, u_email FROM tbl_admin WHERE u_email = '" + userInput + "'";
+            ResultSet rs = db.getData(query);
+
+            if (rs.next()) {
+                String storedQuestion = rs.getString("u_questions");
+                if (storedQuestion == null || storedQuestion.equalsIgnoreCase("No stored security questions") || storedQuestion.trim().isEmpty()){
+                    JOptionPane.showMessageDialog(this, "No security question found, cannot proceed to reset password!", "Error", JOptionPane.ERROR_MESSAGE);
+                }else{
+                    JOptionPane.showMessageDialog(null, "Account Found");
+                    String question = rs.getString("u_questions");
+                    String correctAnswer = rs.getString("u_answers");
+
+                    while (true) {
+                        String userAnswer = JOptionPane.showInputDialog(this, question, "Security Question", JOptionPane.INFORMATION_MESSAGE);
+
+                        if (userAnswer == null) {
+                            break;
+                        }
+
+                        if (userAnswer.equals(correctAnswer)) {
+                            JOptionPane.showMessageDialog(null, "Correct Answer, proceeding to reset password", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            email.setEnabled(false);
+                            newpass.setEnabled(true);
+                            cp.setEnabled(true);
+                            break;
+                        }else if (userAnswer.trim().isEmpty()){
+                            JOptionPane.showMessageDialog(null, "Answer field cannot be empty, try again", "Error", JOptionPane.ERROR_MESSAGE);
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Incorrect Answer, try again", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    } 
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Account not found!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }//GEN-LAST:event_searchMouseClicked
+
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_emailActionPerformed
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        loginform lf = new loginform();
+        lf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void newpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newpassActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newpassActionPerformed
+
+    private void cpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cpActionPerformed
+
+    private void changePassMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePassMouseExited
+        changePass.setBackground(bodycolor);
+    }//GEN-LAST:event_changePassMouseExited
+
+    private void changePassMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePassMouseEntered
+        changePass.setBackground(nav);
+    }//GEN-LAST:event_changePassMouseEntered
 
     private void changePassMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePassMouseClicked
         String password1 = new String(newpass.getPassword());
@@ -295,20 +315,20 @@ public class forgotPassword extends javax.swing.JFrame {
             try {
                 dbConnector dbc = new dbConnector();
 
-                    String pass = passHash.hashPassword(newpass.getText());
-                    String pass2 = passHash.hashPassword(cp.getText());
+                String pass = passHash.hashPassword(newpass.getText());
+                String pass2 = passHash.hashPassword(cp.getText());
 
-                    if (pass.equals(pass2)) {
-                        dbc.updateData("UPDATE tbl_admin SET u_password = '" + pass + "', u_cpassword = '"+ pass2 +"' WHERE u_email = '"+userInput+"'");
-                        JOptionPane.showMessageDialog(null, "Change Password `Successfully!");
-                        loginform lf = new loginform();
-                        lf.setVisible(true);
-                        this.dispose();
-                    }else if(!newpass.getText().equals(cp.getText())){
-                        JOptionPane.showMessageDialog(null, "Password not Matches");
-                        newpass.setText("");
-                        cp.setText("");
-                    }
+                if (pass.equals(pass2)) {
+                    dbc.updateData("UPDATE tbl_admin SET u_password = '" + pass + "', u_cpassword = '"+ pass2 +"' WHERE u_email = '"+userInput+"'");
+                    JOptionPane.showMessageDialog(null, "Change Password `Successfully!");
+                    loginform lf = new loginform();
+                    lf.setVisible(true);
+                    this.dispose();
+                }else if(!newpass.getText().equals(cp.getText())){
+                    JOptionPane.showMessageDialog(null, "Password not Matches");
+                    newpass.setText("");
+                    cp.setText("");
+                }
             } catch (NoSuchAlgorithmException ex){
                 System.out.println(""+ex);
             }
@@ -316,119 +336,20 @@ public class forgotPassword extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_changePassMouseClicked
 
-    private void changePassMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePassMouseEntered
-        changePass.setBackground(nav);
-    }//GEN-LAST:event_changePassMouseEntered
+    private void clMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseExited
+        cl.setBackground(bodycolor1);
+    }//GEN-LAST:event_clMouseExited
 
-    private void changePassMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePassMouseExited
-        changePass.setBackground(bodycolor);
-    }//GEN-LAST:event_changePassMouseExited
+    private void clMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseEntered
+        cl.setBackground(nav1);
+    }//GEN-LAST:event_clMouseEntered
 
-    private void cpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cpActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cpActionPerformed
-
-    private void newpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newpassActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newpassActionPerformed
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-    loginform lf = new loginform();
-    lf.setVisible(true);
-    this.dispose();
-    }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void answerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_answerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_answerActionPerformed
-
-    private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
-    String userInput = email.getText();
-    String an = answer.getText();
-    dbConnector db = new dbConnector();
-    
-    if(an.isEmpty()){
-       JOptionPane.showMessageDialog(this, "Input an answer first!", "Error", JOptionPane.ERROR_MESSAGE);
-    }else{
-        try {
-            String query = "SELECT u_questions, u_answers FROM tbl_admin WHERE u_email = '" + userInput + "'";
-            ResultSet rs = db.getData(query);
-
-            if (rs.next()) {
-                question.setText(""+rs.getString("u_questions"));
-                String storedAnswer = rs.getString("u_answers");
-
-                String userAnswer = answer.getText();
-
-                if (userAnswer != null && userAnswer.equalsIgnoreCase(storedAnswer)) {
-                    JOptionPane.showMessageDialog(this, "Security answer correct! Proceeding to reset password.");
-                    newpass.setEnabled(true);
-                    cp.setEnabled(true);
-                } else {
-                    JOptionPane.showMessageDialog(this, "Incorrect answer!", "Error", JOptionPane.ERROR_MESSAGE);
-                    newpass.setEnabled(false);
-                    cp.setEnabled(false);
-                    answer.setText("");
-                }
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-    }
-    }//GEN-LAST:event_submitMouseClicked
-
-    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_emailActionPerformed
-
-    private void searchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseClicked
-        String userInput = email.getText();
-        if (userInput.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter your email!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        dbConnector db = new dbConnector();
-        try {
-            String query = "SELECT u_questions, u_email FROM tbl_admin WHERE u_email = '" + userInput + "'";
-            ResultSet rs = db.getData(query);
-
-            if (rs.next()) {
-                String storedQuestion = rs.getString("u_questions");
-                if (storedQuestion == null || storedQuestion.equalsIgnoreCase("No stored security questions") || storedQuestion.trim().isEmpty()){
-                    JOptionPane.showMessageDialog(this, "No security question found, cannot proceed to reset password!", "Error", JOptionPane.ERROR_MESSAGE);
-                    question.setText("");
-                    answer.setText("");
-                    answer.setEnabled(false);
-                }else{
-                    question.setText(""+rs.getString("u_questions"));
-                    JOptionPane.showMessageDialog(null, "Account Found");
-                    answer.setEnabled(true);
-                }
-                
-            } else {
-                JOptionPane.showMessageDialog(this, "Account not found!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex);
-        }
-    }//GEN-LAST:event_searchMouseClicked
-
-    private void searchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseEntered
-        search.setBackground(sh1);
-    }//GEN-LAST:event_searchMouseEntered
-
-    private void searchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchMouseExited
-        search.setBackground(sh);
-    }//GEN-LAST:event_searchMouseExited
-
-    private void submitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseEntered
-        submit.setBackground(sm1);
-    }//GEN-LAST:event_submitMouseEntered
-
-    private void submitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseExited
-        submit.setBackground(sm);
-    }//GEN-LAST:event_submitMouseExited
+    private void clMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clMouseClicked
+        String password1 = new String(cp.getPassword());
+        String cpassword = new String(newpass.getPassword());
+        cp.setText("");
+        newpass.setText("");
+    }//GEN-LAST:event_clMouseClicked
 
     /**
      * @param args the command line arguments
@@ -481,26 +402,21 @@ public class forgotPassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField answer;
-    public javax.swing.JPanel changePass;
+    private javax.swing.JPanel changePass;
     private javax.swing.JPanel cl;
     private javax.swing.JPasswordField cp;
     private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPasswordField newpass;
-    private javax.swing.JLabel question;
-    public javax.swing.JPanel search;
-    private javax.swing.JPanel submit;
+    private javax.swing.JPanel search;
     private javax.swing.JPanel userpanel;
     // End of variables declaration//GEN-END:variables
 
