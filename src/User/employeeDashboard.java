@@ -108,9 +108,9 @@ public class employeeDashboard extends javax.swing.JFrame {
         task = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        task2 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
+        rt = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         userpanel = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -151,6 +151,7 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
         image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_14024695.png"))); // NOI18N
         jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 100, 80));
 
         wc.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -184,6 +185,9 @@ public class employeeDashboard extends javax.swing.JFrame {
 
         ct.setBackground(new java.awt.Color(255, 255, 255));
         ct.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ctMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 ctMouseEntered(evt);
             }
@@ -195,12 +199,17 @@ public class employeeDashboard extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("Completed Task");
-        ct.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 100, 20));
+        jLabel9.setText("Evaluation");
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel9MouseClicked(evt);
+            }
+        });
+        ct.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
-        ct.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hypothesis_11532834.png"))); // NOI18N
+        ct.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
         jPanel2.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 180, -1));
 
@@ -229,27 +238,35 @@ public class employeeDashboard extends javax.swing.JFrame {
 
         jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, -1));
 
-        task2.setBackground(new java.awt.Color(255, 255, 255));
-        task2.addMouseListener(new java.awt.event.MouseAdapter() {
+        rt.setBackground(new java.awt.Color(255, 255, 255));
+        rt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rtMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                task2MouseEntered(evt);
+                rtMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                task2MouseExited(evt);
+                rtMouseExited(evt);
             }
         });
-        task2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        rt.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel17.setText("Tasks");
-        task2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 50, 20));
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Results");
+        jLabel20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel20MouseClicked(evt);
+            }
+        });
+        rt.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
 
-        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel18.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
-        task2.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+        jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/analytics-report_16136803.png"))); // NOI18N
+        rt.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
-        jPanel2.add(task2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, -1));
+        jPanel2.add(rt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 180, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 183, 560));
 
@@ -274,7 +291,7 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/team_7287546.png"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/completed-task_1632670.png"))); // NOI18N
         jPanel6.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 40, 40));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -293,7 +310,7 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/team_7287546.png"))); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/project_9419960.png"))); // NOI18N
         jPanel7.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 40, 40));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -308,11 +325,11 @@ public class employeeDashboard extends javax.swing.JFrame {
 
         userpanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 220, -1));
 
-        jPanel8.setBackground(new java.awt.Color(255, 255, 153));
+        jPanel8.setBackground(new java.awt.Color(153, 204, 255));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/team_7287546.png"))); // NOI18N
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/buy-list_15014328.png"))); // NOI18N
         jPanel8.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 40, 40));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -360,7 +377,7 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 50, 50));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee", "Logout", "Settings" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee", "Settings", "Logout" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -373,22 +390,6 @@ public class employeeDashboard extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void dashMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseEntered
-         dash.setBackground(nav);
-    }//GEN-LAST:event_dashMouseEntered
-
-    private void dashMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseExited
-         dash.setBackground(bodycolor);
-    }//GEN-LAST:event_dashMouseExited
-
-    private void ctMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctMouseEntered
-       ct.setBackground(nav);
-    }//GEN-LAST:event_ctMouseEntered
-
-    private void ctMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctMouseExited
-        ct.setBackground(bodycolor);
-    }//GEN-LAST:event_ctMouseExited
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        Session sess = Session.getInstance();
@@ -439,33 +440,69 @@ public class employeeDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void taskMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskMouseEntered
-    task.setBackground(nav);
-    }//GEN-LAST:event_taskMouseEntered
-
-    private void taskMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskMouseExited
-    task.setBackground(bodycolor);
-    }//GEN-LAST:event_taskMouseExited
-
-    private void task2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_task2MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_task2MouseEntered
-
-    private void task2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_task2MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_task2MouseExited
-
-    private void taskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskMouseClicked
-        employeeTask et = new employeeTask();
-        et.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_taskMouseClicked
-
     private void dashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseClicked
         employeeDashboard ed = new employeeDashboard();
         ed.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_dashMouseClicked
+
+    private void dashMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseEntered
+        dash.setBackground(nav);
+    }//GEN-LAST:event_dashMouseEntered
+
+    private void dashMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseExited
+        dash.setBackground(bodycolor);
+    }//GEN-LAST:event_dashMouseExited
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+    private void ctMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctMouseClicked
+        evaluationResults ct = new evaluationResults();
+        ct.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_ctMouseClicked
+
+    private void ctMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctMouseEntered
+        ct.setBackground(nav);
+    }//GEN-LAST:event_ctMouseEntered
+
+    private void ctMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctMouseExited
+        ct.setBackground(bodycolor);
+    }//GEN-LAST:event_ctMouseExited
+
+    private void taskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskMouseClicked
+        evaluationResults et = new evaluationResults();
+        et.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_taskMouseClicked
+
+    private void taskMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskMouseEntered
+        task.setBackground(nav);
+    }//GEN-LAST:event_taskMouseEntered
+
+    private void taskMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskMouseExited
+        task.setBackground(bodycolor);
+    }//GEN-LAST:event_taskMouseExited
+
+    private void jLabel20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel20MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel20MouseClicked
+
+    private void rtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rtMouseClicked
+        evaluationResults er = new evaluationResults();
+        er.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_rtMouseClicked
+
+    private void rtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rtMouseEntered
+        rt.setBackground(nav);
+    }//GEN-LAST:event_rtMouseEntered
+
+    private void rtMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rtMouseExited
+        rt.setBackground(bodycolor);
+    }//GEN-LAST:event_rtMouseExited
 
     /**
      * @param args the command line arguments
@@ -515,9 +552,9 @@ public class employeeDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -536,8 +573,8 @@ public class employeeDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable logtbl;
+    private javax.swing.JPanel rt;
     private javax.swing.JPanel task;
-    private javax.swing.JPanel task2;
     private javax.swing.JLabel totalDep;
     private javax.swing.JLabel totalDep1;
     private javax.swing.JLabel totalDep2;

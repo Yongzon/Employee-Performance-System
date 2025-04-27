@@ -189,7 +189,7 @@ public class createUserForm extends javax.swing.JFrame {
         uid = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        image = new javax.swing.JLabel();
+        image1 = new javax.swing.JLabel();
         rm = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -394,7 +394,10 @@ public class createUserForm extends javax.swing.JFrame {
         jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, -1, -1));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 310, 320));
+
+        image1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        image1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_14024695 (3).png"))); // NOI18N
+        jPanel1.add(image1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 310, 320));
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 140, 330, 340));
 
@@ -604,7 +607,7 @@ public class createUserForm extends javax.swing.JFrame {
                     destination = "";
                     path="";
                 }else{
-                    image.setIcon(ResizeImage(path, null, image));
+                    image1.setIcon(ResizeImage(path, null, image1));
 //                    select.setVisible(true);
 //                    rm.setVisible(false);
                 }
@@ -623,7 +626,7 @@ public class createUserForm extends javax.swing.JFrame {
     }//GEN-LAST:event_selectMouseExited
 
     private void rmMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rmMouseClicked
-        image.setIcon(null);
+        image1.setIcon(null);
         destination = "";
         path = "";
     }//GEN-LAST:event_rmMouseClicked
@@ -678,7 +681,7 @@ public class createUserForm extends javax.swing.JFrame {
     public javax.swing.JPanel crt;
     public javax.swing.JTextField em;
     public javax.swing.JTextField fn;
-    public javax.swing.JLabel image;
+    public javax.swing.JLabel image1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

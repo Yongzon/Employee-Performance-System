@@ -52,7 +52,7 @@ public class dbConnector {
                 PreparedStatement pst = connect.prepareStatement(sql);
                     int rowsUpdated = pst.executeUpdate();
                         if(rowsUpdated > 0){
-                            JOptionPane.showMessageDialog(null, "Data Updated Successfully!");
+                            
                         }else{
                             System.out.println("Data Update Failed!");
                         }

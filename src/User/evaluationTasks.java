@@ -27,12 +27,12 @@ import net.proteanit.sql.DbUtils;
  *
  * @author Chris
  */
-public class employeeTask extends javax.swing.JFrame {
+public class evaluationTasks extends javax.swing.JFrame {
 
     /**
      * Creates new form employeeTask
      */
-    public employeeTask() {
+    public evaluationTasks() {
         initComponents();
         displayTasks();
     }
@@ -156,6 +156,9 @@ public class employeeTask extends javax.swing.JFrame {
         view = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
+        view1 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -301,27 +304,27 @@ public class employeeTask extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Search:");
-        employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 140, 70, 30));
+        employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, 70, 30));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home_6269504.png"))); // NOI18N
-        employeePanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 40, 40));
+        employeePanel.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 10, 40, 40));
 
         jLabel24.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel24.setText("Tasks |");
-        employeePanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 80, 40));
+        jLabel24.setText("Evaluation |");
+        employeePanel.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 40));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("> Home > Dashboard");
-        employeePanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 170, 40));
+        employeePanel.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 170, 40));
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("All Active and Pending Tasks");
-        employeePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 180, 40));
-        employeePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 140, 210, 30));
+        jLabel6.setText("All Request Evaluation");
+        employeePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 40));
+        employeePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 80, 130, 30));
 
         update.setBackground(new java.awt.Color(241, 242, 247));
         update.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -344,14 +347,14 @@ public class employeeTask extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Update Task");
-        update.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 20));
+        jLabel1.setText("Request Evaluation");
+        update.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 120, 20));
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/office_16626103.png"))); // NOI18N
-        update.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/task-assignment_18543665.png"))); // NOI18N
+        update.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        employeePanel.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, 150, 40));
+        employeePanel.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 170, 40));
 
         tasktbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -381,14 +384,39 @@ public class employeeTask extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("View Task");
-        view.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
+        jLabel11.setText("Delete Request");
+        view.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 110, 20));
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (1).png"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_14871413.png"))); // NOI18N
         view.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        employeePanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 130, 160, 40));
+        employeePanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 40));
+
+        view1.setBackground(new java.awt.Color(241, 242, 247));
+        view1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                view1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                view1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                view1MouseExited(evt);
+            }
+        });
+        view1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("View Evaluation");
+        view1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
+
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (1).png"))); // NOI18N
+        view1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+
+        employeePanel.add(view1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 160, 40));
 
         getContentPane().add(employeePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 700, 510));
 
@@ -475,13 +503,12 @@ public class employeeTask extends javax.swing.JFrame {
                 ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
 
                 if(rs.next()){
-                    updateTask ut = new updateTask();
-                    ut.tid.setText(""+rs.getInt("t_id"));
-                    ut.tn.setText(""+rs.getString("t_name"));
-                    ut.dd.setDate(rs.getDate("t_deadline"));
-                    ut.pl.setText(""+rs.getString("t_prlevel"));
-                    ut.pp.setText(""+rs.getInt("t_progress"));
-                    ut.setVisible(true);
+                    requestEvaluation re = new requestEvaluation();
+                    re.tid.setText(""+rs.getInt("t_id"));
+                    re.tn.setText(""+rs.getString("t_name"));
+                    re.dd.setDate(rs.getDate("t_deadline"));
+                    re.status.setText(""+rs.getString("t_status"));
+                    re.setVisible(true);
                     this.dispose();
                 }
             }catch(SQLException ex){
@@ -518,11 +545,12 @@ public class employeeTask extends javax.swing.JFrame {
                 ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
 
                 if(rs.next()){
-                    viewTask vt = new viewTask();
+                    viewTask2 vt = new viewTask2();
                     vt.tn.setText(""+rs.getString("t_name"));
                     vt.dd.setDate(rs.getDate("t_deadline"));
                     vt.td.setText(""+rs.getString("t_description"));
                     vt.pl.setText(""+rs.getString("t_prlevel"));
+                    vt.status.setText(""+rs.getString("t_status"));
                     vt.setVisible(true);
                     this.dispose();
                 }
@@ -531,6 +559,18 @@ public class employeeTask extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_viewMouseClicked
+
+    private void view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view1MouseClicked
+
+    private void view1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view1MouseEntered
+
+    private void view1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_view1MouseExited
 
     private void dashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseClicked
         employeeDashboard ed = new employeeDashboard();
@@ -613,20 +653,27 @@ public class employeeTask extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(employeeTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(evaluationTasks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(employeeTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(evaluationTasks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(employeeTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(evaluationTasks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(employeeTask.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(evaluationTasks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new employeeTask().setVisible(true);
+                new evaluationTasks().setVisible(true);
             }
         });
     }
@@ -643,7 +690,9 @@ public class employeeTask extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
@@ -666,6 +715,7 @@ public class employeeTask extends javax.swing.JFrame {
     private javax.swing.JTable tasktbl;
     private javax.swing.JPanel update;
     private javax.swing.JPanel view;
+    private javax.swing.JPanel view1;
     private javax.swing.JLabel wc;
     // End of variables declaration//GEN-END:variables
 }

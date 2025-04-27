@@ -389,6 +389,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
         image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_14024695.png"))); // NOI18N
         jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 100, 80));
 
         wc.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
