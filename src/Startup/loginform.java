@@ -348,15 +348,12 @@ public class loginform extends javax.swing.JFrame {
                     try (ResultSet rs = db.getData("SELECT u_image FROM tbl_admin WHERE u_id = '" + sess.getUid() + "'")) {
                         if (rs.next()) {
                             String imagePath = rs.getString("u_image");
-                            if (imagePath != null && !imagePath.isEmpty()) {
+                                db.logActivity(sess.getUid(), "User Login: " + sess.getLname());
                                 JOptionPane.showMessageDialog(null, "Login Successfully!");
                                 employeeDashboard ed = new employeeDashboard();
                                 ed.image.setIcon(ed.ResizeImage(imagePath, null, ed.image));
                                 ed.setVisible(true);
                                 this.dispose();
-                            } else {
-                                JOptionPane.showMessageDialog(null, "No image found for this user");
-                            }
                         } else {
                             JOptionPane.showMessageDialog(null, "No user data found");
                         }
@@ -365,10 +362,25 @@ public class loginform extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
                 }
             }else if(type.equals("Evaluator")){
-                JOptionPane.showMessageDialog(null, "Login Successfully!");
-                evaluatorDashboard ev = new evaluatorDashboard();
-                ev.setVisible(true);
-                this.dispose();
+                try {
+                    dbConnector db = new dbConnector();
+                    Session sess = Session.getInstance();
+                    try (ResultSet rs = db.getData("SELECT u_image FROM tbl_admin WHERE u_id = '" + sess.getUid() + "'")) {
+                        if (rs.next()) {
+                            String imagePath = rs.getString("u_image");
+                                db.logActivity(sess.getUid(), "User Login: " + sess.getLname());
+                                JOptionPane.showMessageDialog(null, "Login Successfully!");
+                                evaluatorDashboard ed = new evaluatorDashboard();
+                                ed.image.setIcon(ed.ResizeImage(imagePath, null, ed.image));
+                                ed.setVisible(true);
+                                this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No user data found");
+                        }
+                    }
+                } catch (SQLException e) {
+                    JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+                }
             }else{
                 JOptionPane.showMessageDialog(this, "No Account type found contact the Admin", "Error", JOptionPane.ERROR_MESSAGE);
             }

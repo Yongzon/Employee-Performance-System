@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -25,8 +26,35 @@ public class assignedTask extends javax.swing.JFrame {
     /** Creates new form employeeDashboard */
     public assignedTask() {
         initComponents();
+          displayTasks();
     }
     
+    public void displayTasks() {
+    try {
+        dbConnector db = new dbConnector();
+
+        ResultSet rs = db.getData(
+            "SELECT t.t_id AS 'Task ID', "
+                + "t.t_name AS 'Task Name', "
+                + "t.t_description AS 'Task Description', "
+                + "t.t_deadline AS 'Deadline', "
+                + "t.t_status AS 'Task Status', "
+                + "e.evaluation_status AS 'Request Status' "
+                + "FROM tbl_task t LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
+                + "WHERE (e.evaluation_status IN ('Pending') OR e.evaluation_status IS NULL) "
+                + "AND t.t_status IN ('Completed', 'Completed - Late', 'Completed - Overdue', 'Completed - Severely Overdue')");
+        
+        tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
+        rs.close();
+        
+    } catch (SQLException e) {
+        System.out.println("Error: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, 
+            "Error loading tasks: " + e.getMessage(), 
+            "Database Error", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
     Color bodycolor = new Color (255,255,255);
     Color nav = new Color (242,240,240);
     Color bodycolor1 = new Color(241,242,247);
@@ -60,14 +88,14 @@ public class assignedTask extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        update = new javax.swing.JPanel();
+        accept = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        view1 = new javax.swing.JPanel();
+        view = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        view = new javax.swing.JPanel();
+        reject = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -175,7 +203,7 @@ public class assignedTask extends javax.swing.JFrame {
         eval.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 20));
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/toggle_8686243.png"))); // NOI18N
         eval.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
         jPanel2.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 180, -1));
@@ -201,63 +229,38 @@ public class assignedTask extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("All Employee Tasks");
-        userpanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 40));
+        jLabel6.setText("All Employee Evaluation Request");
+        userpanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 200, 40));
 
-        update.setBackground(new java.awt.Color(241, 242, 247));
-        update.addMouseListener(new java.awt.event.MouseAdapter() {
+        accept.setBackground(new java.awt.Color(241, 242, 247));
+        accept.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateMouseClicked(evt);
+                acceptMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updateMouseEntered(evt);
+                acceptMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                updateMouseExited(evt);
+                acceptMouseExited(evt);
             }
         });
-        update.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        accept.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Search:");
-        update.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 190, 70, 30));
+        accept.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 190, 70, 30));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Accept Evaluation");
-        update.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 120, 20));
+        accept.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 120, 20));
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/task-assignment_18543665.png"))); // NOI18N
-        update.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
+        accept.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        userpanel.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 170, 40));
-
-        view1.setBackground(new java.awt.Color(241, 242, 247));
-        view1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                view1MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                view1MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                view1MouseExited(evt);
-            }
-        });
-        view1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel15.setText("View Request");
-        view1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
-
-        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (1).png"))); // NOI18N
-        view1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
-
-        userpanel.add(view1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 160, 40));
+        userpanel.add(accept, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 170, 40));
 
         view.setBackground(new java.awt.Color(241, 242, 247));
         view.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -273,16 +276,41 @@ public class assignedTask extends javax.swing.JFrame {
         });
         view.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel15.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("View Request");
+        view.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
+
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (1).png"))); // NOI18N
+        view.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+
+        userpanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 160, 40));
+
+        reject.setBackground(new java.awt.Color(241, 242, 247));
+        reject.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rejectMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                rejectMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                rejectMouseExited(evt);
+            }
+        });
+        reject.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabel11.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("Reject Request");
-        view.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 110, 20));
+        reject.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 110, 20));
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_14871413.png"))); // NOI18N
-        view.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clipboard_624244.png"))); // NOI18N
+        reject.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        userpanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 170, 40));
+        userpanel.add(reject, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 170, 40));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -359,77 +387,81 @@ public class assignedTask extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
-    private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
+    private void acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseClicked
         int rowIndex = tasktbl.getSelectedRow();
 
-        if(rowIndex < 0){
+        if (rowIndex < 0) {
             JOptionPane.showMessageDialog(null, "Please Select an Item!");
-        }else{
-            try{
-                dbConnector db = new dbConnector();
-                TableModel tbl = tasktbl.getModel();
-                ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
+        } else {
+            dbConnector db = new dbConnector();
+            TableModel tbl = tasktbl.getModel();
+            String taskId = tbl.getValueAt(rowIndex, 0).toString();
 
-                if(rs.next()){
-                    requestEvaluation re = new requestEvaluation();
-                    re.tid.setText(""+rs.getInt("t_id"));
-                    re.tn.setText(""+rs.getString("t_name"));
-                    re.dd.setDate(rs.getDate("t_deadline"));
-                    re.status.setText(""+rs.getString("t_status"));
-                    re.setVisible(true);
-                    this.dispose();
+            int confirm = JOptionPane.showConfirmDialog(this, "Accept evaluation request for selected task?", "Confirm Evaluation Acceptance", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    ResultSet rs = db.getData("SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '" + taskId + "' AND "
+                            + "evaluation_status = 'Pending'");
+
+                    if (rs.next()) {
+                        int evaluationId = rs.getInt("evaluation_id");
+
+                       db.updateData( "UPDATE tbl_evaluation SET evaluation_status = 'Accepted' WHERE evaluation_id = " + evaluationId);
+                            JOptionPane.showMessageDialog(null, "Evaluation request accepted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    rs.close();
+                    displayTasks();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error accepting evaluation: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
-            }catch(SQLException ex){
-                System.out.println(""+ex);
             }
         }
-    }//GEN-LAST:event_updateMouseClicked
+    }//GEN-LAST:event_acceptMouseClicked
 
-    private void updateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseEntered
-        update.setBackground(nav1);
-    }//GEN-LAST:event_updateMouseEntered
+    private void acceptMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseEntered
+        accept.setBackground(nav1);
+    }//GEN-LAST:event_acceptMouseEntered
 
-    private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
-        update.setBackground(bodycolor1);
-    }//GEN-LAST:event_updateMouseExited
-
-    private void view1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_view1MouseClicked
-
-    private void view1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_view1MouseEntered
-
-    private void view1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_view1MouseExited
+    private void acceptMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseExited
+        accept.setBackground(bodycolor1);
+    }//GEN-LAST:event_acceptMouseExited
 
     private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
-        int rowIndex = tasktbl.getSelectedRow();
+    int rowIndex = tasktbl.getSelectedRow();
 
-        if(rowIndex < 0){
-            JOptionPane.showMessageDialog(null, "Please Select an Item!");
-        }else{
-            try{
-                dbConnector db = new dbConnector();
-                TableModel tbl = tasktbl.getModel();
-                ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
+    if(rowIndex < 0){
+        JOptionPane.showMessageDialog(null, "Please Select an Item!");
+    } else {
+        try {
+            dbConnector db = new dbConnector();
+            TableModel tbl = tasktbl.getModel();
 
-                if(rs.next()){
-                    viewTask2 vt = new viewTask2();
-                    vt.tn.setText(""+rs.getString("t_name"));
-                    vt.dd.setDate(rs.getDate("t_deadline"));
-                    vt.td.setText(""+rs.getString("t_description"));
-                    vt.pl.setText(""+rs.getString("t_prlevel"));
-                    vt.status.setText(""+rs.getString("t_status"));
-                    vt.setVisible(true);
-                    this.dispose();
-                }
-            }catch(SQLException ex){
-                System.out.println(""+ex);
+            String query = "SELECT t.*, e.evaluation_status FROM tbl_task t " +
+                          "LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid " +
+                          "WHERE t.t_id = '" + tbl.getValueAt(rowIndex, 0) + "'";
+
+            ResultSet rs = db.getData(query);
+
+            if(rs.next()){
+                viewTask2 vt = new viewTask2();
+                vt.tn.setText(rs.getString("t_name"));
+                vt.dd.setDate(rs.getDate("t_deadline"));
+                vt.td.setText(rs.getString("t_description"));
+                vt.pl.setText(rs.getString("t_prlevel"));
+                vt.status.setText(rs.getString("t_status"));
+                vt.eval.setText(rs.getString("evaluation_status"));
+                vt.setVisible(true);
+                this.dispose();
             }
+        } catch(SQLException ex) {
+            System.out.println("Error: " + ex);
+            JOptionPane.showMessageDialog(null, 
+                "Database error: " + ex.getMessage(), 
+                "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
     }//GEN-LAST:event_viewMouseClicked
 
     private void viewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseEntered
@@ -439,6 +471,47 @@ public class assignedTask extends javax.swing.JFrame {
     private void viewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseExited
         view.setBackground(bodycolor1);
     }//GEN-LAST:event_viewMouseExited
+
+    private void rejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectMouseClicked
+        int rowIndex = tasktbl.getSelectedRow();
+
+        if (rowIndex < 0) {
+            JOptionPane.showMessageDialog(null, "Please Select an Item!");
+        } else {
+            dbConnector db = new dbConnector();
+            TableModel tbl = tasktbl.getModel();
+            String taskId = tbl.getValueAt(rowIndex, 0).toString();
+
+            int confirm = JOptionPane.showConfirmDialog(this, "Reject evaluation request for selected task?", "Confirm Evaluation Rejection", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                try {
+                    ResultSet rs = db.getData("SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '" + taskId + "' AND "
+                            + "evaluation_status = 'Pending'");
+
+                    if (rs.next()) {
+                        int evaluationId = rs.getInt("evaluation_id");
+
+                       db.updateData( "UPDATE tbl_evaluation SET evaluation_status = 'Rejected' WHERE evaluation_id = " + evaluationId);
+                            JOptionPane.showMessageDialog(null, "Evaluation request rejected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    }
+                    rs.close();
+                    displayTasks();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error rejecting evaluation: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            }
+        }
+    }//GEN-LAST:event_rejectMouseClicked
+
+    private void rejectMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectMouseEntered
+        reject.setBackground(nav1);
+    }//GEN-LAST:event_rejectMouseEntered
+
+    private void rejectMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectMouseExited
+        reject.setBackground(bodycolor1);
+    }//GEN-LAST:event_rejectMouseExited
 
     private void dashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseClicked
         evaluatorDashboard ed = new evaluatorDashboard();
@@ -525,6 +598,7 @@ public class assignedTask extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel accept;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel eval;
     private javax.swing.JComboBox<String> jComboBox1;
@@ -553,12 +627,11 @@ public class assignedTask extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel reject;
     private javax.swing.JPanel task;
     private javax.swing.JTable tasktbl;
-    private javax.swing.JPanel update;
     private javax.swing.JPanel userpanel;
     private javax.swing.JPanel view;
-    private javax.swing.JPanel view1;
     private javax.swing.JLabel wc;
     private javax.swing.JLabel wc1;
     // End of variables declaration//GEN-END:variables

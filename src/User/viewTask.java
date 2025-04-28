@@ -43,6 +43,8 @@ public class viewTask extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         td = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        status = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -69,11 +71,11 @@ public class viewTask extends javax.swing.JFrame {
                 plActionPerformed(evt);
             }
         });
-        jPanel3.add(pl, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 270, 230, 30));
+        jPanel3.add(pl, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 130, 40));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Priority Level");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 100, 30));
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 100, 30));
 
         tn.setEditable(false);
         tn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -84,15 +86,15 @@ public class viewTask extends javax.swing.JFrame {
                 tnActionPerformed(evt);
             }
         });
-        jPanel3.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 460, 44));
+        jPanel3.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 460, 44));
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Deadline");
-        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 100, 30));
+        jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 100, 30));
 
         jLabel18.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel18.setText("Task Name");
-        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 100, 30));
+        jPanel3.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 100, 30));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (2).png"))); // NOI18N
@@ -106,7 +108,7 @@ public class viewTask extends javax.swing.JFrame {
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 30));
 
         dd.setEnabled(false);
-        jPanel3.add(dd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 220, 30));
+        jPanel3.add(dd, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 130, 30));
 
         td.setEditable(false);
         td.setColumns(20);
@@ -123,6 +125,21 @@ public class viewTask extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel9.setText("Task Status");
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 230, 100, 30));
+
+        status.setEditable(false);
+        status.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        status.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        status.setBorder(null);
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        jPanel3.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, 160, 40));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 550));
 
@@ -152,6 +169,10 @@ public class viewTask extends javax.swing.JFrame {
         et.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,10 +219,12 @@ public class viewTask extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField pl;
+    public javax.swing.JTextField status;
     public javax.swing.JTextArea td;
     public javax.swing.JTextField tn;
     // End of variables declaration//GEN-END:variables

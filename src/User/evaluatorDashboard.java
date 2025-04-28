@@ -9,7 +9,17 @@ package User;
 import Error.ErrorPage;
 import Startup.loginform;
 import config.Session;
+import config.dbConnector;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,6 +33,42 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         initComponents();
     }
     
+    public static int getHeightFromWidth(String imagePath, int desiredWidth) {
+    try {
+        // Read the image file
+        File imageFile = new File(imagePath);
+        BufferedImage image = ImageIO.read(imageFile);
+
+        // Get the original width and height of the image
+        int originalWidth = image.getWidth();
+        int originalHeight = image.getHeight();
+
+        // Calculate the new height based on the desired width and the aspect ratio
+        int newHeight = (int) ((double) desiredWidth / originalWidth * originalHeight);
+
+        return newHeight;
+    } catch (IOException ex) {
+        System.out.println("No image found!");
+    }
+
+    return -1;
+    }
+    
+    public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+    ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
+        
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
     Color bodycolor = new Color (255,255,255);
     Color nav = new Color (242,240,240);
 
@@ -38,7 +84,7 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         wc1 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
         wc = new javax.swing.JLabel();
         dash = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -88,13 +134,13 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Capture-removebg-preview (1).png"))); // NOI18N
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
-        wc1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         wc1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel2.add(wc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
 
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/businessman_9439087.png"))); // NOI18N
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
+        image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/businessman_9439087.png"))); // NOI18N
+        jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
 
         wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -170,7 +216,7 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         eval.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 20));
 
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/toggle_8686243.png"))); // NOI18N
         eval.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
         jPanel2.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 180, -1));
@@ -222,7 +268,7 @@ public class evaluatorDashboard extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Request Evaluation");
+        jLabel11.setText("Pending Request");
         jPanel8.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 200, 28));
 
         totalDep2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
@@ -316,14 +362,30 @@ public class evaluatorDashboard extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        Session sess = Session.getInstance();
-       if(sess.getUid() == 0){
-            ErrorPage ep = new ErrorPage();
-            ep.setVisible(true);
-            this.dispose();
-            System.out.println("");
-       }else{
-            wc.setText("" +sess.getLname());
-       }
+        if(sess.getUid() == 0){
+             ErrorPage ep = new ErrorPage();
+             ep.setVisible(true);
+             this.dispose();
+             System.out.println("");
+        }else{
+            try {
+            dbConnector db = new dbConnector();
+            try (ResultSet rs = db.getData("SELECT u_image FROM tbl_admin WHERE u_id = '" + sess.getUid() + "'")) {
+                if(rs.next()) {
+                    String imagePath = rs.getString("u_image");
+                    if(imagePath != null && !imagePath.isEmpty()) {
+                        wc.setText(""+sess.getLname());
+                        image.setIcon(ResizeImage(imagePath, null, image));
+                    }else{
+                        image.setText("No image");
+                        wc.setText(""+sess.getLname());
+                    }
+                }
+                }
+            } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+            }    
+        }
     }//GEN-LAST:event_formWindowActivated
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -414,6 +476,7 @@ public class evaluatorDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dash;
     private javax.swing.JPanel eval;
+    public javax.swing.JLabel image;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -426,7 +489,6 @@ public class evaluatorDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;

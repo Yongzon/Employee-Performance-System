@@ -73,11 +73,11 @@ public class viewTask2 extends javax.swing.JFrame {
                 statusActionPerformed(evt);
             }
         });
-        jPanel3.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 130, 30));
+        jPanel3.add(status, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 160, 40));
 
         jLabel7.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel7.setText("Task Status");
-        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 100, 30));
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, 100, 30));
 
         tn.setEditable(false);
         tn.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -141,7 +141,7 @@ public class viewTask2 extends javax.swing.JFrame {
                 plActionPerformed(evt);
             }
         });
-        jPanel3.add(pl, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 140, 30));
+        jPanel3.add(pl, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 140, 40));
 
         jLabel10.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel10.setText("Evaluation Status");
@@ -156,7 +156,7 @@ public class viewTask2 extends javax.swing.JFrame {
                 evalActionPerformed(evt);
             }
         });
-        jPanel3.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 140, 30));
+        jPanel3.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 140, 40));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 550));
 

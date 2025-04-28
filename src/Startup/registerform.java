@@ -366,24 +366,6 @@ public class registerform extends javax.swing.JFrame {
         dbConnector db = new dbConnector();
         String question = "";
         String answer = "";
-        while (true) {
-            question = JOptionPane.showInputDialog(this, "Enter your Security Question:");
-
-            if (question == null || question.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Security question cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                break;
-        }
-        }
-        while (true) {
-            answer = JOptionPane.showInputDialog(this, "Enter your Answer:");
-
-            if (answer == null || answer.trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Security answer cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                break;
-            }
-        }
         
         try{
         String pass = passHash.hashPassword(ps.getText());

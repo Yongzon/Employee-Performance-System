@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -25,7 +26,35 @@ public class evaluateTask extends javax.swing.JFrame {
     /** Creates new form employeeDashboard */
     public evaluateTask() {
         initComponents();
+        displayTasks();
     }
+    
+    public void displayTasks() {
+    try {
+        dbConnector db = new dbConnector();
+
+        ResultSet rs = db.getData(
+            "SELECT t.t_id AS 'Task ID', "
+                + "t.t_name AS 'Task Name', "
+                + "t.t_description AS 'Task Description', "
+                + "t.t_deadline AS 'Deadline', "
+                + "t.t_status AS 'Task Status', "
+                + "e.evaluation_status AS 'Request Status' "
+                + "FROM tbl_task t LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
+                + "WHERE (e.evaluation_status IN ('Accepted') OR e.evaluation_status IS NULL) "
+                + "AND t.t_status IN ('Completed', 'Completed - Late', 'Completed - Overdue', 'Completed - Severely Overdue')");
+        
+        tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
+        rs.close();
+        
+    } catch (SQLException e) {
+        System.out.println("Error: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, 
+            "Error loading tasks: " + e.getMessage(), 
+            "Database Error", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
     
     Color bodycolor = new Color (255,255,255);
     Color nav = new Color (242,240,240);
@@ -93,7 +122,7 @@ public class evaluateTask extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Capture-removebg-preview (1).png"))); // NOI18N
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
-        wc1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         wc1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel2.add(wc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
 
@@ -201,8 +230,8 @@ public class evaluateTask extends javax.swing.JFrame {
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("All Employee Tasks");
-        userpanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 40));
+        jLabel6.setText("All Employee Accepted Evaluation");
+        userpanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 210, 40));
 
         accept.setBackground(new java.awt.Color(241, 242, 247));
         accept.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -362,25 +391,49 @@ public class evaluateTask extends javax.swing.JFrame {
     private void acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseClicked
         int rowIndex = tasktbl.getSelectedRow();
 
-        if(rowIndex < 0){
+        if(rowIndex < 0) {
             JOptionPane.showMessageDialog(null, "Please Select an Item!");
-        }else{
-            try{
+        } else {
+            try {
                 dbConnector db = new dbConnector();
                 TableModel tbl = tasktbl.getModel();
-                ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
+                String taskId = tbl.getValueAt(rowIndex, 0).toString();
 
-                if(rs.next()){
-                    requestEvaluation re = new requestEvaluation();
-                    re.tid.setText(""+rs.getInt("t_id"));
-                    re.tn.setText(""+rs.getString("t_name"));
-                    re.dd.setDate(rs.getDate("t_deadline"));
-                    re.status.setText(""+rs.getString("t_status"));
-                    re.setVisible(true);
+                // Formatted SQL query with proper line breaks and verification
+                String query = "SELECT " +
+                              "CONCAT(u.u_fname, ' ', u.u_lname) AS full_name, " +
+                              "d.dep_name, " +
+                              "t.t_name, " +
+                              "t.t_id, " +
+                              "e.emp_position " +
+                              "FROM tbl_task t " +
+                              "INNER JOIN tbl_employee e ON t.t_empid = e.emp_id " +
+                              "INNER JOIN tbl_admin u ON e.emp_userid = u.u_id " +
+                              "INNER JOIN tbl_department d ON e.emp_depid = d.dep_id " +
+                              "WHERE t.t_id = '" + taskId + "'";
+
+                ResultSet rs = db.getData(query);
+
+                if(rs.next()) {
+                    evaluate eva = new evaluate();
+                    eva.empname.setText(rs.getString("full_name"));
+                    eva.tn.setText(rs.getString("t_name"));
+                    eva.tid.setText(rs.getString("t_id"));
+                    eva.dep.setText(rs.getString("dep_name"));
+                    eva.jt.setText(rs.getString("emp_position"));
+                    eva.setVisible(true);
                     this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null,
+                        "No matching task found!",
+                        "Not Found",
+                        JOptionPane.WARNING_MESSAGE);
                 }
-            }catch(SQLException ex){
-                System.out.println(""+ex);
+            } catch(SQLException ex) {
+                System.out.println("Error: " + ex);
+                JOptionPane.showMessageDialog(null, 
+                    "Database error: " + ex.getMessage(), 
+                    "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_acceptMouseClicked
@@ -394,7 +447,95 @@ public class evaluateTask extends javax.swing.JFrame {
     }//GEN-LAST:event_acceptMouseExited
 
     private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
-        // TODO add your handling code here:
+    int rowIndex = tasktbl.getSelectedRow();
+
+    if(rowIndex < 0) {
+        JOptionPane.showMessageDialog(null, "Please Select an Item!");
+    } else {
+        try {
+            dbConnector db = new dbConnector();
+            TableModel tbl = tasktbl.getModel();
+            String taskid = tbl.getValueAt(rowIndex, 0).toString();
+
+            String query = "SELECT e.*, t.t_name, t.t_description, t.t_status, t.t_id as task_id " +
+                         "FROM tbl_evaluation e " +
+                         "JOIN tbl_task t ON e.evaluation_tid = t.t_id " +
+                         "WHERE e.evaluation_id = '" + taskid + "'";
+
+            ResultSet rs = db.getData(query);
+
+            if(rs.next()) {
+                viewEvaluation et = new viewEvaluation();
+                String taskId = rs.getString("task_id");
+
+                String empQuery = "SELECT " +
+                                "CONCAT(u.u_fname, ' ', u.u_lname) AS full_name, " +
+                                "d.dep_name, " +
+                                "t.t_name, " +
+                                "t.t_id, " +
+                                "e.emp_position " +
+                                "FROM tbl_task t " +
+                                "INNER JOIN tbl_employee e ON t.t_empid = e.emp_id " +
+                                "INNER JOIN tbl_admin u ON e.emp_userid = u.u_id " +
+                                "INNER JOIN tbl_department d ON e.emp_depid = d.dep_id " +
+                                "WHERE t.t_id = '" + taskId + "'";
+
+                ResultSet empRs = db.getData(empQuery);
+
+                if(empRs.next()) {
+                    et.empname.setText(empRs.getString("full_name"));
+                    et.dep.setText(empRs.getString("dep_name"));
+                    et.jt.setText(empRs.getString("emp_position"));
+                    et.tn.setText(empRs.getString("t_name"));
+                    et.tid.setText(String.valueOf(empRs.getInt("t_id")));
+                }
+
+                if(rs.getDate("evaluation_revper") != null) {
+                    et.rp.setDate(rs.getDate("evaluation_revper"));
+                }
+
+                // Set rating fields
+                et.r1.setText(rs.getString("evaluation_r1"));
+                et.r2.setText(rs.getString("evaluation_r2"));
+                et.r3.setText(rs.getString("evaluation_r3"));
+                et.r4.setText(rs.getString("evaluation_r4"));
+                et.r5.setText(rs.getString("evaluation_r5"));
+                et.r6.setText(rs.getString("evaluation_r6"));
+
+                // Set comment fields
+                et.cm1.setText(rs.getString("evaluation_cm1"));
+                et.cm2.setText(rs.getString("evaluation_cm2"));
+                et.cm3.setText(rs.getString("evaluation_cm3"));
+                et.cm4.setText(rs.getString("evaluation_cm4"));
+                et.cm5.setText(rs.getString("evaluation_cm5"));
+                et.cm6.setText(rs.getString("evaluation_cm6"));
+
+                // Set overall ratings
+                String over1 = rs.getString("evaluation_over1");
+                String over2 = rs.getString("evaluation_over2");
+                String over3 = rs.getString("evaluation_over3");
+                String over4 = rs.getString("evaluation_over4");
+                String over5 = rs.getString("evaluation_over5");
+
+                et.over1.setSelected("1".equals(over1));
+                et.over2.setSelected("2".equals(over2));
+                et.over3.setSelected("3".equals(over3));
+                et.over4.setSelected("4".equals(over4));
+                et.over5.setSelected("5".equals(over5));
+
+                // Set area for improvement
+                et.area.setText(rs.getString("evaluation_areaimprov"));
+
+                et.setVisible(true);
+                this.dispose();
+            }
+        } catch(SQLException ex) {
+            System.out.println("Error: " + ex);
+            JOptionPane.showMessageDialog(null, 
+                "Database error: " + ex.getMessage(), 
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
     }//GEN-LAST:event_viewMouseClicked
 
     private void viewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseEntered
