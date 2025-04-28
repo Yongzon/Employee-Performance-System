@@ -147,7 +147,7 @@ public class evaluationTasks extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        update = new javax.swing.JPanel();
+        request = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -209,7 +209,7 @@ public class evaluationTasks extends javax.swing.JFrame {
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/business-report_18640352.png"))); // NOI18N
         dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
-        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 180, -1));
+        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 160, -1));
 
         ct.setBackground(new java.awt.Color(255, 255, 255));
         ct.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -233,13 +233,13 @@ public class evaluationTasks extends javax.swing.JFrame {
                 jLabel9MouseClicked(evt);
             }
         });
-        ct.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
+        ct.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 20));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hypothesis_11532834.png"))); // NOI18N
-        ct.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        ct.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 180, -1));
+        jPanel2.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 160, -1));
 
         task.setBackground(new java.awt.Color(255, 255, 255));
         task.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -264,7 +264,7 @@ public class evaluationTasks extends javax.swing.JFrame {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
         task.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, -1));
+        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, -1));
 
         rt.setBackground(new java.awt.Color(255, 255, 255));
         rt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -288,13 +288,13 @@ public class evaluationTasks extends javax.swing.JFrame {
                 jLabel20MouseClicked(evt);
             }
         });
-        rt.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
+        rt.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 60, 20));
 
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/analytics-report_16136803.png"))); // NOI18N
-        rt.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        rt.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(rt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 180, -1));
+        jPanel2.add(rt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 160, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 183, 560));
 
@@ -326,35 +326,35 @@ public class evaluationTasks extends javax.swing.JFrame {
         employeePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 40));
         employeePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 80, 130, 30));
 
-        update.setBackground(new java.awt.Color(241, 242, 247));
-        update.addMouseListener(new java.awt.event.MouseAdapter() {
+        request.setBackground(new java.awt.Color(241, 242, 247));
+        request.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                updateMouseClicked(evt);
+                requestMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                updateMouseEntered(evt);
+                requestMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                updateMouseExited(evt);
+                requestMouseExited(evt);
             }
         });
-        update.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        request.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Search:");
-        update.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 190, 70, 30));
+        request.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 190, 70, 30));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Request Evaluation");
-        update.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 120, 20));
+        request.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 120, 20));
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/task-assignment_18543665.png"))); // NOI18N
-        update.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
+        request.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 40, 40));
 
-        employeePanel.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 170, 40));
+        employeePanel.add(request, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 170, 40));
 
         tasktbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -388,7 +388,7 @@ public class evaluationTasks extends javax.swing.JFrame {
         view.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 110, 20));
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_14871413.png"))); // NOI18N
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_8661494.png"))); // NOI18N
         view.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
         employeePanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 40));
@@ -491,7 +491,7 @@ public class evaluationTasks extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowActivated
 
-    private void updateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseClicked
+    private void requestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseClicked
         int rowIndex = tasktbl.getSelectedRow();
 
         if(rowIndex < 0){
@@ -515,19 +515,19 @@ public class evaluationTasks extends javax.swing.JFrame {
                 System.out.println(""+ex);
             }
         }
-    }//GEN-LAST:event_updateMouseClicked
+    }//GEN-LAST:event_requestMouseClicked
 
     private void viewMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseEntered
     view.setBackground(nav1);
     }//GEN-LAST:event_viewMouseEntered
 
-    private void updateMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseEntered
-    update.setBackground(nav1);
-    }//GEN-LAST:event_updateMouseEntered
+    private void requestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseEntered
+    request.setBackground(nav1);
+    }//GEN-LAST:event_requestMouseEntered
 
-    private void updateMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_updateMouseExited
-    update.setBackground(bodycolor1);
-    }//GEN-LAST:event_updateMouseExited
+    private void requestMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseExited
+    request.setBackground(bodycolor1);
+    }//GEN-LAST:event_requestMouseExited
 
     private void viewMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseExited
     view.setBackground(bodycolor1);
@@ -565,11 +565,11 @@ public class evaluationTasks extends javax.swing.JFrame {
     }//GEN-LAST:event_view1MouseClicked
 
     private void view1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseEntered
-        // TODO add your handling code here:
+        view1.setBackground(nav1);
     }//GEN-LAST:event_view1MouseEntered
 
     private void view1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view1MouseExited
-        // TODO add your handling code here:
+        view1.setBackground(bodycolor1);
     }//GEN-LAST:event_view1MouseExited
 
     private void dashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseClicked
@@ -591,8 +591,8 @@ public class evaluationTasks extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void ctMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctMouseClicked
-        evaluationResults ct = new evaluationResults();
-        ct.setVisible(true);
+        evaluationTasks et = new evaluationTasks();
+        et.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ctMouseClicked
 
@@ -605,7 +605,7 @@ public class evaluationTasks extends javax.swing.JFrame {
     }//GEN-LAST:event_ctMouseExited
 
     private void taskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskMouseClicked
-        evaluationResults et = new evaluationResults();
+        employeeTask et = new employeeTask();
         et.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_taskMouseClicked
@@ -710,10 +710,10 @@ public class evaluationTasks extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel request;
     private javax.swing.JPanel rt;
     private javax.swing.JPanel task;
     private javax.swing.JTable tasktbl;
-    private javax.swing.JPanel update;
     private javax.swing.JPanel view;
     private javax.swing.JPanel view1;
     private javax.swing.JLabel wc;

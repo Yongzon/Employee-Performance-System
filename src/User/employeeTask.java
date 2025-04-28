@@ -206,7 +206,7 @@ public class employeeTask extends javax.swing.JFrame {
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/business-report_18640352.png"))); // NOI18N
         dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
-        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 180, -1));
+        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 160, -1));
 
         ct.setBackground(new java.awt.Color(255, 255, 255));
         ct.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -230,13 +230,13 @@ public class employeeTask extends javax.swing.JFrame {
                 jLabel9MouseClicked(evt);
             }
         });
-        ct.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
+        ct.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 80, 20));
 
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/hypothesis_11532834.png"))); // NOI18N
-        ct.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        ct.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 180, -1));
+        jPanel2.add(ct, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 160, -1));
 
         task.setBackground(new java.awt.Color(255, 255, 255));
         task.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -261,7 +261,7 @@ public class employeeTask extends javax.swing.JFrame {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
         task.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 180, -1));
+        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 160, -1));
 
         rt.setBackground(new java.awt.Color(255, 255, 255));
         rt.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -285,13 +285,13 @@ public class employeeTask extends javax.swing.JFrame {
                 jLabel20MouseClicked(evt);
             }
         });
-        rt.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
+        rt.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 60, 20));
 
         jLabel21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/analytics-report_16136803.png"))); // NOI18N
-        rt.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
+        rt.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(rt, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 180, -1));
+        jPanel2.add(rt, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 160, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 183, 560));
 
@@ -551,8 +551,8 @@ public class employeeTask extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void ctMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ctMouseClicked
-        evaluationResults ct = new evaluationResults();
-        ct.setVisible(true);
+        evaluationTasks et = new evaluationTasks();
+        et.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_ctMouseClicked
 
@@ -565,7 +565,7 @@ public class employeeTask extends javax.swing.JFrame {
     }//GEN-LAST:event_ctMouseExited
 
     private void taskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_taskMouseClicked
-        evaluationResults et = new evaluationResults();
+        employeeTask et = new employeeTask();
         et.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_taskMouseClicked

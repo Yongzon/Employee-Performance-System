@@ -9,6 +9,8 @@ import Error.ErrorPage;
 import config.Session;
 import config.dbConnector;
 import java.awt.Color;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -208,38 +210,92 @@ public class updateTask extends javax.swing.JFrame {
     }//GEN-LAST:event_tnActionPerformed
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-        String progress = pp.getText();
+    String progressText = pp.getText();
+    java.util.Date deadlineDate = dd.getDate();
+    String taskId = tid.getText();
+    String taskName = tn.getText();
 
-        if (progress.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Progress percentage fields is required!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if(!progress.matches("\\d+")) {
-            JOptionPane.showMessageDialog(null, "Progress percentage should contain only numbers!");
+    if (progressText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Progress percentage is required!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    } else if(!progressText.matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "Progress must be a whole number!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    int progressValue = Integer.parseInt(progressText);
+    if (progressValue < 0 || progressValue > 100) {
+        JOptionPane.showMessageDialog(this, "Progress must be between 0-100%!", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    String status;
+    if (progressValue == 100) {
+        // Check if task was completed after deadline
+        if (deadlineDate != null && deadlineDate.before(new java.util.Date())) {
+            status = "Completed - Overdue";
         } else {
-            int progressValue = Integer.parseInt(progress);
+            status = "Completed";
+        }
+    } else {
+        if (deadlineDate != null) {
+            java.util.Date today = new java.util.Date();
 
-            if (progressValue > 100) {
-                JOptionPane.showMessageDialog(this, "Progress cannot exceed 100%!", "Invalid Value", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            if (deadlineDate.before(today)) {
+                long diffDays = (today.getTime() - deadlineDate.getTime()) / (1000 * 60 * 60 * 24);
 
-            String status;
-            if (progressValue == 100) {
-                status = "Completed";
+                if (diffDays > 7) {
+                    status = "Severely Overdue";
+                } else if (diffDays > 3) {
+                    status = "Overdue";
+                } else {
+                    status = "Late";
+                }
             } else {
                 status = "Active";
             }
-
-            dbConnector db = new dbConnector();
-            db.updateData("UPDATE tbl_task SET t_status = '"+status+"', t_progress = '"+progress+"' WHERE t_id = '"+tid.getText()+"'");
-
-            Session sess = Session.getInstance();
-            db.logActivity(sess.getUid(), "Updated a task: " + tn.getText());
-
-            JOptionPane.showMessageDialog(this, "Updated Task Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-            employeeTask et = new employeeTask();
-            et.setVisible(true);
-            this.dispose();
+        } else {
+            status = "Active"; // No deadline set
         }
+    }
+
+    try {
+        dbConnector db = new dbConnector();
+
+        // Convert to java.sql.Date for database operations
+        java.sql.Date sqlDate = null;
+        if (deadlineDate != null) {
+            sqlDate = new java.sql.Date(deadlineDate.getTime());
+        }
+
+        String updateQuery = "UPDATE tbl_task SET t_status = '" + status + 
+                             "', t_progress = '" + progressValue + "'";
+
+        if (sqlDate != null) {
+            updateQuery += ", t_deadline = '" + new SimpleDateFormat("yyyy-MM-dd").format(sqlDate) + "'";
+        }
+
+        updateQuery += " WHERE t_id = '" + taskId + "'";
+        db.updateData(updateQuery);
+
+        Session sess = Session.getInstance();
+
+        // Customize the success message
+        String successMessage = "Task Updated Successfully!";
+        if (status.equals("Completed - Overdue")) {
+            successMessage += "\nNote: Task was completed after the deadline.";
+        }
+
+        db.logActivity(sess.getUid(), "Updated task: " + taskName + " (Status: " + status + ")");
+        JOptionPane.showMessageDialog(this, successMessage, "Success", JOptionPane.INFORMATION_MESSAGE);
+        employeeTask et = new employeeTask();
+        et.setVisible(true);
+        this.dispose();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error updating task: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_saveMouseClicked
 
     private void saveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseEntered

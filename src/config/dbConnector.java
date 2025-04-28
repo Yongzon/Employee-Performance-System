@@ -132,4 +132,22 @@ public class dbConnector {
             }
             return 0;
         }
+        
+        public int getCountWithCondition(String tableName, String condition) {
+        int count = 0;
+        try {
+            String query = "SELECT COUNT(*) FROM " + tableName;
+            if (condition != null && !condition.isEmpty()) {
+                query += " WHERE " + condition;
+            }
+
+            ResultSet rs = getData(query);
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return count;
+    }
 }
