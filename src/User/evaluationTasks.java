@@ -154,9 +154,6 @@ public class evaluationTasks extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tasktbl = new javax.swing.JTable();
-        del = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
         view = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -180,7 +177,6 @@ public class evaluationTasks extends javax.swing.JFrame {
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
         image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_14024695.png"))); // NOI18N
         jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 100, 80));
 
         wc.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -295,7 +291,7 @@ public class evaluationTasks extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Search:");
-        employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 80, 70, 30));
+        employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 80, 70, 30));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home_6269504.png"))); // NOI18N
@@ -315,7 +311,7 @@ public class evaluationTasks extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("All Request Evaluation");
         employeePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 40));
-        employeePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 80, 130, 30));
+        employeePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 80, 220, 30));
 
         request.setBackground(new java.awt.Color(241, 242, 247));
         request.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -358,31 +354,6 @@ public class evaluationTasks extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tasktbl);
 
         employeePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 680, 320));
-
-        del.setBackground(new java.awt.Color(241, 242, 247));
-        del.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                delMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                delMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                delMouseExited(evt);
-            }
-        });
-        del.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("Delete Request");
-        del.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 110, 20));
-
-        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/delete_8661494.png"))); // NOI18N
-        del.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
-
-        employeePanel.add(del, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 130, 170, 40));
 
         view.setBackground(new java.awt.Color(241, 242, 247));
         view.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -501,8 +472,8 @@ public class evaluationTasks extends javax.swing.JFrame {
                 String insertQuery = "INSERT INTO tbl_evaluation (evaluation_tid, evaluation_status, evaluation_revper, "
                    + "evaluation_r1, evaluation_r2, evaluation_r3, evaluation_r4, evaluation_r5, "
                    + "evaluation_r6, evaluation_cm1, evaluation_cm2, evaluation_cm3, evaluation_cm4, "
-                   + "evaluation_cm5, evaluation_cm6, evaluation_over1, evaluation_over2, evaluation_over3, evaluation_over4, evaluation_over5, evaluation_areaimprov) VALUES "
-                   + "('" + taskId + "', 'Pending', CURDATE(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '"+area+"')";
+                   + "evaluation_cm5, evaluation_cm6, evaluation_over1, evaluation_over2, evaluation_over3, evaluation_over4, evaluation_over5, evaluation_areaimprov, evaluation_status) VALUES "
+                   + "('" + taskId + "', 'Pending', CURDATE(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '"+area+"', 'Pending')";
 
                 int rowsAffected = db.InsertData(insertQuery);
 
@@ -525,10 +496,6 @@ public class evaluationTasks extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_requestMouseClicked
 
-    private void delMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseEntered
-    del.setBackground(nav1);
-    }//GEN-LAST:event_delMouseEntered
-
     private void requestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseEntered
     request.setBackground(nav1);
     }//GEN-LAST:event_requestMouseEntered
@@ -536,14 +503,6 @@ public class evaluationTasks extends javax.swing.JFrame {
     private void requestMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseExited
     request.setBackground(bodycolor1);
     }//GEN-LAST:event_requestMouseExited
-
-    private void delMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseExited
-    del.setBackground(bodycolor1);
-    }//GEN-LAST:event_delMouseExited
-
-    private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
-    
-    }//GEN-LAST:event_delMouseClicked
 
     private void viewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewMouseClicked
     int rowIndex = tasktbl.getSelectedRow();
@@ -689,16 +648,13 @@ public class evaluationTasks extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel dash;
-    private javax.swing.JPanel del;
     private javax.swing.JPanel employeePanel;
     private javax.swing.JPanel eva;
     public javax.swing.JLabel image;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;

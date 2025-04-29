@@ -348,7 +348,7 @@ public class loginform extends javax.swing.JFrame {
                     try (ResultSet rs = db.getData("SELECT u_image FROM tbl_admin WHERE u_id = '" + sess.getUid() + "'")) {
                         if (rs.next()) {
                             String imagePath = rs.getString("u_image");
-                                db.logActivity(sess.getUid(), "User Login: " + sess.getLname());
+                                db.logActivity2(sess.getUid(), "User Login: " + sess.getLname());
                                 JOptionPane.showMessageDialog(null, "Login Successfully!");
                                 employeeDashboard ed = new employeeDashboard();
                                 ed.image.setIcon(ed.ResizeImage(imagePath, null, ed.image));
@@ -368,7 +368,7 @@ public class loginform extends javax.swing.JFrame {
                     try (ResultSet rs = db.getData("SELECT u_image FROM tbl_admin WHERE u_id = '" + sess.getUid() + "'")) {
                         if (rs.next()) {
                             String imagePath = rs.getString("u_image");
-                                db.logActivity(sess.getUid(), "User Login: " + sess.getLname());
+                                db.logActivity3(sess.getUid(), "User Login: " + sess.getLname());
                                 JOptionPane.showMessageDialog(null, "Login Successfully!");
                                 evaluatorDashboard ed = new evaluatorDashboard();
                                 ed.image.setIcon(ed.ResizeImage(imagePath, null, ed.image));
@@ -419,8 +419,8 @@ public class loginform extends javax.swing.JFrame {
     }//GEN-LAST:event_closeMouseReleased
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-        forgotPassword fp = new forgotPassword();
-        fp.setVisible(true);
+        searchEmail se = new searchEmail();
+        se.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 

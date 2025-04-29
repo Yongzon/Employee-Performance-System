@@ -21,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import net.proteanit.sql.DbUtils;
 
 /**
  *
@@ -31,7 +32,44 @@ public class evaluatorDashboard extends javax.swing.JFrame {
     /** Creates new form employeeDashboard */
     public evaluatorDashboard() {
         initComponents();
+        displayLogs3();
+        updateDashboardCounts();
     }
+    
+    public void displayLogs3() {
+        try {
+            dbConnector db = new dbConnector();
+            ResultSet rs = db.getLogs();
+            logtbl.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        } catch(SQLException e) {
+            System.out.println("Error loading logs: "+e.getMessage());
+        }
+    }
+    
+    private void updateDashboardCounts() {
+    try {
+        dbConnector db = new dbConnector();
+ 
+        int pendingreqs = db.getCountWithCondition("tbl_evaluation", 
+            "evaluation_status = 'Pending'");
+        
+        int accepteds = db.getCountWithCondition("tbl_evaluation", 
+            "evaluation_status = 'Accepted'");
+        
+        int pendingevals = db.getCountWithCondition("tbl_evaluation", 
+            "evaluation_status2 = 'Pending'");
+
+        accepted.setText(String.valueOf(accepteds));
+        pendingreq.setText(String.valueOf(pendingreqs));
+        pendingeval.setText(String.valueOf(pendingevals));
+        
+        
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this, "Error loading dashboard data: " + e.getMessage(), 
+            "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     
     public static int getHeightFromWidth(String imagePath, int desiredWidth) {
     try {
@@ -83,7 +121,6 @@ public class evaluatorDashboard extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        wc1 = new javax.swing.JLabel();
         image = new javax.swing.JLabel();
         wc = new javax.swing.JLabel();
         dash = new javax.swing.JPanel();
@@ -102,15 +139,15 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        totalDep = new javax.swing.JLabel();
+        accepted = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        totalDep2 = new javax.swing.JLabel();
+        pendingreq = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        totalDep1 = new javax.swing.JLabel();
+        pendingeval = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         logtbl = new javax.swing.JTable();
@@ -134,17 +171,12 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Capture-removebg-preview (1).png"))); // NOI18N
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
-        wc1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        wc1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(wc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
-
         image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/businessman_9439087.png"))); // NOI18N
-        jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
+        jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 100, 80));
 
-        wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 180, 40));
+        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
 
         dash.setBackground(new java.awt.Color(255, 255, 255));
         dash.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -169,7 +201,7 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/business-report_18640352.png"))); // NOI18N
         dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
-        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 180, -1));
+        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 160, -1));
 
         task.setBackground(new java.awt.Color(255, 255, 255));
         task.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -194,7 +226,7 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
         task.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 180, -1));
+        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 160, -1));
 
         eval.setBackground(new java.awt.Color(255, 255, 255));
         eval.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -219,7 +251,7 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/toggle_8686243.png"))); // NOI18N
         eval.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 180, -1));
+        jPanel2.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 160, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 183, 560));
 
@@ -252,10 +284,10 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jLabel6.setText("Accepted Evaluation");
         jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 190, 28));
 
-        totalDep.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        totalDep.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        totalDep.setText("0");
-        jPanel6.add(totalDep, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        accepted.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        accepted.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        accepted.setText("0");
+        jPanel6.add(accepted, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         userpanel.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 220, -1));
 
@@ -271,10 +303,10 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jLabel11.setText("Pending Request");
         jPanel8.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 200, 28));
 
-        totalDep2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        totalDep2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        totalDep2.setText("0");
-        jPanel8.add(totalDep2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        pendingreq.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        pendingreq.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pendingreq.setText("0");
+        jPanel8.add(pendingreq, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         userpanel.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 70, 220, -1));
 
@@ -290,10 +322,10 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         jLabel8.setText("Pending Evaluation");
         jPanel7.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 200, 28));
 
-        totalDep1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        totalDep1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        totalDep1.setText("0");
-        jPanel7.add(totalDep1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
+        pendingeval.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        pendingeval.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pendingeval.setText("0");
+        jPanel7.add(pendingeval, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 80, 40));
 
         userpanel.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 70, 220, -1));
 
@@ -474,6 +506,7 @@ public class evaluatorDashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel accepted;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel eval;
     public javax.swing.JLabel image;
@@ -504,13 +537,11 @@ public class evaluatorDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable logtbl;
+    private javax.swing.JLabel pendingeval;
+    private javax.swing.JLabel pendingreq;
     private javax.swing.JPanel task;
-    private javax.swing.JLabel totalDep;
-    private javax.swing.JLabel totalDep1;
-    private javax.swing.JLabel totalDep2;
     private javax.swing.JPanel userpanel;
     private javax.swing.JLabel wc;
-    private javax.swing.JLabel wc1;
     // End of variables declaration//GEN-END:variables
 
 }

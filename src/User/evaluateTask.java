@@ -39,7 +39,8 @@ public class evaluateTask extends javax.swing.JFrame {
                 + "t.t_description AS 'Task Description', "
                 + "t.t_deadline AS 'Deadline', "
                 + "t.t_status AS 'Task Status', "
-                + "e.evaluation_status AS 'Request Status' "
+                + "e.evaluation_status AS 'Request Status', "
+                + "e.evaluation_status2 AS 'Evaluation Status'"    
                 + "FROM tbl_task t LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
                 + "WHERE (e.evaluation_status IN ('Accepted') OR e.evaluation_status IS NULL) "
                 + "AND t.t_status IN ('Completed', 'Completed - Late', 'Completed - Overdue', 'Completed - Severely Overdue')");
@@ -72,8 +73,7 @@ public class evaluateTask extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        wc1 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
         wc = new javax.swing.JLabel();
         dash = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -122,17 +122,12 @@ public class evaluateTask extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Capture-removebg-preview (1).png"))); // NOI18N
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
-        wc1.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
-        wc1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(wc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
+        image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 100, 80));
 
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/businessman_9439087.png"))); // NOI18N
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
-
-        wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 180, 40));
+        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
 
         dash.setBackground(new java.awt.Color(255, 255, 255));
         dash.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,7 +152,7 @@ public class evaluateTask extends javax.swing.JFrame {
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/business-report_18640352.png"))); // NOI18N
         dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
-        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 180, -1));
+        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 160, -1));
 
         task.setBackground(new java.awt.Color(255, 255, 255));
         task.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -182,7 +177,7 @@ public class evaluateTask extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
         task.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 180, -1));
+        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 160, -1));
 
         eval.setBackground(new java.awt.Color(255, 255, 255));
         eval.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -207,7 +202,7 @@ public class evaluateTask extends javax.swing.JFrame {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/toggle_8686243.png"))); // NOI18N
         eval.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 180, -1));
+        jPanel2.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 160, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 183, 560));
 
@@ -399,7 +394,6 @@ public class evaluateTask extends javax.swing.JFrame {
                 TableModel tbl = tasktbl.getModel();
                 String taskId = tbl.getValueAt(rowIndex, 0).toString();
 
-                // Formatted SQL query with proper line breaks and verification
                 String query = "SELECT " +
                               "CONCAT(u.u_fname, ' ', u.u_lname) AS full_name, " +
                               "d.dep_name, " +
@@ -457,77 +451,72 @@ public class evaluateTask extends javax.swing.JFrame {
             TableModel tbl = tasktbl.getModel();
             String taskid = tbl.getValueAt(rowIndex, 0).toString();
 
-            String query = "SELECT e.*, t.t_name, t.t_description, t.t_status, t.t_id as task_id " +
-                         "FROM tbl_evaluation e " +
-                         "JOIN tbl_task t ON e.evaluation_tid = t.t_id " +
-                         "WHERE e.evaluation_id = '" + taskid + "'";
-
-            ResultSet rs = db.getData(query);
-
-            if(rs.next()) {
-                viewEvaluation et = new viewEvaluation();
-                String taskId = rs.getString("task_id");
-
-                String empQuery = "SELECT " +
+            String query = "SELECT " +
                                 "CONCAT(u.u_fname, ' ', u.u_lname) AS full_name, " +
                                 "d.dep_name, " +
                                 "t.t_name, " +
                                 "t.t_id, " +
-                                "e.emp_position " +
+                                "e.emp_position, " +
+                                "ev.evaluation_revper, " +
+                                "ev.evaluation_r1, ev.evaluation_r2, ev.evaluation_r3, " +
+                                "ev.evaluation_r4, ev.evaluation_r5, ev.evaluation_r6, " +
+                                "ev.evaluation_cm1, ev.evaluation_cm2, ev.evaluation_cm3, " +
+                                "ev.evaluation_cm4, ev.evaluation_cm5, ev.evaluation_cm6, " +
+                                "ev.evaluation_over1, ev.evaluation_over2, ev.evaluation_over3, " +
+                                "ev.evaluation_over4, ev.evaluation_over5, " +
+                                "ev.evaluation_areaimprov " +
                                 "FROM tbl_task t " +
                                 "INNER JOIN tbl_employee e ON t.t_empid = e.emp_id " +
                                 "INNER JOIN tbl_admin u ON e.emp_userid = u.u_id " +
                                 "INNER JOIN tbl_department d ON e.emp_depid = d.dep_id " +
-                                "WHERE t.t_id = '" + taskId + "'";
+                                "LEFT JOIN tbl_evaluation ev ON t.t_id = ev.evaluation_tid " +
+                                "WHERE t.t_id = '"+taskid+"'"; 
 
-                ResultSet empRs = db.getData(empQuery);
+            ResultSet rs = db.getData(query);
 
-                if(empRs.next()) {
-                    et.empname.setText(empRs.getString("full_name"));
-                    et.dep.setText(empRs.getString("dep_name"));
-                    et.jt.setText(empRs.getString("emp_position"));
-                    et.tn.setText(empRs.getString("t_name"));
-                    et.tid.setText(String.valueOf(empRs.getInt("t_id")));
-                }
+            if(rs.next()) {
+                viewEvaluation ve = new viewEvaluation();
 
-                if(rs.getDate("evaluation_revper") != null) {
-                    et.rp.setDate(rs.getDate("evaluation_revper"));
-                }
+                ve.empname.setText(rs.getString("full_name"));
+                ve.dep.setText(rs.getString("dep_name"));
+                ve.jt.setText(rs.getString("emp_position"));
+                ve.tn.setText(rs.getString("t_name"));
+                ve.tid.setText(rs.getString("t_id"));
 
-                // Set rating fields
-                et.r1.setText(rs.getString("evaluation_r1"));
-                et.r2.setText(rs.getString("evaluation_r2"));
-                et.r3.setText(rs.getString("evaluation_r3"));
-                et.r4.setText(rs.getString("evaluation_r4"));
-                et.r5.setText(rs.getString("evaluation_r5"));
-                et.r6.setText(rs.getString("evaluation_r6"));
+                ve.rp.setDate(rs.getDate("evaluation_revper"));
 
-                // Set comment fields
-                et.cm1.setText(rs.getString("evaluation_cm1"));
-                et.cm2.setText(rs.getString("evaluation_cm2"));
-                et.cm3.setText(rs.getString("evaluation_cm3"));
-                et.cm4.setText(rs.getString("evaluation_cm4"));
-                et.cm5.setText(rs.getString("evaluation_cm5"));
-                et.cm6.setText(rs.getString("evaluation_cm6"));
+                ve.r1.setText(rs.getString("evaluation_r1"));
+                ve.r2.setText(rs.getString("evaluation_r2"));
+                ve.r3.setText(rs.getString("evaluation_r3"));
+                ve.r4.setText(rs.getString("evaluation_r4"));
+                ve.r5.setText(rs.getString("evaluation_r5"));
+                ve.r6.setText(rs.getString("evaluation_r6"));
 
-                // Set overall ratings
+                ve.cm1.setText(rs.getString("evaluation_cm1"));
+                ve.cm2.setText(rs.getString("evaluation_cm2"));
+                ve.cm3.setText(rs.getString("evaluation_cm3"));
+                ve.cm4.setText(rs.getString("evaluation_cm4"));
+                ve.cm5.setText(rs.getString("evaluation_cm5"));
+                ve.cm6.setText(rs.getString("evaluation_cm6"));
+
                 String over1 = rs.getString("evaluation_over1");
                 String over2 = rs.getString("evaluation_over2");
                 String over3 = rs.getString("evaluation_over3");
                 String over4 = rs.getString("evaluation_over4");
                 String over5 = rs.getString("evaluation_over5");
 
-                et.over1.setSelected("1".equals(over1));
-                et.over2.setSelected("2".equals(over2));
-                et.over3.setSelected("3".equals(over3));
-                et.over4.setSelected("4".equals(over4));
-                et.over5.setSelected("5".equals(over5));
+                ve.over1.setSelected("1".equals(over1));
+                ve.over2.setSelected("2".equals(over2));
+                ve.over3.setSelected("3".equals(over3));
+                ve.over4.setSelected("4".equals(over4));
+                ve.over5.setSelected("5".equals(over5));
 
-                // Set area for improvement
-                et.area.setText(rs.getString("evaluation_areaimprov"));
+                ve.area.setText(rs.getString("evaluation_areaimprov"));
 
-                et.setVisible(true);
+                ve.setVisible(true);
                 this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "No evaluation data found for this task");
             }
         } catch(SQLException ex) {
             System.out.println("Error: " + ex);
@@ -547,30 +536,36 @@ public class evaluateTask extends javax.swing.JFrame {
     }//GEN-LAST:event_viewMouseExited
 
     private void rejectMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectMouseClicked
-        int rowIndex = tasktbl.getSelectedRow();
+    int selectedRow = tasktbl.getSelectedRow();
+    
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(null, "Please Select an Item!");
+        return;
+    }
 
-        if(rowIndex < 0){
-            JOptionPane.showMessageDialog(null, "Please Select an Item!");
-        }else{
-            try{
-                dbConnector db = new dbConnector();
-                TableModel tbl = tasktbl.getModel();
-                ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
+    int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this Evaluation?", "Confirm Deletion",JOptionPane.YES_NO_OPTION);
+    
+    if (confirm == JOptionPane.YES_OPTION) {
+        int taskId = (int) tasktbl.getValueAt(selectedRow, 0); 
+        
+        try {
+            dbConnector db = new dbConnector();
+            String query = "SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '"+taskId+"'";
+            ResultSet rs = db.getData(query);
+            if(rs.next()){
+                String evaluationId = rs.getString("evaluation_id");
+                db.deleteData("DELETE FROM tbl_evaluation WHERE evaluation_id = " + evaluationId);
 
-                if(rs.next()){
-                    viewTask2 vt = new viewTask2();
-                    vt.tn.setText(""+rs.getString("t_name"));
-                    vt.dd.setDate(rs.getDate("t_deadline"));
-                    vt.td.setText(""+rs.getString("t_description"));
-                    vt.pl.setText(""+rs.getString("t_prlevel"));
-                    vt.status.setText(""+rs.getString("t_status"));
-                    vt.setVisible(true);
-                    this.dispose();
-                }
-            }catch(SQLException ex){
-                System.out.println(""+ex);
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "Deleted Evaluation: " + evaluationId);
+
+                displayTasks();
+                JOptionPane.showMessageDialog(this, "User deleted successfully");
             }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
     }//GEN-LAST:event_rejectMouseClicked
 
     private void rejectMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rejectMouseEntered
@@ -667,6 +662,7 @@ public class evaluateTask extends javax.swing.JFrame {
     private javax.swing.JPanel accept;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel eval;
+    public javax.swing.JLabel image;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -681,7 +677,6 @@ public class evaluateTask extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -699,7 +694,6 @@ public class evaluateTask extends javax.swing.JFrame {
     private javax.swing.JPanel userpanel;
     private javax.swing.JPanel view;
     private javax.swing.JLabel wc;
-    private javax.swing.JLabel wc1;
     // End of variables declaration//GEN-END:variables
 
 }

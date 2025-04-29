@@ -123,7 +123,6 @@ public class evaluate extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 120, 30));
 
         empname.setEditable(false);
-        empname.setEnabled(false);
         jPanel1.add(empname, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 180, 30));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -132,7 +131,6 @@ public class evaluate extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 120, 30));
 
         dep.setEditable(false);
-        dep.setEnabled(false);
         dep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 depActionPerformed(evt);
@@ -150,6 +148,7 @@ public class evaluate extends javax.swing.JFrame {
         jLabel5.setText("6. Adaptability (Adjusts quickly to changes and new challenges)");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 410, 30));
 
+        cm6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cm6ActionPerformed(evt);
@@ -163,7 +162,6 @@ public class evaluate extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 250, 120, 30));
 
         tn.setEditable(false);
-        tn.setEnabled(false);
         tn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tnActionPerformed(evt);
@@ -172,7 +170,6 @@ public class evaluate extends javax.swing.JFrame {
         jPanel1.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 180, 30));
 
         tid.setEditable(false);
-        tid.setEnabled(false);
         tid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tidActionPerformed(evt);
@@ -230,7 +227,6 @@ public class evaluate extends javax.swing.JFrame {
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 300, 120, 30));
 
         jt.setEditable(false);
-        jt.setEnabled(false);
         jt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtActionPerformed(evt);
@@ -238,6 +234,7 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(jt, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 250, 180, 30));
 
+        cm1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cm1ActionPerformed(evt);
@@ -245,6 +242,7 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(cm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 340, 180, 30));
 
+        cm2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cm2ActionPerformed(evt);
@@ -252,6 +250,7 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(cm2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, 180, 30));
 
+        cm3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cm3ActionPerformed(evt);
@@ -259,6 +258,7 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(cm3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, 180, 30));
 
+        cm4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cm4ActionPerformed(evt);
@@ -266,6 +266,7 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(cm4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 460, 180, 30));
 
+        cm5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cm5ActionPerformed(evt);
@@ -372,21 +373,27 @@ public class evaluate extends javax.swing.JFrame {
         jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 610, 180, 40));
 
         r6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        r6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 540, 80, 30));
 
         r1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        r1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 340, 80, 30));
 
         r2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        r2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 380, 80, 30));
 
         r3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        r3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, 80, 30));
 
         r4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        r4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 460, 80, 30));
 
         r5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        r5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 500, 80, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -445,8 +452,8 @@ public class evaluate extends javax.swing.JFrame {
     }//GEN-LAST:event_cm5ActionPerformed
 
     private void cnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnlMouseClicked
-        assignedTask at = new assignedTask();
-        at.setVisible(true);
+        evaluateTask et = new evaluateTask();
+        et.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_cnlMouseClicked
 
@@ -509,7 +516,7 @@ public class evaluate extends javax.swing.JFrame {
                     + "evaluation_cm1 = '"+cm1.getText()+"', evaluation_cm2 = '"+cm2.getText()+"', evaluation_cm3 = '"+cm3.getText()+"', evaluation_cm4 = '"+cm4.getText()+"',"
                     + "evaluation_cm5 = '"+cm5.getText()+"', evaluation_cm6 = '"+cm6.getText()+"', evaluation_over1 = '"+over1.getText()+"', evaluation_over2 = '"+over2.getText()+"',"
                     + "evaluation_over3 = '"+over3.getText()+"', evaluation_over4 = '"+over4.getText()+"', evaluation_over5 = '"+over5.getText()+"',"
-                    + "evaluation_status = 'Accepted', evaluation_areaimprov = '"+area.getText()+"' WHERE evaluation_id = '"+evaluationId+"'");
+                    + "evaluation_status = 'Accepted', evaluation_areaimprov = '"+area.getText()+"', evaluation_status2 = 'Completed' WHERE evaluation_id = '"+evaluationId+"'");
 
                 JOptionPane.showMessageDialog(this, "Created Evaluation Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 evaluateTask et = new evaluateTask();

@@ -105,6 +105,53 @@ public class dbConnector {
             return getData(query);
         }
         
+                // Function to log user activity
+        public void logActivity2(int userId, String action) {
+            String query = "INSERT INTO tbl_logsemployee (user_id, log_action) VALUES (?, ?)";
+            try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+                pstmt.setInt(1, userId);
+                pstmt.setString(2, action);
+                pstmt.executeUpdate();
+                System.out.println("Activity logged: " + action);
+            } catch (SQLException e) {
+                System.out.println("Error logging activity: " + e.getMessage());
+            }
+        }
+        
+        public ResultSet getLogs2() throws SQLException {
+            String query = "SELECT l.log_id AS 'Log ID', " +
+                           "u.u_username AS 'Username', " +
+                           "l.log_action AS 'Action', " +
+                           "l.log_timestamp AS 'Timestamp' " +
+                           "FROM tbl_logsemployee l " +
+                           "JOIN tbl_admin u ON l.user_id = u.u_id " +
+                           "ORDER BY l.log_timestamp DESC";
+            return getData(query);
+        }
+        
+        public void logActivity3(int userId, String action) {
+            String query = "INSERT INTO tbl_logsevaluator (user_id, log_action) VALUES (?, ?)";
+            try (PreparedStatement pstmt = connect.prepareStatement(query)) {
+                pstmt.setInt(1, userId);
+                pstmt.setString(2, action);
+                pstmt.executeUpdate();
+                System.out.println("Activity logged: " + action);
+            } catch (SQLException e) {
+                System.out.println("Error logging activity: " + e.getMessage());
+            }
+        }
+        
+        public ResultSet getLogs3() throws SQLException {
+            String query = "SELECT l.log_id AS 'Log ID', " +
+                           "u.u_username AS 'Username', " +
+                           "l.log_action AS 'Action', " +
+                           "l.log_timestamp AS 'Timestamp' " +
+                           "FROM tbl_logsevaluator l " +
+                           "JOIN tbl_admin u ON l.user_id = u.u_id " +
+                           "ORDER BY l.log_timestamp DESC";
+            return getData(query);
+        }
+        
         public int getCount(String tableName) {
             try {
                 String sql = "SELECT COUNT(*) FROM " + tableName;

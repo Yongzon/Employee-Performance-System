@@ -32,7 +32,7 @@ public class employeeDashboard extends javax.swing.JFrame {
     /** Creates new form employeeDashboard */
     public employeeDashboard() {
         initComponents();
-        //displayLogs();
+        displayLogs2();
         updateDashboard();
     }
     
@@ -86,16 +86,16 @@ public class employeeDashboard extends javax.swing.JFrame {
 }
     
     
-//    public void displayLogs() {
-//        try {
-//            dbConnector db = new dbConnector();
-//            ResultSet rs = db.getLogs();
-//            logtbl.setModel(DbUtils.resultSetToTableModel(rs));
-//            rs.close();
-//        } catch(SQLException e) {
-//            System.out.println("Error loading logs: "+e.getMessage());
-//        }
-//    }
+    public void displayLogs2() {
+        try {
+            dbConnector db = new dbConnector();
+            ResultSet rs = db.getLogs();
+            logtbl.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
+        } catch(SQLException e) {
+            System.out.println("Error loading logs: "+e.getMessage());
+        }
+    }
     
     public static int getHeightFromWidth(String imagePath, int desiredWidth) {
     try {
@@ -202,7 +202,6 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
         image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_14024695.png"))); // NOI18N
         jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 100, 80));
 
         wc.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N

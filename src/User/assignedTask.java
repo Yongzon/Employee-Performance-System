@@ -71,8 +71,7 @@ public class assignedTask extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        wc1 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
+        image = new javax.swing.JLabel();
         wc = new javax.swing.JLabel();
         dash = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -121,17 +120,12 @@ public class assignedTask extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Capture-removebg-preview (1).png"))); // NOI18N
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
-        wc1.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        wc1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(wc1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 180, 40));
+        image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 100, 80));
 
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/businessman_9439087.png"))); // NOI18N
-        jPanel2.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 100, 80));
-
-        wc.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        wc.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 180, 40));
+        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 170, 180, 40));
 
         dash.setBackground(new java.awt.Color(255, 255, 255));
         dash.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -156,7 +150,7 @@ public class assignedTask extends javax.swing.JFrame {
         jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/business-report_18640352.png"))); // NOI18N
         dash.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 
-        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 180, -1));
+        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 160, -1));
 
         task.setBackground(new java.awt.Color(255, 255, 255));
         task.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -181,7 +175,7 @@ public class assignedTask extends javax.swing.JFrame {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/planning_12755894.png"))); // NOI18N
         task.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 180, -1));
+        jPanel2.add(task, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 160, -1));
 
         eval.setBackground(new java.awt.Color(255, 255, 255));
         eval.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -206,7 +200,7 @@ public class assignedTask extends javax.swing.JFrame {
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/toggle_8686243.png"))); // NOI18N
         eval.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        jPanel2.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 180, -1));
+        jPanel2.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 160, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 183, 560));
 
@@ -601,6 +595,7 @@ public class assignedTask extends javax.swing.JFrame {
     private javax.swing.JPanel accept;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel eval;
+    public javax.swing.JLabel image;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -615,7 +610,6 @@ public class assignedTask extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -633,7 +627,6 @@ public class assignedTask extends javax.swing.JFrame {
     private javax.swing.JPanel userpanel;
     private javax.swing.JPanel view;
     private javax.swing.JLabel wc;
-    private javax.swing.JLabel wc1;
     // End of variables declaration//GEN-END:variables
 
 }

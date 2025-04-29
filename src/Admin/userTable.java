@@ -291,7 +291,7 @@ public class userTable extends javax.swing.JFrame {
         print.add(updateT, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 120, 20));
 
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/refresh_5791276 (1).png"))); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/printer_4894997.png"))); // NOI18N
         jLabel14.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         print.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 40, 40));
 

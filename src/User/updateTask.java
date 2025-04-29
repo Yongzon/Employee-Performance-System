@@ -286,7 +286,7 @@ public class updateTask extends javax.swing.JFrame {
             successMessage += "\nNote: Task was completed after the deadline.";
         }
 
-        db.logActivity(sess.getUid(), "Updated task: " + taskName + " (Status: " + status + ")");
+        db.logActivity2(sess.getUid(), "Updated task: " + taskName + " (Status: " + status + ")");
         JOptionPane.showMessageDialog(this, successMessage, "Success", JOptionPane.INFORMATION_MESSAGE);
         employeeTask et = new employeeTask();
         et.setVisible(true);
