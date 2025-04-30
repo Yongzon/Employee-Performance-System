@@ -404,27 +404,6 @@ public class evaluationTasks extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        if (selectedValue.equals("Logout")) {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                loginform lf = new loginform();
-                lf.setVisible(true);
-                this.dispose();
-            }else {
-                jComboBox1.setSelectedIndex(0);
-            }
-        }else if(selectedValue.equals("Settings")){
-            userDetails ud = new userDetails();
-            ud.setVisible(true);
-            this.dispose();
-        }else{
-            jComboBox1.setSelectedIndex(0);
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
     Session sess = Session.getInstance();
         if(sess.getUid() == 0){
@@ -455,45 +434,28 @@ public class evaluationTasks extends javax.swing.JFrame {
 
     private void requestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseClicked
     int rowIndex = tasktbl.getSelectedRow();
-    String area = "";
 
-    if (rowIndex < 0) {
-        JOptionPane.showMessageDialog(null, "Please select a task first!");
-    } else {
-        dbConnector db = new dbConnector();
-        TableModel tbl = tasktbl.getModel();
-        String taskId = tbl.getValueAt(rowIndex, 0).toString(); 
+        if(rowIndex < 0){
+            JOptionPane.showMessageDialog(null, "Please Select an Item!");
+        }else{
+            try{
+                dbConnector db = new dbConnector();
+                TableModel tbl = tasktbl.getModel();
+                ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
 
-        int confirm = JOptionPane.showConfirmDialog(this, "Request evaluation for selected task?", "Confirm Evaluation Request", JOptionPane.YES_NO_OPTION);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-               
-                String insertQuery = "INSERT INTO tbl_evaluation (evaluation_tid, evaluation_status, evaluation_revper, "
-                   + "evaluation_r1, evaluation_r2, evaluation_r3, evaluation_r4, evaluation_r5, "
-                   + "evaluation_r6, evaluation_cm1, evaluation_cm2, evaluation_cm3, evaluation_cm4, "
-                   + "evaluation_cm5, evaluation_cm6, evaluation_over1, evaluation_over2, evaluation_over3, evaluation_over4, evaluation_over5, evaluation_areaimprov, evaluation_status) VALUES "
-                   + "('" + taskId + "', 'Pending', CURDATE(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '"+area+"', 'Pending')";
-
-                int rowsAffected = db.InsertData(insertQuery);
-
-                if (rowsAffected == 1) {
-                    JOptionPane.showMessageDialog(
-                        this,
-                        "Successfully requested evaluation for task!",
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE
-                    );
-                    
-                    displayTasks(); 
+                if(rs.next()){
+                    requestEvaluation re = new requestEvaluation();
+                    re.tid.setText(""+rs.getInt("t_id"));
+                    re.tn.setText(""+rs.getString("t_name"));
+                    re.dd.setDate(rs.getDate("t_deadline"));
+                    re.status.setText(""+rs.getString("t_status"));
+                    re.setVisible(true);
+                    this.dispose();
                 }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(
-                    this,"Failed to request evaluation: " + ex.getMessage(),"Database Error", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
+            }catch(SQLException ex){
+                System.out.println(""+ex);
             }
         }
-    }
     }//GEN-LAST:event_requestMouseClicked
 
     private void requestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseEntered
@@ -603,6 +565,30 @@ public class evaluationTasks extends javax.swing.JFrame {
     private void rsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rsMouseExited
         rs.setBackground(bodycolor);
     }//GEN-LAST:event_rsMouseExited
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedValue = jComboBox1.getSelectedItem().toString();
+        if (selectedValue.equals("Logout")) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                loginform lf = new loginform();
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity2(sess.getUid(), "User Logout: " + sess.getLname());
+                lf.setVisible(true);
+                this.dispose();
+            }else {
+                jComboBox1.setSelectedIndex(0);
+            }
+        }else if(selectedValue.equals("Settings")){
+            userDetails ud = new userDetails();
+            ud.setVisible(true);
+            this.dispose();
+        }else{
+            jComboBox1.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

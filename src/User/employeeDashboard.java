@@ -32,7 +32,7 @@ public class employeeDashboard extends javax.swing.JFrame {
     /** Creates new form employeeDashboard */
     public employeeDashboard() {
         initComponents();
-        displayLogs2();
+        displayLogs();
         updateDashboard();
     }
     
@@ -86,10 +86,10 @@ public class employeeDashboard extends javax.swing.JFrame {
 }
     
     
-    public void displayLogs2() {
+    public void displayLogs() {
         try {
             dbConnector db = new dbConnector();
-            ResultSet rs = db.getLogs();
+            ResultSet rs = db.getLogs2();
             logtbl.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch(SQLException e) {
@@ -417,7 +417,7 @@ public class employeeDashboard extends javax.swing.JFrame {
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 50, 50));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee", "Settings", "Logout" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Employee", "Logout", "Settings" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -458,27 +458,6 @@ public class employeeDashboard extends javax.swing.JFrame {
             }    
         }
     }//GEN-LAST:event_formWindowActivated
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        if (selectedValue.equals("Logout")) {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                loginform lf = new loginform();
-                lf.setVisible(true);
-                this.dispose();
-            }else {
-                jComboBox1.setSelectedIndex(0);
-            }
-        }else if(selectedValue.equals("Settings")){
-                userDetails ud = new userDetails();
-                ud.setVisible(true);
-                this.dispose();
-        }else{
-            jComboBox1.setSelectedIndex(0);
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void dashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseClicked
         employeeDashboard ed = new employeeDashboard();
@@ -535,6 +514,30 @@ public class employeeDashboard extends javax.swing.JFrame {
     private void rsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rsMouseExited
         rs.setBackground(bodycolor);
     }//GEN-LAST:event_rsMouseExited
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedValue = jComboBox1.getSelectedItem().toString();
+        if (selectedValue.equals("Logout")) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                loginform lf = new loginform();
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity2(sess.getUid(), "User Logout: " + sess.getLname());
+                lf.setVisible(true);
+                this.dispose();
+            }else {
+                jComboBox1.setSelectedIndex(0);
+            }
+        }else if(selectedValue.equals("Settings")){
+            userDetails ud = new userDetails();
+            ud.setVisible(true);
+            this.dispose();
+        }else{
+            jComboBox1.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

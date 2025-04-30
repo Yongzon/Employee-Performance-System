@@ -30,6 +30,9 @@ public class createTaskForm extends javax.swing.JFrame {
         initComponents();
         loadEmployees();
     }
+    
+    String destination = "";
+    
     private HashMap<String, Integer> employeeMap = new HashMap<>();
     private void loadEmployees() {
         try {
@@ -275,8 +278,8 @@ public class createTaskForm extends javax.swing.JFrame {
             if (empRs.next()) {
                 int empId = empRs.getInt("emp_id");
 
-                if(db.InsertData("INSERT INTO tbl_task (t_empid, t_name, t_description, t_deadline, t_prlevel,t_status, t_progress)"
-                    + "VALUES ('"+empId+"', '"+tn.getText()+"', '"+td.getText()+"', '"+dateString+"', '"+pl.getText()+"','Pending', '0')") == 1) {
+                if(db.InsertData("INSERT INTO tbl_task (t_empid, t_name, t_description, t_deadline, t_prlevel,t_status, t_progress, t_file, t_evalstatus)"
+                    + "VALUES ('"+empId+"', '"+tn.getText()+"', '"+td.getText()+"', '"+dateString+"', '"+pl.getText()+"','Pending', '0', '"+destination+"', 'Pending')") == 1) {
                     Session sess = Session.getInstance();
                     db.logActivity(sess.getUid(), "Created a new Task: " + tn.getText());
                     JOptionPane.showMessageDialog(this, "Added New Task Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);

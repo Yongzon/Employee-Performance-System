@@ -18,7 +18,7 @@ public class dbConnector {
        // constructor to connect to our database
         public dbConnector(){
             try{
-                connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/eps", "root", "");
+                connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/epss", "root", "");
             }catch(SQLException ex){
                     System.out.println("Can't connect to database: "+ex.getMessage());
             }
@@ -107,7 +107,7 @@ public class dbConnector {
         
                 // Function to log user activity
         public void logActivity2(int userId, String action) {
-            String query = "INSERT INTO tbl_logsemployee (user_id, log_action) VALUES (?, ?)";
+            String query = "INSERT INTO tbl_logsemployee (log_userid, log_action) VALUES (?, ?)";
             try (PreparedStatement pstmt = connect.prepareStatement(query)) {
                 pstmt.setInt(1, userId);
                 pstmt.setString(2, action);
@@ -124,13 +124,13 @@ public class dbConnector {
                            "l.log_action AS 'Action', " +
                            "l.log_timestamp AS 'Timestamp' " +
                            "FROM tbl_logsemployee l " +
-                           "JOIN tbl_admin u ON l.user_id = u.u_id " +
+                           "JOIN tbl_admin u ON l.log_userid = u.u_id " +
                            "ORDER BY l.log_timestamp DESC";
             return getData(query);
         }
         
         public void logActivity3(int userId, String action) {
-            String query = "INSERT INTO tbl_logsevaluator (user_id, log_action) VALUES (?, ?)";
+            String query = "INSERT INTO tbl_logsevaluator (log_userid, log_action) VALUES (?, ?)";
             try (PreparedStatement pstmt = connect.prepareStatement(query)) {
                 pstmt.setInt(1, userId);
                 pstmt.setString(2, action);
@@ -147,7 +147,7 @@ public class dbConnector {
                            "l.log_action AS 'Action', " +
                            "l.log_timestamp AS 'Timestamp' " +
                            "FROM tbl_logsevaluator l " +
-                           "JOIN tbl_admin u ON l.user_id = u.u_id " +
+                           "JOIN tbl_admin u ON l.log_userid = u.u_id " +
                            "ORDER BY l.log_timestamp DESC";
             return getData(query);
         }

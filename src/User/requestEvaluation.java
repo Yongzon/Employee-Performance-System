@@ -425,7 +425,9 @@ public class requestEvaluation extends javax.swing.JFrame {
 
             db.updateData ("UPDATE tbl_task SET t_file = '"+destination+"', t_evalstatus = 'Pending' WHERE t_id = '"+tid.getText()+"'" ); 
                 Files.copy(selectedFile.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
-                JOptionPane.showMessageDialog(this, "File uploaded successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Evaluation Requested successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                Session sess = Session.getInstance();
+                db.logActivity2(sess.getUid(), "Evaluation Requested: " + sess.getLname());
                 evaluationTasks ct = new evaluationTasks();
                 ct.setVisible(true);
                 this.dispose();

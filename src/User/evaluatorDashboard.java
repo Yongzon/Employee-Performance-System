@@ -32,14 +32,14 @@ public class evaluatorDashboard extends javax.swing.JFrame {
     /** Creates new form employeeDashboard */
     public evaluatorDashboard() {
         initComponents();
-        displayLogs3();
+        displayLogs();
         updateDashboardCounts();
     }
     
-    public void displayLogs3() {
+    public void displayLogs() {
         try {
             dbConnector db = new dbConnector();
-            ResultSet rs = db.getLogs();
+            ResultSet rs = db.getLogs3();
             logtbl.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
         } catch(SQLException e) {
@@ -51,14 +51,14 @@ public class evaluatorDashboard extends javax.swing.JFrame {
     try {
         dbConnector db = new dbConnector();
  
-        int pendingreqs = db.getCountWithCondition("tbl_evaluation", 
-            "evaluation_status = 'Pending'");
+        int pendingreqs = db.getCountWithCondition("tbl_task", 
+            "t_evalstatus = 'Pending'");
         
-        int accepteds = db.getCountWithCondition("tbl_evaluation", 
-            "evaluation_status = 'Accepted'");
+        int accepteds = db.getCountWithCondition("tbl_task", 
+            "t_evalstatus = 'Accepted'");
         
         int pendingevals = db.getCountWithCondition("tbl_evaluation", 
-            "evaluation_status2 = 'Pending'");
+            "evaluation_status = 'Pending'");
 
         accepted.setText(String.valueOf(accepteds));
         pendingreq.setText(String.valueOf(pendingreqs));
@@ -420,27 +420,6 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowActivated
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        if (selectedValue.equals("Logout")) {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                loginform lf = new loginform();
-                lf.setVisible(true);
-                this.dispose();
-            }else {
-                jComboBox1.setSelectedIndex(0);
-            }
-        }else if(selectedValue.equals("Settings")){
-                userDetails ud = new userDetails();
-                ud.setVisible(true);
-                this.dispose();
-        }else{
-            jComboBox1.setSelectedIndex(0);
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void evalMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_evalMouseEntered
         eval.setBackground(nav);
     }//GEN-LAST:event_evalMouseEntered
@@ -466,6 +445,30 @@ public class evaluatorDashboard extends javax.swing.JFrame {
         et.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_evalMouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedValue = jComboBox1.getSelectedItem().toString();
+        if (selectedValue.equals("Logout")) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                loginform lf = new loginform();
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity3(sess.getUid(), "User Logout: " + sess.getLname());
+                lf.setVisible(true);
+                this.dispose();
+            }else {
+                jComboBox1.setSelectedIndex(0);
+            }
+        }else if(selectedValue.equals("Settings")){
+            userDetails ud = new userDetails();
+            ud.setVisible(true);
+            this.dispose();
+        }else{
+            jComboBox1.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,7 @@
  */
 package User;
 
+import config.Session;
 import config.dbConnector;
 import java.awt.Color;
 import java.sql.ResultSet;
@@ -519,6 +520,8 @@ public class evaluate extends javax.swing.JFrame {
                     + "evaluation_status = 'Accepted', evaluation_areaimprov = '"+area.getText()+"', evaluation_status2 = 'Completed' WHERE evaluation_id = '"+evaluationId+"'");
 
                 JOptionPane.showMessageDialog(this, "Created Evaluation Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                Session sess = Session.getInstance();
+                db.logActivity3(sess.getUid(), "Created Evaluation to " + empname.getText());
                 evaluateTask et = new evaluateTask();
                 et.setVisible(true);
                 this.dispose();

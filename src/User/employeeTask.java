@@ -404,27 +404,6 @@ public class employeeTask extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        if (selectedValue.equals("Logout")) {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                loginform lf = new loginform();
-                lf.setVisible(true);
-                this.dispose();
-            }else {
-                jComboBox1.setSelectedIndex(0);
-            }
-        }else if(selectedValue.equals("Settings")){
-            userDetails ud = new userDetails();
-            ud.setVisible(true);
-            this.dispose();
-        }else{
-            jComboBox1.setSelectedIndex(0);
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
     Session sess = Session.getInstance();
         if(sess.getUid() == 0){
@@ -578,6 +557,30 @@ public class employeeTask extends javax.swing.JFrame {
     private void rsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rsMouseExited
         rs.setBackground(bodycolor);
     }//GEN-LAST:event_rsMouseExited
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedValue = jComboBox1.getSelectedItem().toString();
+        if (selectedValue.equals("Logout")) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                loginform lf = new loginform();
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity2(sess.getUid(), "User Logout: " + sess.getLname());
+                lf.setVisible(true);
+                this.dispose();
+            }else {
+                jComboBox1.setSelectedIndex(0);
+            }
+        }else if(selectedValue.equals("Settings")){
+            userDetails ud = new userDetails();
+            ud.setVisible(true);
+            this.dispose();
+        }else{
+            jComboBox1.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments

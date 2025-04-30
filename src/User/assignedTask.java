@@ -11,8 +11,15 @@ import Startup.loginform;
 import config.Session;
 import config.dbConnector;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
@@ -39,7 +46,7 @@ public class assignedTask extends javax.swing.JFrame {
                 + "t.t_description AS 'Task Description', "
                 + "t.t_deadline AS 'Deadline', "
                 + "t.t_status AS 'Task Status', "
-                + "e.evaluation_status AS 'Request Status' "
+                + "e.t_evalstatus AS 'Request Status' "
                 + "FROM tbl_task t LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
                 + "WHERE (e.evaluation_status IN ('Pending') OR e.evaluation_status IS NULL) "
                 + "AND t.t_status IN ('Completed', 'Completed - Late', 'Completed - Overdue', 'Completed - Severely Overdue')");
@@ -55,6 +62,44 @@ public class assignedTask extends javax.swing.JFrame {
             JOptionPane.ERROR_MESSAGE);
     }
 }
+
+    public static int getHeightFromWidth(String imagePath, int desiredWidth) {
+    try {
+        // Read the image file
+        File imageFile = new File(imagePath);
+        BufferedImage image = ImageIO.read(imageFile);
+
+        // Get the original width and height of the image
+        int originalWidth = image.getWidth();
+        int originalHeight = image.getHeight();
+
+        // Calculate the new height based on the desired width and the aspect ratio
+        int newHeight = (int) ((double) desiredWidth / originalWidth * originalHeight);
+
+        return newHeight;
+    } catch (IOException ex) {
+        System.out.println("No image found!");
+    }
+
+    return -1;
+    }
+    
+    public  ImageIcon ResizeImage(String ImagePath, byte[] pic, JLabel label) {
+    ImageIcon MyImage = null;
+        if(ImagePath !=null){
+            MyImage = new ImageIcon(ImagePath);
+        }else{
+            MyImage = new ImageIcon(pic);
+        }
+        
+    int newHeight = getHeightFromWidth(ImagePath, label.getWidth());
+
+    Image img = MyImage.getImage();
+    Image newImg = img.getScaledInstance(label.getWidth(), newHeight, Image.SCALE_SMOOTH);
+    ImageIcon image = new ImageIcon(newImg);
+    return image;
+}
+    
     Color bodycolor = new Color (255,255,255);
     Color nav = new Color (242,240,240);
     Color bodycolor1 = new Color(241,242,247);
@@ -350,36 +395,31 @@ public class assignedTask extends javax.swing.JFrame {
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
        Session sess = Session.getInstance();
-       if(sess.getUid() == 0){
-            ErrorPage ep = new ErrorPage();
-            ep.setVisible(true);
-            this.dispose();
-            System.out.println("");
-       }else{
-            wc.setText("" +sess.getLname());
-       }
-    }//GEN-LAST:event_formWindowActivated
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        if (selectedValue.equals("Logout")) {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                loginform lf = new loginform();
-                lf.setVisible(true);
-                this.dispose();
-            }else {
-                jComboBox1.setSelectedIndex(0);
-            }
-        }else if(selectedValue.equals("Settings")){
-                userDetails ud = new userDetails();
-                ud.setVisible(true);
-                this.dispose();
+        if(sess.getUid() == 0){
+             ErrorPage ep = new ErrorPage();
+             ep.setVisible(true);
+             this.dispose();
+             System.out.println("");
         }else{
-            jComboBox1.setSelectedIndex(0);
+            try {
+            dbConnector db = new dbConnector();
+            try (ResultSet rs = db.getData("SELECT u_image FROM tbl_admin WHERE u_id = '" + sess.getUid() + "'")) {
+                if(rs.next()) {
+                    String imagePath = rs.getString("u_image");
+                    if(imagePath != null && !imagePath.isEmpty()) {
+                        wc.setText(""+sess.getLname());
+                        image.setIcon(ResizeImage(imagePath, null, image));
+                    }else{
+                        image.setText("No image");
+                        wc.setText(""+sess.getLname());
+                    }
+                }
+                }
+            } catch (SQLException e) {
+             JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage());
+            }    
         }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_formWindowActivated
 
     private void acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseClicked
         int rowIndex = tasktbl.getSelectedRow();
@@ -403,6 +443,8 @@ public class assignedTask extends javax.swing.JFrame {
 
                        db.updateData( "UPDATE tbl_evaluation SET evaluation_status = 'Accepted' WHERE evaluation_id = " + evaluationId);
                             JOptionPane.showMessageDialog(null, "Evaluation request accepted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            Session sess = Session.getInstance();
+                            db.logActivity3(sess.getUid(), "Accepted Evaluation Request: " + taskId);
                     }
                     rs.close();
                     displayTasks();
@@ -488,6 +530,8 @@ public class assignedTask extends javax.swing.JFrame {
 
                        db.updateData( "UPDATE tbl_evaluation SET evaluation_status = 'Rejected' WHERE evaluation_id = " + evaluationId);
                             JOptionPane.showMessageDialog(null, "Evaluation request rejected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            Session sess = Session.getInstance();
+                            db.logActivity3(sess.getUid(), "Rejected Evaluation Request: " + taskId);
                     }
                     rs.close();
                     displayTasks();
@@ -548,6 +592,30 @@ public class assignedTask extends javax.swing.JFrame {
     private void evalMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_evalMouseExited
         eval.setBackground(bodycolor);
     }//GEN-LAST:event_evalMouseExited
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedValue = jComboBox1.getSelectedItem().toString();
+        if (selectedValue.equals("Logout")) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                loginform lf = new loginform();
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity3(sess.getUid(), "User Logout: " + sess.getLname());
+                lf.setVisible(true);
+                this.dispose();
+            }else {
+                jComboBox1.setSelectedIndex(0);
+            }
+        }else if(selectedValue.equals("Settings")){
+            userDetails ud = new userDetails();
+            ud.setVisible(true);
+            this.dispose();
+        }else{
+            jComboBox1.setSelectedIndex(0);
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
