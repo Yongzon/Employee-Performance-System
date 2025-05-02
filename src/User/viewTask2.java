@@ -7,6 +7,9 @@ package User;
 
 import Error.ErrorPage;
 import config.Session;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  *
@@ -19,6 +22,28 @@ public class viewTask2 extends javax.swing.JFrame {
      */
     public viewTask2() {
         initComponents();
+    }
+    
+        private String readFileContent(String path) throws IOException {
+        if (path == null) {
+            throw new IOException("Null file path");
+        }
+
+        
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            char[] buffer = new char[8192];
+            int charsRead;
+            while ((charsRead = reader.read(buffer)) != -1) {
+                content.append(buffer, 0, charsRead);
+                
+                if (content.length() > 10_000_000) { 
+                    content.append("\n[... file truncated due to size ...]");
+                    break;
+                }
+            }
+        }
+        return content.toString();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -47,6 +72,9 @@ public class viewTask2 extends javax.swing.JFrame {
         pl = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         eval = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        doc = new javax.swing.JTextArea();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -118,7 +146,7 @@ public class viewTask2 extends javax.swing.JFrame {
         td.setRows(5);
         jScrollPane1.setViewportView(td);
 
-        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 460, 190));
+        jPanel3.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 220, 190));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left_10977010.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -157,6 +185,18 @@ public class viewTask2 extends javax.swing.JFrame {
             }
         });
         jPanel3.add(eval, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 270, 140, 40));
+
+        doc.setEditable(false);
+        doc.setColumns(20);
+        doc.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        doc.setRows(5);
+        jScrollPane2.setViewportView(doc);
+
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 230, 190));
+
+        jLabel15.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        jLabel15.setText("Document File");
+        jPanel3.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 310, 100, 30));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 550));
 
@@ -234,11 +274,13 @@ public class viewTask2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public com.toedter.calendar.JDateChooser dd;
+    public javax.swing.JTextArea doc;
     public javax.swing.JTextField eval;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
@@ -247,6 +289,7 @@ public class viewTask2 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     public javax.swing.JTextField pl;
     public javax.swing.JTextField status;
     public javax.swing.JTextArea td;

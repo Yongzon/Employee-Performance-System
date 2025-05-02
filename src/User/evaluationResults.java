@@ -38,39 +38,42 @@ public class evaluationResults extends javax.swing.JFrame {
     }
     
     public void displayTasks() {
-        try {
-            dbConnector db = new dbConnector();
-            Session sess = Session.getInstance();
+    try {
+        dbConnector db = new dbConnector();
+        Session sess = Session.getInstance();
 
-            Integer uidValue = sess.getUid();
-            String uid = (uidValue != null) ? "'" + uidValue.toString() + "'" : "0";
+        Integer uidValue = sess.getUid();
+        String uid = (uidValue != null) ? "'" + uidValue.toString() + "'" : "0";
 
-            String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = " + uid;
-            ResultSet empRs = db.getData(empQuery);
-            if (empRs.next()) {  
-                int empId = empRs.getInt("emp_id");
+        String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = " + uid;
+        ResultSet empRs = db.getData(empQuery);
+        if (empRs.next()) {  
+            int empId = empRs.getInt("emp_id");
 
-                ResultSet rs = db.getData(
-                    "SELECT t_id AS 'Task ID', "
-                        + "t_name AS 'Task Name', "
-                        + "t_description AS 'Task Description', "
-                        + "t_deadline AS 'Deadline', "
-                        + "t_progress AS 'Task Progress', "
-                        + "t_status AS 'Task Status' "
-                        + "FROM tbl_task WHERE t_empid = " + empId); 
-
-                tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
-                rs.close();
-            }
-            empRs.close();
-        } catch (SQLException e) {
-            System.out.println("Error: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, 
-                "Error loading tasks: " + e.getMessage(), 
-                "Database Error", 
-                JOptionPane.ERROR_MESSAGE);
+            String EvalutionQuery = "SELECT t.t_id AS 'Task ID', "
+                    + "t.t_name AS 'Task Name', "
+                    + "e.evaluation_revper AS 'Review Period', "
+                    + "t.t_deadline AS 'Deadline', "
+                    + "t.t_status AS 'Task Status', "
+                    + "e.evaluation_status AS 'Evaluation Status' "
+                    + "FROM tbl_task t "
+                    + "LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
+                    + "WHERE t.t_empid = " + empId
+                    + " AND e.evaluation_status = 'Completed'";
+            
+            ResultSet rs = db.getData(EvalutionQuery);
+            tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
         }
+        empRs.close();
+    } catch (SQLException e) {
+        System.out.println("Error: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, 
+            "Error loading tasks: " + e.getMessage(), 
+            "Database Error", 
+            JOptionPane.ERROR_MESSAGE);
     }
+}
     
     public static int getHeightFromWidth(String imagePath, int desiredWidth) {
     try {
@@ -433,7 +436,7 @@ public class evaluationResults extends javax.swing.JFrame {
             ResultSet rs = db.getData(query);
 
             if(rs.next()) {
-                viewEvaluation ve = new viewEvaluation();
+                viewEvaluation2 ve = new viewEvaluation2();
 
                 ve.empname.setText(rs.getString("full_name"));
                 ve.dep.setText(rs.getString("dep_name"));

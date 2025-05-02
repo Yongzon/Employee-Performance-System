@@ -36,27 +36,24 @@ public class evaluateTask extends javax.swing.JFrame {
         displayTasks();
     }
     
-    public void displayTasks() {
-    try {
+   public void displayTasks() {
+    try{
         dbConnector db = new dbConnector();
+        String taskQuery = "SELECT t.t_id AS 'Task ID', "
+                        + "t.t_name AS 'Task Name', "
+                        + "t.t_deadline AS 'Deadline', "
+                        + "t.t_status AS 'Task Status', "
+                        + "t.t_evalstatus AS 'Request Status', "
+                        + "e.evaluation_status AS 'Evaluation Status' "
+                        + "FROM tbl_task t "
+                        + "INNER JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid " 
+                        + "WHERE e.evaluation_status IN ( 'Pending', 'Completed')"; 
 
-        ResultSet rs = db.getData(
-            "SELECT t.t_id AS 'Task ID', "
-                + "t.t_name AS 'Task Name', "
-                + "t.t_description AS 'Task Description', "
-                + "t.t_deadline AS 'Deadline', "
-                + "t.t_status AS 'Task Status', "
-                + "e.t_evalstatus AS 'Request Status', "
-                + "e.evaluation_status2 AS 'Evaluation Status'"    
-                + "FROM tbl_task t LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
-                + "WHERE (e.evaluation_status IN ('Accepted') OR e.evaluation_status IS NULL) "
-                + "AND t.t_status IN ('Completed', 'Completed - Late', 'Completed - Overdue', 'Completed - Severely Overdue')");
-        
+        ResultSet rs = db.getData(taskQuery);
         tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
         rs.close();
-        
     } catch (SQLException e) {
-        System.out.println("Error: " + e.getMessage());
+        System.err.println("Database Error: " + e.getMessage());
         JOptionPane.showMessageDialog(null, 
             "Error loading tasks: " + e.getMessage(), 
             "Database Error", 
@@ -432,6 +429,20 @@ public class evaluateTask extends javax.swing.JFrame {
                 dbConnector db = new dbConnector();
                 TableModel tbl = tasktbl.getModel();
                 String taskId = tbl.getValueAt(rowIndex, 0).toString();
+                
+                ResultSet checkRs = db.getData("SELECT evaluation_status FROM tbl_evaluation WHERE evaluation_tid = " + taskId);
+
+            if(checkRs.next()) {
+                String evalStatus = checkRs.getString("evaluation_status");
+
+                if("Completed".equals(evalStatus)) {
+                    JOptionPane.showMessageDialog(null, 
+                        "Cannot evaluate again - Evaluation is already completed!", 
+                        "Evaluate Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
 
                 String query = "SELECT " +
                               "CONCAT(u.u_fname, ' ', u.u_lname) AS full_name, " +
@@ -456,11 +467,6 @@ public class evaluateTask extends javax.swing.JFrame {
                     eva.jt.setText(rs.getString("emp_position"));
                     eva.setVisible(true);
                     this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null,
-                        "No matching task found!",
-                        "Not Found",
-                        JOptionPane.WARNING_MESSAGE);
                 }
             } catch(SQLException ex) {
                 System.out.println("Error: " + ex);
@@ -544,10 +550,10 @@ public class evaluateTask extends javax.swing.JFrame {
                 String over4 = rs.getString("evaluation_over4");
                 String over5 = rs.getString("evaluation_over5");
 
-                ve.over1.setSelected("1".equals(over1));
-                ve.over2.setSelected("2".equals(over2));
-                ve.over3.setSelected("3".equals(over3));
-                ve.over4.setSelected("4".equals(over4));
+                ve.over1.setSelected("1".equals(over1));  
+                ve.over2.setSelected("2".equals(over2));  
+                ve.over3.setSelected("3".equals(over3));  
+                ve.over4.setSelected("4".equals(over4));  
                 ve.over5.setSelected("5".equals(over5));
 
                 ve.area.setText(rs.getString("evaluation_areaimprov"));

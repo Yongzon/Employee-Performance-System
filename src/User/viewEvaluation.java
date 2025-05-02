@@ -116,6 +116,9 @@ public class viewEvaluation extends javax.swing.JFrame {
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 120, 30));
 
         empname.setEditable(false);
+        empname.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        empname.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        empname.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(empname, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 170, 180, 30));
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -124,6 +127,8 @@ public class viewEvaluation extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 120, 30));
 
         dep.setEditable(false);
+        dep.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        dep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         dep.setFocusCycleRoot(true);
         dep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +151,7 @@ public class viewEvaluation extends javax.swing.JFrame {
 
         cm6.setEditable(false);
         cm6.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        cm6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,6 +166,9 @@ public class viewEvaluation extends javax.swing.JFrame {
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 250, 120, 30));
 
         tn.setEditable(false);
+        tn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        tn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         tn.setFocusCycleRoot(true);
         tn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,6 +178,9 @@ public class viewEvaluation extends javax.swing.JFrame {
         jPanel1.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 180, 30));
 
         tid.setEditable(false);
+        tid.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        tid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tid.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         tid.setFocusCycleRoot(true);
         tid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,6 +240,8 @@ public class viewEvaluation extends javax.swing.JFrame {
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 300, 120, 30));
 
         jt.setEditable(false);
+        jt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jt.setFocusCycleRoot(true);
         jt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -238,6 +252,7 @@ public class viewEvaluation extends javax.swing.JFrame {
 
         cm1.setEditable(false);
         cm1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        cm1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -248,6 +263,7 @@ public class viewEvaluation extends javax.swing.JFrame {
 
         cm2.setEditable(false);
         cm2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        cm2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,6 +274,7 @@ public class viewEvaluation extends javax.swing.JFrame {
 
         cm3.setEditable(false);
         cm3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        cm3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,6 +285,7 @@ public class viewEvaluation extends javax.swing.JFrame {
 
         cm4.setEditable(false);
         cm4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        cm4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +296,7 @@ public class viewEvaluation extends javax.swing.JFrame {
 
         cm5.setEditable(false);
         cm5.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        cm5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

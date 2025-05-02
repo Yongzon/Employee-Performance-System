@@ -408,6 +408,7 @@ public class requestEvaluation extends javax.swing.JFrame {
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
     String files = docs.getText();
+    String area = "";
 
     if (files.isEmpty()) {
         JOptionPane.showMessageDialog(this, "Upload File field must not be empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -422,9 +423,11 @@ public class requestEvaluation extends javax.swing.JFrame {
             Files.createDirectories(destPath.getParent());
 
             dbConnector db = new dbConnector();
-
+            
+            
             db.updateData ("UPDATE tbl_task SET t_file = '"+destination+"', t_evalstatus = 'Pending' WHERE t_id = '"+tid.getText()+"'" ); 
                 Files.copy(selectedFile.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
+
                 JOptionPane.showMessageDialog(this, "Evaluation Requested successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 Session sess = Session.getInstance();
                 db.logActivity2(sess.getUid(), "Evaluation Requested: " + sess.getLname());

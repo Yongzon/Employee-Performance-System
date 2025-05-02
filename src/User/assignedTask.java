@@ -13,7 +13,9 @@ import config.dbConnector;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,20 +42,18 @@ public class assignedTask extends javax.swing.JFrame {
     try {
         dbConnector db = new dbConnector();
 
-        ResultSet rs = db.getData(
-            "SELECT t.t_id AS 'Task ID', "
-                + "t.t_name AS 'Task Name', "
-                + "t.t_description AS 'Task Description', "
-                + "t.t_deadline AS 'Deadline', "
-                + "t.t_status AS 'Task Status', "
-                + "e.t_evalstatus AS 'Request Status' "
-                + "FROM tbl_task t LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
-                + "WHERE (e.evaluation_status IN ('Pending') OR e.evaluation_status IS NULL) "
-                + "AND t.t_status IN ('Completed', 'Completed - Late', 'Completed - Overdue', 'Completed - Severely Overdue')");
-        
-        tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
-        rs.close();
-        
+        String taskQuery = "SELECT t_id AS 'Task ID', "
+                        + "t_name AS 'Task Name', "
+                        + "t_description AS 'Task Description', "
+                        + "t_deadline AS 'Deadline', "
+                        + "t_status AS 'Task Status', "
+                        + "t_evalstatus AS 'Request Status' "
+                        + "FROM tbl_task "
+                        + "WHERE t_evalstatus IN ('Pending', 'Rejected', 'Accepted')"; 
+
+        ResultSet rs = db.getData(taskQuery);
+            tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
+            rs.close();
     } catch (SQLException e) {
         System.out.println("Error: " + e.getMessage());
         JOptionPane.showMessageDialog(null, 
@@ -62,6 +62,28 @@ public class assignedTask extends javax.swing.JFrame {
             JOptionPane.ERROR_MESSAGE);
     }
 }
+    
+    private String readFileContent(String path) throws IOException {
+        if (path == null) {
+            throw new IOException("Null file path");
+        }
+
+        
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            char[] buffer = new char[8192];
+            int charsRead;
+            while ((charsRead = reader.read(buffer)) != -1) {
+                content.append(buffer, 0, charsRead);
+                
+                if (content.length() > 10_000_000) { 
+                    content.append("\n[... file truncated due to size ...]");
+                    break;
+                }
+            }
+        }
+        return content.toString();
+    }
 
     public static int getHeightFromWidth(String imagePath, int desiredWidth) {
     try {
@@ -422,38 +444,74 @@ public class assignedTask extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseClicked
-        int rowIndex = tasktbl.getSelectedRow();
+    int rowIndex = tasktbl.getSelectedRow();
+    String cm1 = "";
+    String area = "";
 
-        if (rowIndex < 0) {
-            JOptionPane.showMessageDialog(null, "Please Select an Item!");
-        } else {
-            dbConnector db = new dbConnector();
-            TableModel tbl = tasktbl.getModel();
-            String taskId = tbl.getValueAt(rowIndex, 0).toString();
+    if (rowIndex < 0) {
+        JOptionPane.showMessageDialog(null, "Please Select an Item!");
+    } else {
+        dbConnector db = new dbConnector();
+        TableModel tbl = tasktbl.getModel();
+        String taskId = tbl.getValueAt(rowIndex, 0).toString();
 
-            int confirm = JOptionPane.showConfirmDialog(this, "Accept evaluation request for selected task?", "Confirm Evaluation Acceptance", JOptionPane.YES_NO_OPTION);
+        int confirm = JOptionPane.showConfirmDialog(this, 
+            "Accept evaluation request for selected task?", 
+            "Confirm Evaluation Acceptance", 
+            JOptionPane.YES_NO_OPTION);
 
-            if (confirm == JOptionPane.YES_OPTION) {
-                try {
-                    ResultSet rs = db.getData("SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '" + taskId + "' AND "
-                            + "evaluation_status = 'Pending'");
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
 
-                    if (rs.next()) {
-                        int evaluationId = rs.getInt("evaluation_id");
+                ResultSet taskRs = db.getData("SELECT t_id FROM tbl_task WHERE t_id = '"+taskId+"' AND t_evalstatus = 'Pending'");
 
-                       db.updateData( "UPDATE tbl_evaluation SET evaluation_status = 'Accepted' WHERE evaluation_id = " + evaluationId);
-                            JOptionPane.showMessageDialog(null, "Evaluation request accepted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                            Session sess = Session.getInstance();
-                            db.logActivity3(sess.getUid(), "Accepted Evaluation Request: " + taskId);
+                if (taskRs.next()) {
+                    int taskID = taskRs.getInt("t_id");
+
+                    ResultSet evalRs = db.getData("SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '"+taskID+"'");
+
+                    if (!evalRs.next()) {
+
+                        db.updateData("UPDATE tbl_task SET t_evalstatus = 'Accepted' WHERE t_id = '"+taskId+"'"); 
+
+                        String insertQuery = "INSERT INTO tbl_evaluation (evaluation_tid, evaluation_status, evaluation_revper, "
+                            + "evaluation_r1, evaluation_r2, evaluation_r3, evaluation_r4, evaluation_r5, "
+                            + "evaluation_r6, evaluation_cm1, evaluation_cm2, evaluation_cm3, evaluation_cm4, "
+                            + "evaluation_cm5, evaluation_cm6, evaluation_over1, evaluation_over2, evaluation_over3, "
+                            + "evaluation_over4, evaluation_over5, evaluation_areaimprov) VALUES "
+                            + "('"+taskID+"', 'Pending', CURDATE(), 0, 0, 0, 0, 0, 0, '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', 0, 0, 0, 0, 0, '"+area+"')";
+
+                        db.InsertData(insertQuery);
+
+                        JOptionPane.showMessageDialog(null, "Evaluation request accepted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+                        Session sess = Session.getInstance();
+                        db.logActivity3(sess.getUid(), "Accepted Evaluation Request: " + taskId);
+                    } else {
+                        JOptionPane.showMessageDialog(null, 
+                            "Evaluation already exists for this task", 
+                            "Error", 
+                            JOptionPane.ERROR_MESSAGE);
                     }
-                    rs.close();
-                    displayTasks();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Error accepting evaluation: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
+                    evalRs.close();
+                } else {
+                    JOptionPane.showMessageDialog(null, 
+                        "Request already accepted or rejected", 
+                        "Request Error", 
+                        JOptionPane.ERROR_MESSAGE);
                 }
+                taskRs.close();
+            } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, 
+                    "Error accepting evaluation: " + ex.getMessage(), 
+                    "Database Error", 
+                    JOptionPane.ERROR_MESSAGE);
+                ex.printStackTrace();
+            } finally {
+                displayTasks();
             }
         }
+    }
     }//GEN-LAST:event_acceptMouseClicked
 
     private void acceptMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseEntered
@@ -474,20 +532,30 @@ public class assignedTask extends javax.swing.JFrame {
             dbConnector db = new dbConnector();
             TableModel tbl = tasktbl.getModel();
 
-            String query = "SELECT t.*, e.evaluation_status FROM tbl_task t " +
-                          "LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid " +
-                          "WHERE t.t_id = '" + tbl.getValueAt(rowIndex, 0) + "'";
+            String query = "SELECT * FROM tbl_task WHERE t_id = '" + tbl.getValueAt(rowIndex, 0) + "'";
 
             ResultSet rs = db.getData(query);
 
             if(rs.next()){
-                viewTask2 vt = new viewTask2();
+                viewTask3 vt = new viewTask3();
                 vt.tn.setText(rs.getString("t_name"));
                 vt.dd.setDate(rs.getDate("t_deadline"));
                 vt.td.setText(rs.getString("t_description"));
                 vt.pl.setText(rs.getString("t_prlevel"));
                 vt.status.setText(rs.getString("t_status"));
-                vt.eval.setText(rs.getString("evaluation_status"));
+                vt.eval.setText(rs.getString("t_evalstatus"));
+
+                String filePath = rs.getString("t_file");
+                vt.doc.setText(filePath); 
+
+                try {
+                    String fileContent = readFileContent(filePath);
+                    vt.doc.setText(fileContent);
+                } catch (IOException ex) {
+                    vt.doc.setText("File path: " + filePath + "\n\nError reading file: " + ex.getMessage());
+                    System.out.println("Error reading file: " + ex);
+                }
+
                 vt.setVisible(true);
                 this.dispose();
             }
@@ -522,16 +590,21 @@ public class assignedTask extends javax.swing.JFrame {
 
             if (confirm == JOptionPane.YES_OPTION) {
                 try {
-                    ResultSet rs = db.getData("SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '" + taskId + "' AND "
-                            + "evaluation_status = 'Pending'");
+                    ResultSet rs = db.getData("SELECT t_id FROM tbl_task WHERE t_id = '" + taskId + "' AND "
+                            + "t_evalstatus = 'Pending'");
 
                     if (rs.next()) {
-                        int evaluationId = rs.getInt("evaluation_id");
+                        int taskID = rs.getInt("t_id");
 
-                       db.updateData( "UPDATE tbl_evaluation SET evaluation_status = 'Rejected' WHERE evaluation_id = " + evaluationId);
+                       db.updateData( "UPDATE tbl_task SET t_evalstatus = 'Rejected' WHERE t_id = " + taskID);
                             JOptionPane.showMessageDialog(null, "Evaluation request rejected successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                             Session sess = Session.getInstance();
                             db.logActivity3(sess.getUid(), "Rejected Evaluation Request: " + taskId);
+                    } else {
+                    JOptionPane.showMessageDialog(null, 
+                        "Request already accepted or rejected", 
+                        "Request Error", 
+                        JOptionPane.ERROR_MESSAGE);
                     }
                     rs.close();
                     displayTasks();

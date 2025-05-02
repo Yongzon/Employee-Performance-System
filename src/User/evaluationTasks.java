@@ -12,7 +12,9 @@ import config.dbConnector;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,40 +40,41 @@ public class evaluationTasks extends javax.swing.JFrame {
     }
     
     public void displayTasks() {
-    try {
-        dbConnector db = new dbConnector();
-        Session sess = Session.getInstance();
+        try {
+            dbConnector db = new dbConnector();
+            Session sess = Session.getInstance();
 
-        Integer uidValue = sess.getUid();
-        String uid = (uidValue != null) ? "'" + uidValue.toString() + "'" : "0";
+            Integer uidValue = sess.getUid();
+            String uid = (uidValue != null) ? "'" + uidValue.toString() + "'" : "0";
 
-        String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = " + uid;
-        ResultSet empRs = db.getData(empQuery);
-        if (empRs.next()) {  
-            int empId = empRs.getInt("emp_id");
+            String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = " + uid;
+            ResultSet empRs = db.getData(empQuery);
+            if (empRs.next()) {  
+                int empId = empRs.getInt("emp_id");
 
-            ResultSet rs = db.getData(
-                "SELECT t.t_id AS 'Task ID', "
-                    + "t.t_name AS 'Task Name', "
-                    + "t.t_description AS 'Task Description', "
-                    + "t.t_deadline AS 'Deadline', "
-                    + "t.t_status AS 'Task Status', "
-                    + "e.evaluation_status AS 'Request Status' "
-                    + "FROM tbl_task t LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
-                    + "WHERE t.t_empid = " + empId); 
-            
-            tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
-            rs.close();
+                String taskQuery = "SELECT t_id AS 'Task ID', "
+                                + "t_name AS 'Task Name', "
+                                + "t_description AS 'Task Description', "
+                                + "t_deadline AS 'Deadline', "
+                                + "t_status AS 'Task Status', "
+                                + "t_evalstatus AS 'Request Status' "
+                                + "FROM tbl_task "
+                                + "WHERE t_empid = " + empId + " "
+                                + "AND t_status IN ('Completed', 'Completed - Late', 'Completed - Overdue', 'Completed - Severely Overdue') ";              
+                ResultSet rs = db.getData(taskQuery);  
+                tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
+                rs.close();
+            }
+            empRs.close();
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, 
+                "Error loading tasks: " + e.getMessage(), 
+                "Database Error", 
+                JOptionPane.ERROR_MESSAGE);
         }
-        empRs.close();
-    } catch (SQLException e) {
-        System.out.println("Error: " + e.getMessage());
-        JOptionPane.showMessageDialog(null, 
-            "Error loading tasks: " + e.getMessage(), 
-            "Database Error", 
-            JOptionPane.ERROR_MESSAGE);
-    }
 }
+    
     
     public static int getHeightFromWidth(String imagePath, int desiredWidth) {
     try {
@@ -110,7 +113,27 @@ public class evaluationTasks extends javax.swing.JFrame {
     return image;
 }
     
-    
+    private String readFileContent(String path) throws IOException {
+        if (path == null) {
+            throw new IOException("Null file path");
+        }
+
+        
+        StringBuilder content = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(path))) {
+            char[] buffer = new char[8192];
+            int charsRead;
+            while ((charsRead = reader.read(buffer)) != -1) {
+                content.append(buffer, 0, charsRead);
+                
+                if (content.length() > 10_000_000) { 
+                    content.append("\n[... file truncated due to size ...]");
+                    break;
+                }
+            }
+        }
+        return content.toString();
+    }
     
     Color bodycolor = new Color (255,255,255);
     Color nav = new Color (242,240,240);
@@ -435,13 +458,28 @@ public class evaluationTasks extends javax.swing.JFrame {
     private void requestMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseClicked
     int rowIndex = tasktbl.getSelectedRow();
 
-        if(rowIndex < 0){
-            JOptionPane.showMessageDialog(null, "Please Select an Item!");
-        }else{
-            try{
-                dbConnector db = new dbConnector();
-                TableModel tbl = tasktbl.getModel();
-                ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
+    if(rowIndex < 0){
+        JOptionPane.showMessageDialog(null, "Please Select an Item!");
+    } else {
+        try {
+            dbConnector db = new dbConnector();
+            TableModel tbl = tasktbl.getModel();
+            int taskId = Integer.parseInt(tbl.getValueAt(rowIndex, 0).toString());
+
+            ResultSet checkRs = db.getData("SELECT t_evalstatus FROM tbl_task WHERE t_id = " + taskId);
+
+            if(checkRs.next()) {
+                String evalStatus = checkRs.getString("t_evalstatus");
+
+                if("Pending".equals(evalStatus)) {
+                    JOptionPane.showMessageDialog(null, 
+                        "Cannot request again - Evaluation is already pending!", 
+                        "Request Error", 
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                
+                ResultSet rs = db.getData("SELECT * FROM tbl_task WHERE t_id = " + taskId);
 
                 if(rs.next()){
                     requestEvaluation re = new requestEvaluation();
@@ -452,10 +490,21 @@ public class evaluationTasks extends javax.swing.JFrame {
                     re.setVisible(true);
                     this.dispose();
                 }
-            }catch(SQLException ex){
-                System.out.println(""+ex);
             }
+        } catch(SQLException ex) {
+            System.out.println(""+ex);
+            JOptionPane.showMessageDialog(null, 
+                "Database error: " + ex.getMessage(), 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+        } catch(NumberFormatException ex) {
+            System.out.println(""+ex);
+            JOptionPane.showMessageDialog(null, 
+                "Invalid task ID format", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
         }
+    }
     }//GEN-LAST:event_requestMouseClicked
 
     private void requestMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_requestMouseEntered
@@ -476,9 +525,7 @@ public class evaluationTasks extends javax.swing.JFrame {
             dbConnector db = new dbConnector();
             TableModel tbl = tasktbl.getModel();
 
-            String query = "SELECT t.*, e.evaluation_status FROM tbl_task t " +
-                          "LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid " +
-                          "WHERE t.t_id = '" + tbl.getValueAt(rowIndex, 0) + "'";
+            String query = "SELECT * FROM tbl_task WHERE t_id = '" + tbl.getValueAt(rowIndex, 0) + "'";
 
             ResultSet rs = db.getData(query);
 
@@ -489,7 +536,19 @@ public class evaluationTasks extends javax.swing.JFrame {
                 vt.td.setText(rs.getString("t_description"));
                 vt.pl.setText(rs.getString("t_prlevel"));
                 vt.status.setText(rs.getString("t_status"));
-                vt.eval.setText(rs.getString("evaluation_status"));
+                vt.eval.setText(rs.getString("t_evalstatus"));
+
+                String filePath = rs.getString("t_file");
+                vt.doc.setText(filePath); 
+
+                try {
+                    String fileContent = readFileContent(filePath);
+                    vt.doc.setText(fileContent);
+                } catch (IOException ex) {
+                    vt.doc.setText("File path: " + filePath + "\n\nError reading file: " + ex.getMessage());
+                    System.out.println("Error reading file: " + ex);
+                }
+
                 vt.setVisible(true);
                 this.dispose();
             }

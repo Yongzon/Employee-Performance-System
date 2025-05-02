@@ -5,26 +5,18 @@
  */
 package User;
 
-import config.Session;
-import config.dbConnector;
 import java.awt.Color;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.stream.Stream;
-import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author Chris
  */
-public class evaluate extends javax.swing.JFrame {
+public class viewEvaluation2 extends javax.swing.JFrame {
 
     /**
      * Creates new form evaluate
      */
-    public evaluate() {
+    public viewEvaluation2() {
         initComponents();
     }
     
@@ -87,16 +79,13 @@ public class evaluate extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         area = new javax.swing.JTextArea();
-        cnl = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        save = new javax.swing.JPanel();
-        jLabel26 = new javax.swing.JLabel();
         r6 = new javax.swing.JTextField();
         r1 = new javax.swing.JTextField();
         r2 = new javax.swing.JTextField();
         r3 = new javax.swing.JTextField();
         r4 = new javax.swing.JTextField();
         r5 = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -106,6 +95,7 @@ public class evaluate extends javax.swing.JFrame {
         });
 
         jPanel1.setBackground(new java.awt.Color(241, 242, 247));
+        jPanel1.setFocusCycleRoot(true);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(1, 216, 218));
@@ -140,6 +130,7 @@ public class evaluate extends javax.swing.JFrame {
         dep.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         dep.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         dep.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        dep.setFocusCycleRoot(true);
         dep.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 depActionPerformed(evt);
@@ -151,14 +142,16 @@ public class evaluate extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Review Period:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 210, 120, 30));
+
+        rp.setEnabled(false);
         jPanel1.add(rp, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 210, 180, 30));
 
         jLabel5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         jLabel5.setText("6. Adaptability (Adjusts quickly to changes and new challenges)");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 540, 410, 30));
 
+        cm6.setEditable(false);
         cm6.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        cm6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,6 +169,7 @@ public class evaluate extends javax.swing.JFrame {
         tn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         tn.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tn.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tn.setFocusCycleRoot(true);
         tn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tnActionPerformed(evt);
@@ -187,6 +181,7 @@ public class evaluate extends javax.swing.JFrame {
         tid.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         tid.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         tid.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        tid.setFocusCycleRoot(true);
         tid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tidActionPerformed(evt);
@@ -236,6 +231,7 @@ public class evaluate extends javax.swing.JFrame {
 
         over5.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         over5.setText("5");
+        over5.setEnabled(false);
         jPanel1.add(over5, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 340, -1, 30));
 
         jLabel17.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -247,6 +243,7 @@ public class evaluate extends javax.swing.JFrame {
         jt.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jt.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jt.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jt.setFocusCycleRoot(true);
         jt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtActionPerformed(evt);
@@ -254,8 +251,8 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(jt, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 250, 180, 30));
 
+        cm1.setEditable(false);
         cm1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        cm1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -264,8 +261,8 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(cm1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 340, 180, 30));
 
+        cm2.setEditable(false);
         cm2.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        cm2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -274,8 +271,8 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(cm2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, 180, 30));
 
+        cm3.setEditable(false);
         cm3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        cm3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,8 +281,8 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(cm3, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 420, 180, 30));
 
+        cm4.setEditable(false);
         cm4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        cm4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -294,8 +291,8 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(cm4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 460, 180, 30));
 
+        cm5.setEditable(false);
         cm5.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
-        cm5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         cm5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         cm5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -315,6 +312,7 @@ public class evaluate extends javax.swing.JFrame {
 
         over4.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         over4.setText("4");
+        over4.setEnabled(false);
         jPanel1.add(over4, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 370, -1, 30));
 
         jLabel20.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -323,6 +321,7 @@ public class evaluate extends javax.swing.JFrame {
 
         over3.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         over3.setText("3");
+        over3.setEnabled(false);
         jPanel1.add(over3, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 400, -1, 30));
 
         jLabel21.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -331,6 +330,7 @@ public class evaluate extends javax.swing.JFrame {
 
         over2.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         over2.setText("2");
+        over2.setEnabled(false);
         jPanel1.add(over2, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 430, -1, 30));
 
         jLabel22.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -339,6 +339,7 @@ public class evaluate extends javax.swing.JFrame {
 
         over1.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
         over1.setText("1");
+        over1.setEnabled(false);
         jPanel1.add(over1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 460, -1, 30));
 
         jLabel23.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
@@ -350,81 +351,58 @@ public class evaluate extends javax.swing.JFrame {
         jLabel24.setText("Overall Rating ");
         jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 300, 140, 30));
 
+        area.setEditable(false);
         area.setColumns(20);
         area.setRows(5);
+        area.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jScrollPane1.setViewportView(area);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 540, 400, 110));
 
-        cnl.setBackground(new java.awt.Color(255, 51, 51));
-        cnl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        cnl.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cnlMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                cnlMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                cnlMouseExited(evt);
-            }
-        });
-        cnl.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel25.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setText("Cancel");
-        cnl.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
-
-        jPanel1.add(cnl, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 610, 180, 40));
-
-        save.setBackground(new java.awt.Color(0, 204, 204));
-        save.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        save.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                saveMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                saveMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                saveMouseExited(evt);
-            }
-        });
-        save.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel26.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel26.setText("Save");
-        save.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 100, 20));
-
-        jPanel1.add(save, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 610, 180, 40));
-
+        r6.setEditable(false);
+        r6.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         r6.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         r6.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 540, 80, 30));
 
+        r1.setEditable(false);
+        r1.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         r1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         r1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r1, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 340, 80, 30));
 
+        r2.setEditable(false);
+        r2.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         r2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         r2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 380, 80, 30));
 
+        r3.setEditable(false);
+        r3.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         r3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         r3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 420, 80, 30));
 
+        r4.setEditable(false);
+        r4.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         r4.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         r4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r4, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 460, 80, 30));
 
+        r5.setEditable(false);
+        r5.setFont(new java.awt.Font("SansSerif", 0, 11)); // NOI18N
         r5.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         r5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel1.add(r5, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 500, 80, 30));
+
+        jLabel27.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/turn-left_10977010.png"))); // NOI18N
+        jLabel27.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel27MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -481,108 +459,15 @@ public class evaluate extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cm5ActionPerformed
 
-    private void cnlMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnlMouseClicked
-        evaluateTask et = new evaluateTask();
-        et.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_cnlMouseClicked
-
-    private void cnlMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnlMouseEntered
-        cnl.setBackground(nav1);
-    }//GEN-LAST:event_cnlMouseEntered
-
-    private void cnlMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cnlMouseExited
-        cnl.setBackground(bodycolor1);
-    }//GEN-LAST:event_cnlMouseExited
-
-    private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String dateString = rp.getDate() != null ? sdf.format(rp.getDate()) : null;
-        String rate = r1.getText();
-        String rate2 = r2.getText();
-        String rate3 = r3.getText();
-        String rate4 = r4.getText();
-        String rate5 = r5.getText();
-        String rate6 = r6.getText();
-        String com = cm1.getText();
-        String com2 = cm2.getText();
-        String com3 = cm3.getText();
-        String com4 = cm4.getText();
-        String com5 = cm5.getText();
-        String com6 = cm6.getText();
-        String areaimprov = area.getText();
-        
-        long selectedCount = Stream.of(over1, over2, over3, over4, over5).filter(JCheckBox::isSelected).count();
-
-        if (selectedCount == 0) {
-            JOptionPane.showMessageDialog(this, "Please select one overall rating!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        } else if (selectedCount > 1) {
-            JOptionPane.showMessageDialog(this, "Select only one overall rating!", "Error", JOptionPane.ERROR_MESSAGE);
-             return;
-        }
-
-        String overall = over1.isSelected() ? "1" : "0";
-        String overall2 = over2.isSelected() ? "2" : "0";
-        String overall3 = over3.isSelected() ? "3" : "0";
-        String overall4 = over4.isSelected() ? "4" : "0";
-        String overall5 = over5.isSelected() ? "5" : "0";
-
-        if(rate.isEmpty() || rate2.isEmpty() || rate3.isEmpty() || rate4.isEmpty() || rate5.isEmpty() || rate6.isEmpty()){
-            JOptionPane.showMessageDialog(this, "All rating fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(com.isEmpty() || com2.isEmpty() || com3.isEmpty() || com4.isEmpty() || com5.isEmpty() || com6.isEmpty()){
-            JOptionPane.showMessageDialog(this, "All comment fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(!rate.matches("\\d+") || !rate2.matches("\\d+") || !rate3.matches("\\d+") || !rate4.matches("\\d+") || !rate5.matches("\\d+") || !rate6.matches("\\d+")){
-            JOptionPane.showMessageDialog(this, "All rating fields must only contain numbers!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(Integer.parseInt(rate) > 5 || Integer.parseInt(rate2) > 5 || 
-                Integer.parseInt(rate3) > 5 || Integer.parseInt(rate4) > 5 || 
-                Integer.parseInt(rate5) > 5 || Integer.parseInt(rate6) > 5){
-            JOptionPane.showMessageDialog(this, "Ratings cannot exceed 5!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else if(areaimprov.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Area for Improvement cannot be empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }else{
-            dbConnector db = new dbConnector();
-
-            try{
-            ResultSet rs = db.getData("SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '"+tid.getText()+"'");
-
-            if(rs.next()){
-                String evaluationId = rs.getString("evaluation_id");
-
-                db.updateData("UPDATE tbl_evaluation SET evaluation_revper = '"+dateString+"', evaluation_r1 = '"+r1.getText()+"', evaluation_r2 = '"+r2.getText()+"',"
-                    + "evaluation_r3 = '"+r3.getText()+"', evaluation_r4 = '"+r4.getText()+"', evaluation_r5 = '"+r5.getText()+"', evaluation_r6 = '"+r6.getText()+"',"
-                    + "evaluation_cm1 = '"+cm1.getText()+"', evaluation_cm2 = '"+cm2.getText()+"', evaluation_cm3 = '"+cm3.getText()+"', evaluation_cm4 = '"+cm4.getText()+"',"
-                    + "evaluation_cm5 = '"+cm5.getText()+"', evaluation_cm6 = '"+cm6.getText()+"', evaluation_over1 = '"+overall+"', evaluation_over2 = '"+overall2+"',"
-                    + "evaluation_over3 = '"+overall3+"', evaluation_over4 = '"+overall4+"', evaluation_over5 = '"+overall5+"',"
-                    + "evaluation_areaimprov = '"+area.getText()+"', evaluation_status = 'Completed' WHERE evaluation_id = '"+evaluationId+"'");
-
-                JOptionPane.showMessageDialog(this, "Created Evaluation Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                Session sess = Session.getInstance();
-                db.logActivity3(sess.getUid(), "Created Evaluation to " + empname.getText());
-                evaluateTask et = new evaluateTask();
-                et.setVisible(true);
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "No evaluation found for this task!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            }catch (SQLException ex) {
-                JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
-            }
-        }
-    }//GEN-LAST:event_saveMouseClicked
-
-    private void saveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseEntered
-        save.setBackground(nav);
-    }//GEN-LAST:event_saveMouseEntered
-
-    private void saveMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseExited
-        save.setBackground(bodycolor);
-    }//GEN-LAST:event_saveMouseExited
-
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
 
     }//GEN-LAST:event_formWindowActivated
+
+    private void jLabel27MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel27MouseClicked
+        evaluationResults er = new evaluationResults();
+        er.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel27MouseClicked
 
     /**
      * @param args the command line arguments
@@ -601,20 +486,23 @@ public class evaluate extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(evaluate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(viewEvaluation2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(evaluate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(viewEvaluation2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(evaluate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(viewEvaluation2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(evaluate.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(viewEvaluation2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new evaluate().setVisible(true);
+                new viewEvaluation2().setVisible(true);
             }
         });
     }
@@ -627,7 +515,6 @@ public class evaluate extends javax.swing.JFrame {
     public javax.swing.JTextField cm4;
     public javax.swing.JTextField cm5;
     public javax.swing.JTextField cm6;
-    private javax.swing.JPanel cnl;
     public javax.swing.JTextField dep;
     public javax.swing.JTextField empname;
     private javax.swing.JLabel jLabel1;
@@ -647,8 +534,7 @@ public class evaluate extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -672,7 +558,6 @@ public class evaluate extends javax.swing.JFrame {
     public javax.swing.JTextField r5;
     public javax.swing.JTextField r6;
     public com.toedter.calendar.JDateChooser rp;
-    public javax.swing.JPanel save;
     public javax.swing.JTextField tid;
     public javax.swing.JTextField tn;
     // End of variables declaration//GEN-END:variables
