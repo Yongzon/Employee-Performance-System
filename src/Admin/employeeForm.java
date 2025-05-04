@@ -295,7 +295,7 @@ public class employeeForm extends javax.swing.JFrame {
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 50, 50));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Logout", "Settings" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Logout" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -620,13 +620,17 @@ public class employeeForm extends javax.swing.JFrame {
 
             try {
                 dbConnector db = new dbConnector();
-                db.deleteData("DELETE FROM tbl_employee WHERE emp_id = " + userId);
+                boolean deleteSuccess = db.deleteData("DELETE FROM tbl_employee WHERE emp_id = " + userId);
 
+                if (deleteSuccess) {
                 Session sess = Session.getInstance();
                 db.logActivity(sess.getUid(), "Deleted Employee: " + empName);
-
                 displayEmployee();
                 JOptionPane.showMessageDialog(this, "Employee deleted successfully");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Failed to delete employee. Employee was\n already assigned to a task.\n\n"
+                            + "Note: Delete task first before deleting employee.", "Error Deleting", JOptionPane.ERROR_MESSAGE);
+                }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }

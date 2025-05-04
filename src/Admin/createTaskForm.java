@@ -263,6 +263,7 @@ public class createTaskForm extends javax.swing.JFrame {
         String taskname = tn.getText();
         String taskdiscrip = td.getText();
         String prioritylevel = pl.getText();
+        String status = "";
 
         if (taskname.isEmpty() || taskdiscrip.isEmpty() || prioritylevel.isEmpty() || dd.getDate() == null) {
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -279,7 +280,7 @@ public class createTaskForm extends javax.swing.JFrame {
                 int empId = empRs.getInt("emp_id");
 
                 if(db.InsertData("INSERT INTO tbl_task (t_empid, t_name, t_description, t_deadline, t_prlevel,t_status, t_progress, t_file, t_evalstatus)"
-                    + "VALUES ('"+empId+"', '"+tn.getText()+"', '"+td.getText()+"', '"+dateString+"', '"+pl.getText()+"','Pending', '0', '"+destination+"', 'Pending')") == 1) {
+                    + "VALUES ('"+empId+"', '"+tn.getText()+"', '"+td.getText()+"', '"+dateString+"', '"+pl.getText()+"','Pending', '0', '"+destination+"', '"+status+"')") == 1) {
                     Session sess = Session.getInstance();
                     db.logActivity(sess.getUid(), "Created a new Task: " + tn.getText());
                     JOptionPane.showMessageDialog(this, "Added New Task Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);

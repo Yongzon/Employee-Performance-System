@@ -333,7 +333,7 @@ public class userTable extends javax.swing.JFrame {
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 0, 50, 50));
 
         jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Logout", "Settings" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrator", "Logout" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -351,7 +351,6 @@ public class userTable extends javax.swing.JFrame {
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, -1));
 
         image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        image.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/people_14024695.png"))); // NOI18N
         jPanel2.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 100, 80));
 
         wc.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -684,24 +683,6 @@ public class userTable extends javax.swing.JFrame {
         del.setBackground(nav1);
     }//GEN-LAST:event_delMouseEntered
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        if (selectedValue.equals("Logout")) {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                dbConnector db = new dbConnector();
-                Session sess = Session.getInstance();
-                db.logActivity(sess.getUid(), "User Logout: " + sess.getLname());                
-                loginform lf = new loginform();
-                lf.setVisible(true);
-                this.dispose();
-            }else {
-                jComboBox1.setSelectedIndex(0);
-            }
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
     private void delMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delMouseClicked
     int selectedRow = usertbl.getSelectedRow();
     
@@ -725,7 +706,7 @@ public class userTable extends javax.swing.JFrame {
                 displayUsers();
                 JOptionPane.showMessageDialog(this, "User deleted successfully");
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to delete user. It may have assigned a role.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Failed to delete user.\n It was already assigned to a role.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -816,6 +797,24 @@ public class userTable extends javax.swing.JFrame {
     private void usMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usMouseExited
         us.setBackground(bodycolor);
     }//GEN-LAST:event_usMouseExited
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedValue = jComboBox1.getSelectedItem().toString();
+        if (selectedValue.equals("Logout")) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "User Logout: " + sess.getLname());
+                loginform lf = new loginform();
+                lf.setVisible(true);
+                this.dispose();
+            }else {
+                jComboBox1.setSelectedIndex(0);
+            }
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
