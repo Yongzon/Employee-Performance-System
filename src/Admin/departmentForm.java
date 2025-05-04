@@ -555,9 +555,7 @@ public class departmentForm extends javax.swing.JFrame {
             dbConnector db = new dbConnector();
             TableModel tbl = deptbl.getModel();
 
-            String depId = tbl.getValueAt(rowIndex, 2).toString(); 
-
-            String query = "SELECT " +
+            ResultSet rs = db.getData( "SELECT " +
                 "a.u_id, " +
                 "a.u_fname, " +
                 "a.u_lname, " +
@@ -567,11 +565,7 @@ public class departmentForm extends javax.swing.JFrame {
                 "d.dep_totalemp " +
                 "FROM tbl_department d " +
                 "LEFT JOIN tbl_admin a ON d.dep_userid = a.u_id " +
-                "WHERE d.dep_id = ?";
-
-            try (PreparedStatement pstmt = db.connect.prepareStatement(query)) {
-                pstmt.setString(1, depId);
-                ResultSet rs = pstmt.executeQuery();
+                "WHERE d.dep_id = '" +tbl.getValueAt(rowIndex, 0)+"'");
 
                 if (rs.next()) {
                     editDepartmentForm edf = new editDepartmentForm();
@@ -580,10 +574,7 @@ public class departmentForm extends javax.swing.JFrame {
                     edf.totalemp.setText(String.valueOf(rs.getInt("dep_totalemp")));
                     edf.setVisible(true);
                     this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Department not found!");
                 }
-            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
             ex.printStackTrace();

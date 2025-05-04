@@ -717,13 +717,16 @@ public class userTable extends javax.swing.JFrame {
         
         try {
             dbConnector db = new dbConnector();
-            db.deleteData("DELETE FROM tbl_admin WHERE u_id = " + userId);
+            boolean deleteSuccess = db.deleteData("DELETE FROM tbl_admin WHERE u_id = " + userId);
 
-            Session sess = Session.getInstance();
-            db.logActivity(sess.getUid(), "Deleted user ID: " + userId);
-
-            displayUsers();
-            JOptionPane.showMessageDialog(this, "User deleted successfully");
+            if (deleteSuccess) {
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "Deleted user ID: " + userId);
+                displayUsers();
+                JOptionPane.showMessageDialog(this, "User deleted successfully");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to delete user. It may have assigned a role.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error deleting user: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }

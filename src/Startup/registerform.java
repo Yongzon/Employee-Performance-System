@@ -223,7 +223,7 @@ public class registerform extends javax.swing.JFrame {
         jPanel3.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 180, 100, 30));
 
         role.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Account Type", "Admin", "Employee", "Evaluator" }));
         role.setBorder(null);
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         role.addActionListener(new java.awt.event.ActionListener() {
@@ -356,6 +356,8 @@ public class registerform extends javax.swing.JFrame {
     }else if(ps.getText().length() < 8){
         JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
          ps.setText(""); 
+    }else if (selectedRole == "Select Account Type"){
+            JOptionPane.showMessageDialog(null, "Select Account type first");
     }else if(duplicateCheck()){
         System.out.println("Duplicate Exist");
     }else if(!ps.getText().equals(cp.getText())){

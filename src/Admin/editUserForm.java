@@ -362,7 +362,7 @@ public class editUserForm extends javax.swing.JFrame {
         jPanel3.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 200, 100, 30));
 
         role.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Admin", "Employee" }));
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Account Type", "Admin", "Employee", "Evaluator" }));
         role.setBorder(null);
         role.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         role.addActionListener(new java.awt.event.ActionListener() {
@@ -381,7 +381,7 @@ public class editUserForm extends javax.swing.JFrame {
         jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 360, 90, 30));
 
         acc_status.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        acc_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Pending" }));
+        acc_status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Account Status", "Active", "Pending" }));
         acc_status.setBorder(null);
         acc_status.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         acc_status.addActionListener(new java.awt.event.ActionListener() {
@@ -588,6 +588,8 @@ public class editUserForm extends javax.swing.JFrame {
         String username1 = un.getText();
         String password1 = new String(ps.getPassword());
         String cpassword = new String(cp.getPassword());
+        String type = role.getSelectedItem().toString();
+        String status = acc_status.getSelectedItem().toString();
 
         if (firstname.isEmpty() && lastname.isEmpty() && email1.isEmpty() && username1.isEmpty() && password1.isEmpty() && cpassword.isEmpty()){
             JOptionPane.showMessageDialog(this, "All fields are required!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -596,6 +598,10 @@ public class editUserForm extends javax.swing.JFrame {
         }else if(ps.getText().length() < 8){
             JOptionPane.showMessageDialog(null, "Password must be atleast 8 characters long");
             ps.setText("");
+        }else if (type == "Select Account Type"){
+            JOptionPane.showMessageDialog(null, "Select Account type first");
+        }else if (type == "Select Account Status"){
+            JOptionPane.showMessageDialog(null, "Select Account status first");
         }else if(updateCheck()){
             System.out.println("Duplicate Exist");
         }else{

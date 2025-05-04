@@ -156,6 +156,9 @@ public class evaluationResults extends javax.swing.JFrame {
         view = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
+        pr = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -347,7 +350,32 @@ public class evaluationResults extends javax.swing.JFrame {
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (1).png"))); // NOI18N
         view.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        employeePanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 160, 40));
+        employeePanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 160, 40));
+
+        pr.setBackground(new java.awt.Color(241, 242, 247));
+        pr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                prMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                prMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                prMouseExited(evt);
+            }
+        });
+        pr.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Print Result");
+        pr.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
+
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (1).png"))); // NOI18N
+        pr.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+
+        employeePanel.add(pr, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 160, 40));
 
         getContentPane().add(employeePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 700, 510));
 
@@ -576,6 +604,92 @@ public class evaluationResults extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
+    private void prMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prMouseClicked
+    int rowIndex = tasktbl.getSelectedRow();
+
+    if(rowIndex < 0) {
+        JOptionPane.showMessageDialog(null, "Please Select an Item!");
+    } else {
+        try {
+            dbConnector db = new dbConnector();
+            TableModel tbl = tasktbl.getModel();
+            String taskid = tbl.getValueAt(rowIndex, 0).toString();
+
+            String query = "SELECT " +
+                                "CONCAT(u.u_fname, ' ', u.u_lname) AS full_name, " +
+                                "d.dep_name, " +
+                                "t.t_name, " +
+                                "t.t_id, " +
+                                "e.emp_position, " +
+                                "ev.evaluation_revper, " +
+                                "ev.evaluation_r1, ev.evaluation_r2, ev.evaluation_r3, " +
+                                "ev.evaluation_r4, ev.evaluation_r5, ev.evaluation_r6, " +
+                                "ev.evaluation_cm1, ev.evaluation_cm2, ev.evaluation_cm3, " +
+                                "ev.evaluation_cm4, ev.evaluation_cm5, ev.evaluation_cm6, " +
+                                "ev.evaluation_over1, ev.evaluation_over2, ev.evaluation_over3, " +
+                                "ev.evaluation_over4, ev.evaluation_over5, " +
+                                "ev.evaluation_areaimprov " +
+                                "FROM tbl_task t " +
+                                "INNER JOIN tbl_employee e ON t.t_empid = e.emp_id " +
+                                "INNER JOIN tbl_admin u ON e.emp_userid = u.u_id " +
+                                "INNER JOIN tbl_department d ON e.emp_depid = d.dep_id " +
+                                "LEFT JOIN tbl_evaluation ev ON t.t_id = ev.evaluation_tid " +
+                                "WHERE t.t_id = '"+taskid+"'"; 
+
+            ResultSet rs = db.getData(query);
+
+            if(rs.next()) {
+                printResult ve = new printResult();
+
+                ve.empname.setText(rs.getString("full_name"));
+                ve.dep.setText(rs.getString("dep_name"));
+                ve.jt.setText(rs.getString("emp_position"));
+                ve.tn.setText(rs.getString("t_name"));
+                ve.rp.setText(rs.getString("evaluation_revper"));
+
+                ve.r1.setText(rs.getString("evaluation_r1"));
+                ve.r2.setText(rs.getString("evaluation_r2"));
+                ve.r3.setText(rs.getString("evaluation_r3"));
+                ve.r4.setText(rs.getString("evaluation_r4"));
+                ve.r5.setText(rs.getString("evaluation_r5"));
+                ve.r6.setText(rs.getString("evaluation_r6"));
+
+                String over1 = rs.getString("evaluation_over1");
+                String over2 = rs.getString("evaluation_over2");
+                String over3 = rs.getString("evaluation_over3");
+                String over4 = rs.getString("evaluation_over4");
+                String over5 = rs.getString("evaluation_over5");
+
+                ve.over1.setSelected("1".equals(over1));
+                ve.over2.setSelected("2".equals(over2));
+                ve.over3.setSelected("3".equals(over3));
+                ve.over4.setSelected("4".equals(over4));
+                ve.over5.setSelected("5".equals(over5));
+
+                ve.area.setText(rs.getString("evaluation_areaimprov"));
+
+                ve.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "No evaluation data found for this task");
+            }
+        } catch(SQLException ex) {
+            System.out.println("Error: " + ex);
+            JOptionPane.showMessageDialog(null, 
+                "Database error: " + ex.getMessage(), 
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    }//GEN-LAST:event_prMouseClicked
+
+    private void prMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prMouseEntered
+    pr.setBackground(nav1);
+    }//GEN-LAST:event_prMouseEntered
+
+    private void prMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_prMouseExited
+    pr.setBackground(bodycolor1);
+    }//GEN-LAST:event_prMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -630,10 +744,12 @@ public class evaluationResults extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -643,6 +759,7 @@ public class evaluationResults extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel pr;
     private javax.swing.JPanel rs;
     private javax.swing.JPanel task;
     private javax.swing.JTable tasktbl;
