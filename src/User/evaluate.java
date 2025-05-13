@@ -134,7 +134,7 @@ public class evaluate extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Department:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 120, 30));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 120, 30));
 
         dep.setEditable(false);
         dep.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -145,7 +145,7 @@ public class evaluate extends javax.swing.JFrame {
                 depActionPerformed(evt);
             }
         });
-        jPanel1.add(dep, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 170, 180, 30));
+        jPanel1.add(dep, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 180, 30));
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -170,7 +170,7 @@ public class evaluate extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Job Title:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 250, 120, 30));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, 120, 30));
 
         tn.setEditable(false);
         tn.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -181,7 +181,7 @@ public class evaluate extends javax.swing.JFrame {
                 tnActionPerformed(evt);
             }
         });
-        jPanel1.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 180, 30));
+        jPanel1.add(tn, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 170, 180, 30));
 
         tid.setEditable(false);
         tid.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -192,17 +192,17 @@ public class evaluate extends javax.swing.JFrame {
                 tidActionPerformed(evt);
             }
         });
-        jPanel1.add(tid, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 250, 180, 30));
+        jPanel1.add(tid, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 250, 180, 30));
 
         jLabel9.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Task ID:");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 250, 120, 30));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 250, 120, 30));
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Task Name:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, 120, 30));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 170, 120, 30));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -252,7 +252,7 @@ public class evaluate extends javax.swing.JFrame {
                 jtActionPerformed(evt);
             }
         });
-        jPanel1.add(jt, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 250, 180, 30));
+        jPanel1.add(jt, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 210, 180, 30));
 
         cm1.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
         cm1.setHorizontalAlignment(javax.swing.JTextField.CENTER);

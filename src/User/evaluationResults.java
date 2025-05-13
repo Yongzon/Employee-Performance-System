@@ -372,7 +372,7 @@ public class evaluationResults extends javax.swing.JFrame {
         pr.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 100, 20));
 
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (1).png"))); // NOI18N
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/printer_1041985.png"))); // NOI18N
         pr.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
         employeePanel.add(pr, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 160, 40));

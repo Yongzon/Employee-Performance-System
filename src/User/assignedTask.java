@@ -444,74 +444,79 @@ public class assignedTask extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowActivated
 
     private void acceptMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseClicked
-    int rowIndex = tasktbl.getSelectedRow();
-    String cm1 = "";
-    String area = "";
+int rowIndex = tasktbl.getSelectedRow();
+String cm1 = ""; // Are these meant to be empty?
+String area = "";
 
-    if (rowIndex < 0) {
-        JOptionPane.showMessageDialog(null, "Please Select an Item!");
-    } else {
-        dbConnector db = new dbConnector();
-        TableModel tbl = tasktbl.getModel();
-        String taskId = tbl.getValueAt(rowIndex, 0).toString();
+if (rowIndex < 0) {
+    JOptionPane.showMessageDialog(null, "Please Select an Item!");
+} else {
+    dbConnector db = new dbConnector();
+    TableModel tbl = tasktbl.getModel();
+    String taskId = tbl.getValueAt(rowIndex, 0).toString();
 
-        int confirm = JOptionPane.showConfirmDialog(this, 
-            "Accept evaluation request for selected task?", 
-            "Confirm Evaluation Acceptance", 
-            JOptionPane.YES_NO_OPTION);
+    int confirm = JOptionPane.showConfirmDialog(this, 
+        "Accept evaluation request for selected task?", 
+        "Confirm Evaluation Acceptance", 
+        JOptionPane.YES_NO_OPTION);
 
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-
-                ResultSet taskRs = db.getData("SELECT t_id FROM tbl_task WHERE t_id = '"+taskId+"' AND t_evalstatus = 'Pending'");
-
-                if (taskRs.next()) {
-                    int taskID = taskRs.getInt("t_id");
-
-                    ResultSet evalRs = db.getData("SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '"+taskID+"'");
-
-                    if (!evalRs.next()) {
-
-                        db.updateData("UPDATE tbl_task SET t_evalstatus = 'Accepted' WHERE t_id = '"+taskId+"'"); 
-
-                        String insertQuery = "INSERT INTO tbl_evaluation (evaluation_tid, evaluation_status, evaluation_revper, "
-                            + "evaluation_r1, evaluation_r2, evaluation_r3, evaluation_r4, evaluation_r5, "
-                            + "evaluation_r6, evaluation_cm1, evaluation_cm2, evaluation_cm3, evaluation_cm4, "
-                            + "evaluation_cm5, evaluation_cm6, evaluation_over1, evaluation_over2, evaluation_over3, "
-                            + "evaluation_over4, evaluation_over5, evaluation_areaimprov) VALUES "
-                            + "('"+taskID+"', 'Pending', CURDATE(), 0, 0, 0, 0, 0, 0, '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', 0, 0, 0, 0, 0, '"+area+"')";
-
-                        db.InsertData(insertQuery);
-
-                        JOptionPane.showMessageDialog(null, "Evaluation request accepted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
-                        Session sess = Session.getInstance();
-                        db.logActivity3(sess.getUid(), "Accepted Evaluation Request: " + taskId);
-                    } else {
-                        JOptionPane.showMessageDialog(null, 
-                            "Evaluation already exists for this task", 
-                            "Error", 
-                            JOptionPane.ERROR_MESSAGE);
-                    }
-                    evalRs.close();
+    if (confirm == JOptionPane.YES_OPTION) {
+        try {
+            // Check if task exists and is pending
+            ResultSet taskRs = db.getData("SELECT t_id FROM tbl_task WHERE t_id = '"+taskId+"' AND t_evalstatus = 'Pending'");
+            
+            if (taskRs.next()) {
+                int taskID = taskRs.getInt("t_id");
+                taskRs.close();
+                
+                // Check if evaluation already exists
+                ResultSet evalRs = db.getData("SELECT evaluation_id FROM tbl_evaluation WHERE evaluation_tid = '"+taskId+"'");
+                
+                if (!evalRs.next()) {
+                    // Update task status
+                    db.updateData("UPDATE tbl_task SET t_evalstatus = 'Accepted' WHERE t_id = '"+taskId+"'");
+                    
+                    // Insert evaluation record
+                    String insertQuery = "INSERT INTO tbl_evaluation (evaluation_tid, evaluation_status, evaluation_revper, "
+                        + "evaluation_r1, evaluation_r2, evaluation_r3, evaluation_r4, evaluation_r5, "
+                        + "evaluation_r6, evaluation_cm1, evaluation_cm2, evaluation_cm3, evaluation_cm4, "
+                        + "evaluation_cm5, evaluation_cm6, evaluation_over1, evaluation_over2, evaluation_over3, "
+                        + "evaluation_over4, evaluation_over5, evaluation_areaimprov) VALUES "
+                        + "('"+taskId+"', 'Pending', CURDATE(), 0, 0, 0, 0, 0, 0, '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', '"+cm1+"', 0, 0, 0, 0, 0, '"+area+"')";
+                    
+                    db.InsertData(insertQuery);
+                    
+                    JOptionPane.showMessageDialog(null, 
+                        "Evaluation request accepted successfully!", 
+                        "Success", 
+                        JOptionPane.INFORMATION_MESSAGE);
+                    
+                    Session sess = Session.getInstance();
+                    db.logActivity3(sess.getUid(), "Accepted Evaluation Request: " + taskId);
                 } else {
                     JOptionPane.showMessageDialog(null, 
-                        "Request already accepted or rejected", 
-                        "Request Error", 
+                        "Evaluation already exists for this task", 
+                        "Error", 
                         JOptionPane.ERROR_MESSAGE);
                 }
-                taskRs.close();
-            } catch (SQLException ex) {
+                evalRs.close();
+            } else {
                 JOptionPane.showMessageDialog(null, 
-                    "Error accepting evaluation: " + ex.getMessage(), 
-                    "Database Error", 
+                    "Request already accepted or rejected", 
+                    "Request Error", 
                     JOptionPane.ERROR_MESSAGE);
-                ex.printStackTrace();
-            } finally {
-                displayTasks();
             }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, 
+                "Error processing evaluation request. Please try again.", 
+                "Database Error", 
+                JOptionPane.ERROR_MESSAGE);
+            ex.printStackTrace();
+        } finally {
+            displayTasks();
         }
     }
+}
     }//GEN-LAST:event_acceptMouseClicked
 
     private void acceptMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_acceptMouseEntered
