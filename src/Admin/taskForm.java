@@ -154,6 +154,9 @@ public class taskForm extends javax.swing.JFrame {
         us = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        rs = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -315,7 +318,7 @@ public class taskForm extends javax.swing.JFrame {
 
         wc.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         wc.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 150, 180, 40));
+        jPanel2.add(wc, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 180, 40));
 
         dash.setBackground(new java.awt.Color(255, 255, 255));
         dash.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -466,6 +469,31 @@ public class taskForm extends javax.swing.JFrame {
         us.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
         jPanel2.add(us, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 163, 40));
+
+        rs.setBackground(new java.awt.Color(255, 255, 255));
+        rs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rsMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                rsMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                rsMouseExited(evt);
+            }
+        });
+        rs.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/analytics-report_16136803.png"))); // NOI18N
+        rs.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
+
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("Results");
+        rs.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 60, 20));
+
+        jPanel2.add(rs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 160, -1));
 
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 180, 560));
 
@@ -640,6 +668,24 @@ public class taskForm extends javax.swing.JFrame {
         add.setBackground(bodycolor1);
     }//GEN-LAST:event_addMouseExited
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        String selectedValue = jComboBox1.getSelectedItem().toString();
+        if (selectedValue.equals("Logout")) {
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                dbConnector db = new dbConnector();
+                Session sess = Session.getInstance();
+                db.logActivity(sess.getUid(), "User Logout: " + sess.getLname());
+                loginform lf = new loginform();
+                lf.setVisible(true);
+                this.dispose();
+            }else {
+                jComboBox1.setSelectedIndex(0);
+            }
+        }
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
     private void dashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseClicked
         adminDashboard ad = new adminDashboard();
         ad.setVisible(true);
@@ -724,23 +770,19 @@ public class taskForm extends javax.swing.JFrame {
         us.setBackground(bodycolor);
     }//GEN-LAST:event_usMouseExited
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        String selectedValue = jComboBox1.getSelectedItem().toString();
-        if (selectedValue.equals("Logout")) {
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to logout?", "Logout Confirmation", JOptionPane.YES_NO_OPTION);
+    private void rsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rsMouseClicked
+        evaluationResult er = new evaluationResult();
+        er.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_rsMouseClicked
 
-            if (confirm == JOptionPane.YES_OPTION) {
-                dbConnector db = new dbConnector();
-                Session sess = Session.getInstance();
-                db.logActivity(sess.getUid(), "User Logout: " + sess.getLname());
-                loginform lf = new loginform();
-                lf.setVisible(true);
-                this.dispose();
-            }else {
-                jComboBox1.setSelectedIndex(0);
-            }
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void rsMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rsMouseEntered
+        rs.setBackground(nav);
+    }//GEN-LAST:event_rsMouseEntered
+
+    private void rsMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rsMouseExited
+        rs.setBackground(bodycolor);
+    }//GEN-LAST:event_rsMouseExited
 
     /**
      * @param args the command line arguments
@@ -812,6 +854,8 @@ public class taskForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -830,11 +874,12 @@ public class taskForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel rs;
     private javax.swing.JTextField search;
     private javax.swing.JPanel task;
     private javax.swing.JTable tasktbl;
     private javax.swing.JPanel us;
     private javax.swing.JPanel userpanel;
-    private javax.swing.JLabel wc;
+    public javax.swing.JLabel wc;
     // End of variables declaration//GEN-END:variables
 }

@@ -14,6 +14,7 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
@@ -34,23 +35,90 @@ public class evaluationResults extends javax.swing.JFrame {
      */
     public evaluationResults() {
         initComponents();
-        displayTasks();
+        displayTasksWithAccuracy();
+        updateDashboard();
     }
     
-    public void displayTasks() {
+    private void updateDashboardCounts(int employeeId) {
+    try {
+        dbConnector db = new dbConnector();
+        double accuracy = db.getAverageEvaluationScore(employeeId);
+        
+        if (accuracy > 0.0) {
+            per.setText(String.format("%.2f%%", accuracy));
+            per.setToolTipText("Performance accuracy based on completed evaluations");
+        } else {
+            per.setText("N/A");
+            per.setToolTipText("No evaluations available for calculation");
+        }
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        per.setText("Error");
+        per.setToolTipText("Error calculating accuracy: " + e.getMessage());
+        JOptionPane.showMessageDialog(this, 
+            "Error loading dashboard data: " + e.getMessage(), 
+            "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    public void updateDashboard() {
     try {
         dbConnector db = new dbConnector();
         Session sess = Session.getInstance();
 
         Integer uidValue = sess.getUid();
-        String uid = (uidValue != null) ? "'" + uidValue.toString() + "'" : "0";
+        if (uidValue == null) {
+            JOptionPane.showMessageDialog(this, 
+                "User not logged in", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = " + uid;
+        String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = '" + uidValue + "'";
         ResultSet empRs = db.getData(empQuery);
+        
         if (empRs.next()) {  
             int empId = empRs.getInt("emp_id");
+            updateDashboardCounts(empId);  
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Employee record not found", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        empRs.close();
+    } catch (SQLException e) {
+        System.out.println("Error: " + e.getMessage());
+        per.setText("Error");
+        per.setToolTipText("Database error: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, 
+            "Error loading dashboard: " + e.getMessage(), 
+            "Database Error", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+}
 
-            String EvalutionQuery = "SELECT t.t_id AS 'Task ID', "
+    public void displayTasksWithAccuracy() {
+    try {
+        dbConnector db = new dbConnector();
+        Session sess = Session.getInstance();
+
+        Integer uidValue = sess.getUid();
+        if (uidValue == null) {
+            JOptionPane.showMessageDialog(this, 
+                "User not logged in", 
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        String empQuery = "SELECT emp_id FROM tbl_employee WHERE emp_userid = '" + uidValue + "'";
+        ResultSet empRs = db.getData(empQuery);
+
+        if (empRs.next()) {
+            int empId = empRs.getInt("emp_id");
+
+            String evaluationQuery = "SELECT t.t_id AS 'Task ID', "
                     + "t.t_name AS 'Task Name', "
                     + "e.evaluation_revper AS 'Review Period', "
                     + "t.t_deadline AS 'Deadline', "
@@ -60,21 +128,37 @@ public class evaluationResults extends javax.swing.JFrame {
                     + "LEFT JOIN tbl_evaluation e ON t.t_id = e.evaluation_tid "
                     + "WHERE t.t_empid = " + empId
                     + " AND e.evaluation_status = 'Completed'";
-            
-            ResultSet rs = db.getData(EvalutionQuery);
+
+            ResultSet rs = db.getData(evaluationQuery);
             tasktbl.setModel(DbUtils.resultSetToTableModel(rs));
             rs.close();
+
+            double accuracy = db.getAverageEvaluationScore(empId);
+            if (accuracy > 0.0) {
+                per.setText(String.format("%.2f%%", accuracy));
+                per.setToolTipText("Performance accuracy based on " + tasktbl.getRowCount() + " evaluations");
+            } else {
+                per.setText("N/A");
+                per.setToolTipText("No completed evaluations available");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Employee record not found", 
+                "Error", JOptionPane.ERROR_MESSAGE);
         }
+
         empRs.close();
     } catch (SQLException e) {
         System.out.println("Error: " + e.getMessage());
+        per.setText("Error");
+        per.setToolTipText("Database error: " + e.getMessage());
         JOptionPane.showMessageDialog(null, 
-            "Error loading tasks: " + e.getMessage(), 
+            "Error loading tasks or accuracy: " + e.getMessage(), 
             "Database Error", 
             JOptionPane.ERROR_MESSAGE);
     }
 }
-    
+
     public static int getHeightFromWidth(String imagePath, int desiredWidth) {
     try {
         // Read the image file
@@ -159,6 +243,11 @@ public class evaluationResults extends javax.swing.JFrame {
         pr = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
+        panel1 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        per = new javax.swing.JLabel();
+        accuracyLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -293,7 +382,7 @@ public class evaluationResults extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Search:");
-        employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 140, 70, 30));
+        employeePanel.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 70, 30));
 
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/home_6269504.png"))); // NOI18N
@@ -312,8 +401,8 @@ public class evaluationResults extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("All Evaluation Results");
-        employeePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 140, 40));
-        employeePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 140, 190, 30));
+        employeePanel.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 140, 40));
+        employeePanel.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 190, 190, 30));
 
         tasktbl.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -325,7 +414,7 @@ public class evaluationResults extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tasktbl);
 
-        employeePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 680, 320));
+        employeePanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 680, 270));
 
         view.setBackground(new java.awt.Color(241, 242, 247));
         view.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -350,7 +439,7 @@ public class evaluationResults extends javax.swing.JFrame {
         jLabel19.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/audit_10815328 (1).png"))); // NOI18N
         view.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        employeePanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 160, 40));
+        employeePanel.add(view, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, 160, 40));
 
         pr.setBackground(new java.awt.Color(241, 242, 247));
         pr.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -373,9 +462,38 @@ public class evaluationResults extends javax.swing.JFrame {
 
         jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/printer_1041985.png"))); // NOI18N
+        jLabel25.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jLabel25ComponentAdded(evt);
+            }
+        });
         pr.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 50, 40));
 
-        employeePanel.add(pr, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, 160, 40));
+        employeePanel.add(pr, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 160, 40));
+
+        panel1.setBackground(new java.awt.Color(73, 236, 138));
+        panel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/completed-task_1632670.png"))); // NOI18N
+        panel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 40, 40));
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Accuracy Level");
+        panel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 180, 28));
+
+        per.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        per.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        per.setText("0");
+        panel1.add(per, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 80, 40));
+
+        accuracyLabel.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        accuracyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        accuracyLabel.setText("%");
+        panel1.add(accuracyLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 80, 40));
+
+        employeePanel.add(panel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 370, 100));
 
         getContentPane().add(employeePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 700, 510));
 
@@ -690,6 +808,10 @@ public class evaluationResults extends javax.swing.JFrame {
     pr.setBackground(bodycolor1);
     }//GEN-LAST:event_prMouseExited
 
+    private void jLabel25ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jLabel25ComponentAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel25ComponentAdded
+
     /**
      * @param args the command line arguments
      */
@@ -730,6 +852,7 @@ public class evaluationResults extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel accuracyLabel;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel dash;
     private javax.swing.JPanel employeePanel;
@@ -738,6 +861,7 @@ public class evaluationResults extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -755,10 +879,13 @@ public class evaluationResults extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel panel1;
+    private javax.swing.JLabel per;
     private javax.swing.JPanel pr;
     private javax.swing.JPanel rs;
     private javax.swing.JPanel task;

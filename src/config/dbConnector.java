@@ -197,4 +197,34 @@ public class dbConnector {
         }
         return count;
     }
+        
+    public double getAverageEvaluationScore(int employeeId) {
+        double accuracy = 0.0;
+        String query = "SELECT (evaluation_r1 + evaluation_r2 + evaluation_r3 + evaluation_r4 + evaluation_r5 + evaluation_r6) AS total_score " +
+                       "FROM tbl_evaluation WHERE evaluation_status = 'Completed' AND evaluation_tid IN " +
+                       "(SELECT t_id FROM tbl_task WHERE t_empid = ?)";
+
+        try (PreparedStatement pst = connect.prepareStatement(query)) {
+            pst.setInt(1, employeeId);
+            ResultSet rs = pst.executeQuery();
+
+            int total = 0;
+            int count = 0;
+            while (rs.next()) {
+                total += rs.getInt("total_score");
+                count++;
+            }
+
+            if (count > 0) {
+                accuracy = ((double) total / (count * 30)) * 100;
+            }
+
+            rs.close();
+        } catch (SQLException ex) {
+            System.out.println("Error calculating evaluation accuracy: " + ex.getMessage());
+            return -1;
+        }
+
+        return accuracy;
+    }
 }
